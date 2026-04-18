@@ -9,18 +9,19 @@ class HomeController extends Controller
 {
     public function index(): View
     {
-        $gallerySection = GallerySection::query()
+        $gallerySections = GallerySection::query()
             ->where('is_active', true)
-            ->with([
-                'items' => fn ($q) => $q
-                    ->where('is_active', true)
-                    ->orderBy('sort_order'),
-            ])
+            ->whereHas('items', function ($q) {
+                $q->where('is_active', true);
+            })
+            ->with(['items' => function ($q) {
+                $q->where('is_active', true)->orderBy('sort_order');
+            }])
             ->orderBy('id')
-            ->first();
+            ->get();
 
         return view('home', [
-            'gallerySection' => $gallerySection,
+            'gallerySections' => $gallerySections,
         ]);
     }
 }

@@ -59,41 +59,36 @@
         </div>
     </section>
 
-    @if($gallerySection)
+    @if($gallerySections->count())
         <section id="gallery" class="gallery" aria-label="Gallery">
             <div class="gallery-inner">
+                @php
+                    $head = $gallerySections->first();
+                @endphp
+
                 <div class="gallery-head">
-                    <h2 class="gallery-title">{{ $gallerySection->title }}</h2>
+                    <h2 class="gallery-title">{{ $head->localized('title') }}</h2>
+
                     <div class="gallery-toptexts">
                         <div class="gallery-toptext gallery-toptext--left">
-                            {!! nl2br(e($gallerySection->left_text ?? '')) !!}
+                            {!! nl2br(e($head->localized('left_text') ?? '')) !!}
                         </div>
                         <div class="gallery-toptext gallery-toptext--right">
-                            {!! nl2br(e($gallerySection->right_text ?? '')) !!}
+                            {!! nl2br(e($head->localized('right_text') ?? '')) !!}
                         </div>
                     </div>
                 </div>
 
-                <div class="gallery-grid" role="list">
-                    @foreach($gallerySection->items as $item)
-                        <article class="gallery-card" role="listitem">
-                            <div class="gallery-image">
-                                <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($item->image) }}" alt="{{ $item->title }}" loading="lazy" />
-                            </div>
-                            <div class="gallery-meta">
-                                <div class="gallery-item-title">{{ $item->title }}</div>
-                                @if(!empty($item->description))
-                                    <div class="gallery-item-desc">{{ $item->description }}</div>
-                                @endif
-                            </div>
-                        </article>
+                <div class="gallery-section-grid" role="list">
+                    @foreach($gallerySections as $section)
+                        @include('gallery.partials.section-card', ['section' => $section])
                     @endforeach
                 </div>
 
                 <div class="gallery-footer">
                     <div class="gallery-more">
-                        <span class="gallery-more-text">{{ $gallerySection->more_button_text }}</span>
-                        <a class="gallery-more-btn" href="#gallery-more" aria-label="More">
+                        <span class="gallery-more-text">{{ $gallerySections->first()->localized('more_button_text') }}</span>
+                        <a class="gallery-more-btn" href="{{ route('gallery.index') }}" aria-label="More">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                 <path d="M5 12H18" stroke="white" stroke-width="2" stroke-linecap="round"/>
                                 <path d="M13 7L18 12L13 17" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

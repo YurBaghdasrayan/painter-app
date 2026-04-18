@@ -5,6 +5,8 @@ namespace App\Filament\Resources\GallerySectionResource\RelationManagers;
 use Filament\Actions;
 use Filament\Forms;
 use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -20,7 +22,6 @@ class GalleryItemsRelationManager extends RelationManager
         return [
             Forms\Components\FileUpload::make('image')
                 ->image()
-                ->required()
                 ->disk('public')
                 ->directory('gallery')
                 ->visibility('public')
@@ -29,16 +30,44 @@ class GalleryItemsRelationManager extends RelationManager
                 ->openable()
                 ->downloadable()
                 ->columnSpanFull(),
-            Forms\Components\TextInput::make('title')
-                ->required()
-                ->maxLength(255),
-            Forms\Components\Textarea::make('description')
-                ->rows(3)
-                ->columnSpanFull(),
+            Tabs::make('Translations')
+                ->columnSpanFull()
+                ->tabs([
+                    Tab::make('AM')
+                        ->schema([
+                            Forms\Components\TextInput::make('title_am')
+                                ->label('Title (AM)')
+                                ->maxLength(255),
+                            Forms\Components\Textarea::make('description_am')
+                                ->label('Description (AM)')
+                                ->rows(3)
+                                ->columnSpanFull(),
+                        ]),
+                    Tab::make('RU')
+                        ->schema([
+                            Forms\Components\TextInput::make('title_ru')
+                                ->label('Title (RU)')
+                                ->maxLength(255),
+                            Forms\Components\Textarea::make('description_ru')
+                                ->label('Description (RU)')
+                                ->rows(3)
+                                ->columnSpanFull(),
+                        ]),
+                    Tab::make('EN')
+                        ->schema([
+                            Forms\Components\TextInput::make('title_en')
+                                ->label('Title (EN)')
+                                ->maxLength(255),
+                            Forms\Components\Textarea::make('description_en')
+                                ->label('Description (EN)')
+                                ->rows(3)
+                                ->columnSpanFull(),
+                        ]),
+                ]),
             Forms\Components\TextInput::make('sort_order')
                 ->numeric()
                 ->default(0)
-                ->required(),
+                ,
             Forms\Components\Toggle::make('is_active')
                 ->label('Active')
                 ->default(true),
@@ -74,7 +103,8 @@ class GalleryItemsRelationManager extends RelationManager
                     ->disk('public')
                     ->square()
                     ->size(56),
-                Tables\Columns\TextColumn::make('title')
+                Tables\Columns\TextColumn::make('title_en')
+                    ->label('Title')
                     ->searchable()
                     ->sortable()
                     ->limit(40),

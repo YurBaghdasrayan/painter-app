@@ -1,7 +1,16 @@
+@php
+    $headerPage = \App\Models\StaticPage::query()
+        ->where('slug', 'header')
+        ->where('is_active', true)
+        ->first();
+
+    $headerContent = $headerPage?->localizedContent() ?? [];
+    $headerMenu = collect($headerContent['menu'] ?? []);
+@endphp
+
 <header class="site-header" role="banner">
     <div class="header-inner">
-        <a class="brand" href="/" aria-label="Home">
-
+        <a class="brand" href="{{ route('home') }}" aria-label="Home">
             <svg width="137" height="79" viewBox="0 0 137 79" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <rect width="137" height="79" fill="url(#pattern0_0_35)"/>
                 <defs>
@@ -13,25 +22,24 @@
             </svg>
         </a>
 
-        <button class="nav-toggle" type="button" aria-controls="primaryNav" aria-expanded="false">
-            <span class="nav-toggle-line"></span>
-            <span class="nav-toggle-line"></span>
-            <span class="nav-toggle-line"></span>
-        </button>
+            <button class="nav-toggle" type="button" aria-controls="primaryNav" aria-expanded="false">
+                <span class="nav-toggle-line"></span>
+                <span class="nav-toggle-line"></span>
+                <span class="nav-toggle-line"></span>
+            </button>
 
-        <nav id="primaryNav" class="primary-nav" aria-label="Primary">
-            <ul class="nav-list">
-                <li><a class="nav-link" href="#about">ABOUT ME</a></li>
-                <li><a class="nav-link" href="#gallery">ART GALLERY</a></li>
-                <li><a class="nav-link" href="#exhibitions">EXHIBITIONS</a></li>
-                <li><a class="nav-link" href="#articles">ARTICLES</a></li>
-                <li><a class="nav-link" href="#media">PHOTOS AND VIDEOS</a></li>
-                <li><a class="nav-link" href="#collection">COLLECTION</a></li>
-                <li><a class="nav-link" href="#contact">CONTACT ME</a></li>
-            </ul>
-        </nav>
+            <nav id="primaryNav" class="primary-nav" aria-label="Primary">
+                <ul class="nav-list">
+                    @foreach($headerMenu as $item)
+                        <li>
+                            <a class="nav-link" href="{{ $item['url'] ?? '#' }}">
+                                {{ $item['label'] ?? '' }}
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+            </nav>
+            <a class="lang-pill" href="#" aria-label="Language: English">EN</a>
 
-        <a class="lang-pill" href="#" aria-label="Language: English">EN</a>
     </div>
 </header>
-
