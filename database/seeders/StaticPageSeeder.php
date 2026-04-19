@@ -160,5 +160,109 @@ class StaticPageSeeder extends Seeder
                 ],
             ]
         );
+        StaticPage::updateOrCreate(
+            ['slug' => 'home'],
+            [
+                'title' => 'Home Page',
+                'is_active' => true,
+
+                'content_am' => [
+                    'articles_section' => [
+                        'title' => 'ARTICLES',
+                        'left_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale.',
+                        'right_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale. We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a',
+                        'main_image' => 'static/home/articles-main.jpg',
+                        'side_image' => 'static/home/articles-side.jpg',
+                        'card_title' => 'GALLERY',
+                        'card_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale. We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a',
+                        'more_text' => 'more',
+                        'more_link' => '/articles',
+                    ],
+                ],
+
+                'content_ru' => [
+                    'articles_section' => [
+                        'title' => 'ARTICLES',
+                        'left_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale.',
+                        'right_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale. We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a',
+                        'main_image' => 'static/home/articles-main.jpg',
+                        'side_image' => 'static/home/articles-side.jpg',
+                        'card_title' => 'GALLERY',
+                        'card_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale. We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a',
+                        'more_text' => 'more',
+                        'more_link' => '/articles',
+                    ],
+                ],
+
+                'content_en' => [
+                    'articles_section' => [
+                        'title' => 'ARTICLES',
+                        'left_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale.',
+                        'right_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale. We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a',
+                        'main_image' => 'static/home/articles-main.jpg',
+                        'side_image' => 'static/home/articles-side.jpg',
+                        'card_title' => 'GALLERY',
+                        'card_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale. We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a',
+                        'more_text' => 'more',
+                        'more_link' => '/articles',
+                    ],
+                ],
+            ]
+        );
+        StaticPage::updateOrCreate(
+            ['slug' => 'articles'],
+            [
+                'title' => 'Articles Page',
+                'is_active' => true,
+
+                'content_am' => [
+                    'hero' => [
+                        'title' => 'Articles',
+                        'subtitle' => 'Grow smarter, grow faster as we need Solutions at the right place and at Smarttrak we are empowering all your digital twin needs',
+                        'background_image' => 'static/articles/hero-bg.jpg',
+                        'main_image' => 'static/articles/main-image.jpg',
+                    ],
+                    'intro_section' => [
+                        'columns' => [
+                            '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>',
+                            '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>',
+                            '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>',
+                        ],
+                    ],
+                ],
+
+                'content_ru' => [
+                    'hero' => [
+                        'title' => 'Articles',
+                        'subtitle' => 'Grow smarter, grow faster as we need Solutions at the right place and at Smarttrak we are empowering all your digital twin needs',
+                        'background_image' => 'static/articles/hero-bg.jpg',
+                        'main_image' => 'static/articles/main-image.jpg',
+                    ],
+                    'intro_section' => [
+                        'columns' => [
+                            '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>',
+                            '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>',
+                            '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>',
+                        ],
+                    ],
+                ],
+
+                'content_en' => [
+                    'hero' => [
+                        'title' => 'Articles',
+                        'subtitle' => 'Grow smarter, grow faster as we need Solutions at the right place and at Smarttrak we are empowering all your digital twin needs',
+                        'background_image' => 'static/articles/hero-bg.jpg',
+                        'main_image' => 'static/articles/main-image.jpg',
+                    ],
+                    'intro_section' => [
+                        'columns' => [
+                            '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>',
+                            '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>',
+                            '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>',
+                        ],
+                    ],
+                ],
+            ]
+        );
     }
 }

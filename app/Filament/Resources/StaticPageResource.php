@@ -59,6 +59,9 @@ class StaticPageResource extends Resource
                             ...static::galleryLanguageFields('am'),
                             ...static::footerLanguageFields('am'),
                             ...static::headerLanguageFields('am'),
+                            ...static::homeLanguageFields('am'),
+                            ...static::articlesLanguageFields('am'),
+
 
                         ]),
 
@@ -67,6 +70,9 @@ class StaticPageResource extends Resource
                             ...static::galleryLanguageFields('ru'),
                             ...static::footerLanguageFields('ru'),
                             ...static::headerLanguageFields('ru'),
+                            ...static::homeLanguageFields('ru'),
+                            ...static::articlesLanguageFields('ru'),
+
 
                         ]),
 
@@ -75,6 +81,8 @@ class StaticPageResource extends Resource
                             ...static::galleryLanguageFields('en'),
                             ...static::footerLanguageFields('en'),
                             ...static::headerLanguageFields('en'),
+                            ...static::homeLanguageFields('en'),
+                            ...static::articlesLanguageFields('en'),
 
                         ]),
                 ]),
@@ -180,7 +188,95 @@ class StaticPageResource extends Resource
                 ]),
         ];
     }
+    protected static function homeLanguageFields(string $locale): array
+    {
+        return [
+            Section::make("Home articles {$locale}")
+                ->visible(fn (Get $get) => $get('slug') === 'home')
+                ->schema([
+                    TextInput::make("content_{$locale}.articles_section.title")
+                        ->label('Section title')
+                        ->maxLength(255),
 
+                    TextInput::make("content_{$locale}.articles_section.left_text")
+                        ->label('Left text')
+                        ->maxLength(2000),
+
+                    TextInput::make("content_{$locale}.articles_section.right_text")
+                        ->label('Right text')
+                        ->maxLength(3000),
+
+                    FileUpload::make("content_{$locale}.articles_section.main_image")
+                        ->label('Main image')
+                        ->image()
+                        ->disk('public')
+                        ->directory('static/home')
+                        ->visibility('public'),
+
+                    FileUpload::make("content_{$locale}.articles_section.side_image")
+                        ->label('Side image')
+                        ->image()
+                        ->disk('public')
+                        ->directory('static/home')
+                        ->visibility('public'),
+
+                    TextInput::make("content_{$locale}.articles_section.card_title")
+                        ->label('Card title')
+                        ->maxLength(255),
+
+                    TextInput::make("content_{$locale}.articles_section.card_text")
+                        ->label('Card text')
+                        ->maxLength(3000),
+
+                    TextInput::make("content_{$locale}.articles_section.more_text")
+                        ->label('More text')
+                        ->maxLength(255),
+
+                    TextInput::make("content_{$locale}.articles_section.more_link")
+                        ->label('More link')
+                        ->maxLength(255),
+                ]),
+        ];
+    }
+    protected static function articlesLanguageFields(string $locale): array
+    {
+        return [
+            Section::make("Articles {$locale}")
+                ->visible(fn (Get $get) => $get('slug') === 'articles')
+                ->schema([
+                    TextInput::make("content_{$locale}.hero.title")
+                        ->label('Hero title')
+                        ->maxLength(255),
+
+                    TextInput::make("content_{$locale}.hero.subtitle")
+                        ->label('Hero subtitle')
+                        ->maxLength(1000),
+
+                    FileUpload::make("content_{$locale}.hero.background_image")
+                        ->label('Hero background image')
+                        ->image()
+                        ->disk('public')
+                        ->directory('static/articles')
+                        ->visibility('public'),
+
+                    FileUpload::make("content_{$locale}.hero.main_image")
+                        ->label('Hero main image')
+                        ->image()
+                        ->disk('public')
+                        ->directory('static/articles')
+                        ->visibility('public'),
+
+                    RichEditor::make("content_{$locale}.intro_section.columns.0")
+                        ->label('Column 1'),
+
+                    RichEditor::make("content_{$locale}.intro_section.columns.1")
+                        ->label('Column 2'),
+
+                    RichEditor::make("content_{$locale}.intro_section.columns.2")
+                        ->label('Column 3'),
+                ]),
+        ];
+    }
     public static function table(Table $table): Table
     {
         return $table

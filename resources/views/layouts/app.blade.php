@@ -10,6 +10,7 @@
 
     <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/gallery.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/articles.css') }}">
     @stack('styles')
 </head>
 <body>

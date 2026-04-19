@@ -3,6 +3,34 @@
 @section('title', 'Home')
 
 @section('content')
+    @php
+        $homePage = \App\Models\StaticPage::query()
+            ->where('slug', 'home')
+            ->where('is_active', true)
+            ->first();
+
+        $homeContent = $homePage?->localizedContent() ?? [];
+        $articlesSection = $homeContent['articles_section'] ?? [];
+
+        $articlesTitle = $articlesSection['title'] ?? '';
+        $articlesLeftText = $articlesSection['left_text'] ?? '';
+        $articlesRightText = $articlesSection['right_text'] ?? '';
+        $articlesMainImage = $articlesSection['main_image'] ?? null;
+        $articlesSideImage = $articlesSection['side_image'] ?? null;
+        $articlesCardTitle = $articlesSection['card_title'] ?? '';
+        $articlesCardText = $articlesSection['card_text'] ?? '';
+        $articlesMoreText = $articlesSection['more_text'] ?? 'more';
+        $articlesMoreLink = $articlesSection['more_link'] ?? '/articles';
+
+        if (is_array($articlesMainImage)) {
+            $articlesMainImage = $articlesMainImage[0] ?? null;
+        }
+
+        if (is_array($articlesSideImage)) {
+            $articlesSideImage = $articlesSideImage[0] ?? null;
+        }
+    @endphp
+
     <section class="hero" aria-label="Hero">
         <div class="hero-inner">
             <h1 class="hero-title">
@@ -13,31 +41,12 @@
                 Grow smarter, grow faster as we need Solutions at the right place and at Smarttrak we are empowering all your digital twin needs
             </p>
         </div>
-
-{{--        <div class="wave-wrap" aria-hidden="true">--}}
-{{--            <svg class="wave" viewBox="0 0 1920 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">--}}
-{{--                <path--}}
-{{--                    d="M0,78--}}
-{{--                       C180,112 360,22 540,66--}}
-{{--                       C720,110 880,124 1040,86--}}
-{{--                       C1200,48 1350,58 1500,80--}}
-{{--                       C1650,102 1760,64 1860,22--}}
-{{--                       C1898,6 1912,4 1920,4"--}}
-{{--                    fill="none"--}}
-{{--                    stroke="#c88b2a"--}}
-{{--                    stroke-width="2"--}}
-{{--                    stroke-linecap="round"--}}
-{{--                    stroke-linejoin="round"--}}
-{{--                />--}}
-{{--            </svg>--}}
-{{--        </div>--}}
     </section>
 
     <section id="about" class="about" aria-label="About">
         <img src="{{ asset('assets/images/about-bg.png') }}" alt="About background" class="about-bg" />
         <img src="{{ asset('assets/images/line.svg') }}" alt="About background" class="line" />
 
-{{--        <div class="about-overlay"></div>--}}
         <div class="about-content">
             <div class="about-card">
                 <div class="about-kicker">ARTIST</div>
@@ -99,7 +108,20 @@
             </div>
         </section>
     @endif
-@endsection
+
+    @include('partials.articles-section', [
+        'sectionId' => 'articles',
+        'sectionClass' => 'home-articles',
+        'articlesTitle' => $articlesTitle,
+        'articlesLeftText' => $articlesLeftText,
+        'articlesRightText' => $articlesRightText,
+        'articlesSideImage' => $articlesSideImage,
+        'articlesMainImage' => $articlesMainImage,
+        'articlesCardTitle' => $articlesCardTitle,
+        'articlesCardText' => $articlesCardText,
+        'articlesMoreText' => $articlesMoreText,
+        'articlesMoreLink' => $articlesMoreLink,
+    ])@endsection
 
 @push('scripts')
     <script>
@@ -130,4 +152,3 @@
         })();
     </script>
 @endpush
-
