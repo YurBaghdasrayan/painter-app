@@ -53,6 +53,21 @@ class GalleryController extends Controller
             ])
             ->firstOrFail();
 
+        $sectionsForCards = GallerySection::query()
+            ->where('is_active', true)
+            ->whereHas('items', function ($q) {
+                $q->where('is_active', true);
+            })
+            ->with([
+                'items' => function ($q) {
+                    $q->where('is_active', true)
+                        ->orderBy('sort_order')
+                        ->limit(1);
+                },
+            ])
+            ->orderBy('id')
+            ->get();
+
         $staticPage = StaticPage::query()
             ->where('slug', 'gallery')
             ->where('is_active', true)
@@ -60,6 +75,7 @@ class GalleryController extends Controller
 
         return view('gallery.section', [
             'section' => $section,
+            'sectionsForCards' => $sectionsForCards,
             'staticPage' => $staticPage,
         ]);
     }

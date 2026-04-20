@@ -60,6 +60,7 @@ class StaticPageResource extends Resource
                             ...static::footerLanguageFields('am'),
                             ...static::headerLanguageFields('am'),
                             ...static::homeLanguageFields('am'),
+                            ...static::aboutLanguageFields('am'),
                             ...static::articlesLanguageFields('am'),
 
 
@@ -71,6 +72,7 @@ class StaticPageResource extends Resource
                             ...static::footerLanguageFields('ru'),
                             ...static::headerLanguageFields('ru'),
                             ...static::homeLanguageFields('ru'),
+                            ...static::aboutLanguageFields('ru'),
                             ...static::articlesLanguageFields('ru'),
 
 
@@ -82,6 +84,7 @@ class StaticPageResource extends Resource
                             ...static::footerLanguageFields('en'),
                             ...static::headerLanguageFields('en'),
                             ...static::homeLanguageFields('en'),
+                            ...static::aboutLanguageFields('en'),
                             ...static::articlesLanguageFields('en'),
 
                         ]),
@@ -102,6 +105,39 @@ class StaticPageResource extends Resource
                     TextInput::make("content_{$locale}.hero.subtitle")
                         ->label('Hero subtitle')
                         ->maxLength(1000),
+
+                    FileUpload::make("content_{$locale}.hero.background_image")
+                        ->label('Hero background image')
+                        ->image()
+                        ->disk('public')
+                        ->directory('static/gallery')
+                        ->visibility('public'),
+
+                    FileUpload::make("content_{$locale}.hero.main_image")
+                        ->label('Hero floating image')
+                        ->image()
+                        ->disk('public')
+                        ->directory('static/gallery')
+                        ->visibility('public'),
+                ]),
+
+            Section::make("Gallery show hero {$locale}")
+                ->visible(fn (Get $get) => $get('slug') === 'gallery')
+                ->schema([
+                    TextInput::make("content_{$locale}.show_hero.title")
+                        ->label('Show hero title')
+                        ->maxLength(255),
+
+                    TextInput::make("content_{$locale}.show_hero.subtitle")
+                        ->label('Show hero subtitle')
+                        ->maxLength(1500),
+
+                    FileUpload::make("content_{$locale}.show_hero.background_image")
+                        ->label('Show hero background image')
+                        ->image()
+                        ->disk('public')
+                        ->directory('static/gallery')
+                        ->visibility('public'),
                 ]),
 
             Section::make("Gallery bottom feature {$locale}")
@@ -133,7 +169,6 @@ class StaticPageResource extends Resource
                 ]),
         ];
     }
-
     protected static function footerLanguageFields(string $locale): array
     {
         return [
@@ -191,6 +226,65 @@ class StaticPageResource extends Resource
     protected static function homeLanguageFields(string $locale): array
     {
         return [
+            Section::make("Home hero {$locale}")
+                ->visible(fn (Get $get) => $get('slug') === 'home')
+                ->schema([
+                    TextInput::make("content_{$locale}.hero.title")
+                        ->label('Hero title')
+                        ->maxLength(255),
+
+                    TextInput::make("content_{$locale}.hero.subtitle")
+                        ->label('Hero subtitle')
+                        ->maxLength(1000),
+                ]),
+
+            Section::make("Home about {$locale}")
+                ->visible(fn (Get $get) => $get('slug') === 'home')
+                ->schema([
+                    FileUpload::make("content_{$locale}.about_section.background_image")
+                        ->label('Background image')
+                        ->image()
+                        ->disk('public')
+                        ->directory('static/home')
+                        ->visibility('public'),
+
+                    TextInput::make("content_{$locale}.about_section.kicker")
+                        ->label('Kicker')
+                        ->maxLength(80),
+
+                    TextInput::make("content_{$locale}.about_section.title")
+                        ->label('Title')
+                        ->maxLength(255),
+
+                    TextInput::make("content_{$locale}.about_section.lead")
+                        ->label('Lead')
+                        ->maxLength(1000),
+
+                    TextInput::make("content_{$locale}.about_section.items.0")
+                        ->label('Bullet 1')
+                        ->maxLength(255),
+
+                    TextInput::make("content_{$locale}.about_section.items.1")
+                        ->label('Bullet 2')
+                        ->maxLength(255),
+
+                    TextInput::make("content_{$locale}.about_section.items.2")
+                        ->label('Bullet 3')
+                        ->maxLength(255),
+
+                    TextInput::make("content_{$locale}.about_section.lower_text")
+                        ->label('Lower text')
+                        ->maxLength(2000),
+
+                    TextInput::make("content_{$locale}.about_section.button_text")
+                        ->label('Button text')
+                        ->maxLength(255),
+
+                    TextInput::make("content_{$locale}.about_section.button_link")
+                        ->label('Button link')
+                        ->maxLength(255),
+                ]),
+
             Section::make("Home articles {$locale}")
                 ->visible(fn (Get $get) => $get('slug') === 'home')
                 ->schema([
@@ -274,6 +368,193 @@ class StaticPageResource extends Resource
 
                     RichEditor::make("content_{$locale}.intro_section.columns.2")
                         ->label('Column 3'),
+                ]),
+        ];
+    }
+
+    protected static function aboutLanguageFields(string $locale): array
+    {
+        return [
+            Section::make("About hero {$locale}")
+                ->visible(fn (Get $get) => $get('slug') === 'about')
+                ->schema([
+                    TextInput::make("content_{$locale}.hero.title")
+                        ->label('Hero title')
+                        ->maxLength(255),
+
+                    TextInput::make("content_{$locale}.hero.subtitle")
+                        ->label('Hero subtitle')
+                        ->maxLength(1500),
+
+                    FileUpload::make("content_{$locale}.hero.background_image")
+                        ->label('Hero background image')
+                        ->image()
+                        ->disk('public')
+                        ->directory('static/about')
+                        ->visibility('public'),
+                ]),
+
+            Section::make("About profile {$locale}")
+                ->visible(fn (Get $get) => $get('slug') === 'about')
+                ->schema([
+                    FileUpload::make("content_{$locale}.profile_section.image")
+                        ->label('Profile image')
+                        ->image()
+                        ->disk('public')
+                        ->directory('static/about')
+                        ->visibility('public'),
+
+                    TextInput::make("content_{$locale}.profile_section.name")
+                        ->label('Name')
+                        ->maxLength(255),
+
+                    RichEditor::make("content_{$locale}.profile_section.text")
+                        ->label('Bio text'),
+                ]),
+
+            Section::make("About video {$locale}")
+                ->visible(fn (Get $get) => $get('slug') === 'about')
+                ->schema([
+                    TextInput::make("content_{$locale}.video_section.youtube_url")
+                        ->label('YouTube URL')
+                        ->maxLength(2000),
+
+                    FileUpload::make("content_{$locale}.video_section.thumbnail_image")
+                        ->label('Video thumbnail image')
+                        ->image()
+                        ->disk('public')
+                        ->directory('static/about')
+                        ->visibility('public'),
+
+                    RichEditor::make("content_{$locale}.video_section.columns.0")
+                        ->label('Column 1'),
+
+                    RichEditor::make("content_{$locale}.video_section.columns.1")
+                        ->label('Column 2'),
+
+                    RichEditor::make("content_{$locale}.video_section.columns.2")
+                        ->label('Column 3'),
+                ]),
+
+            Section::make("About feature {$locale}")
+                ->visible(fn (Get $get) => $get('slug') === 'about')
+                ->schema([
+                    TextInput::make("content_{$locale}.feature_section.title")
+                        ->label('Title')
+                        ->maxLength(255),
+
+                    RichEditor::make("content_{$locale}.feature_section.top_left")
+                        ->label('Top left text'),
+
+                    RichEditor::make("content_{$locale}.feature_section.top_right")
+                        ->label('Top right text'),
+
+                    FileUpload::make("content_{$locale}.feature_section.image")
+                        ->label('Image')
+                        ->image()
+                        ->disk('public')
+                        ->directory('static/about')
+                        ->visibility('public'),
+
+                    TextInput::make("content_{$locale}.feature_section.button_link")
+                        ->label('Button link')
+                        ->maxLength(255),
+
+                    RichEditor::make("content_{$locale}.feature_section.bottom_left")
+                        ->label('Bottom left text'),
+
+                    RichEditor::make("content_{$locale}.feature_section.bottom_right")
+                        ->label('Bottom right text'),
+                ]),
+
+            Section::make("About duo {$locale}")
+                ->visible(fn (Get $get) => $get('slug') === 'about')
+                ->schema([
+                    FileUpload::make("content_{$locale}.duo_section.left.image")
+                        ->label('Left image')
+                        ->image()
+                        ->disk('public')
+                        ->directory('static/about')
+                        ->visibility('public'),
+
+                    TextInput::make("content_{$locale}.duo_section.left.title")
+                        ->label('Left title')
+                        ->maxLength(255),
+
+                    RichEditor::make("content_{$locale}.duo_section.left.text")
+                        ->label('Left text'),
+
+                    FileUpload::make("content_{$locale}.duo_section.right.image")
+                        ->label('Right image')
+                        ->image()
+                        ->disk('public')
+                        ->directory('static/about')
+                        ->visibility('public'),
+
+                    TextInput::make("content_{$locale}.duo_section.right.title")
+                        ->label('Right title')
+                        ->maxLength(255),
+
+                    RichEditor::make("content_{$locale}.duo_section.right.text")
+                        ->label('Right text'),
+                ]),
+
+            Section::make("About quad {$locale}")
+                ->visible(fn (Get $get) => $get('slug') === 'about')
+                ->schema([
+                    FileUpload::make("content_{$locale}.quad_section.center_image")
+                        ->label('Center image')
+                        ->image()
+                        ->disk('public')
+                        ->directory('static/about')
+                        ->visibility('public'),
+
+                    TextInput::make("content_{$locale}.quad_section.left_top.title")
+                        ->label('Left top title')
+                        ->maxLength(255),
+                    RichEditor::make("content_{$locale}.quad_section.left_top.text")
+                        ->label('Left top text'),
+
+                    TextInput::make("content_{$locale}.quad_section.left_bottom.title")
+                        ->label('Left bottom title')
+                        ->maxLength(255),
+                    RichEditor::make("content_{$locale}.quad_section.left_bottom.text")
+                        ->label('Left bottom text'),
+
+                    TextInput::make("content_{$locale}.quad_section.right_top.title")
+                        ->label('Right top title')
+                        ->maxLength(255),
+                    RichEditor::make("content_{$locale}.quad_section.right_top.text")
+                        ->label('Right top text'),
+
+                    TextInput::make("content_{$locale}.quad_section.right_bottom.title")
+                        ->label('Right bottom title')
+                        ->maxLength(255),
+                    RichEditor::make("content_{$locale}.quad_section.right_bottom.text")
+                        ->label('Right bottom text'),
+                ]),
+
+            Section::make("About final {$locale}")
+                ->visible(fn (Get $get) => $get('slug') === 'about')
+                ->schema([
+                    FileUpload::make("content_{$locale}.final_section.image")
+                        ->label('Top image')
+                        ->image()
+                        ->disk('public')
+                        ->directory('static/about')
+                        ->visibility('public'),
+
+                    TextInput::make("content_{$locale}.final_section.left.title")
+                        ->label('Left title')
+                        ->maxLength(255),
+                    RichEditor::make("content_{$locale}.final_section.left.text")
+                        ->label('Left text'),
+
+                    TextInput::make("content_{$locale}.final_section.right.title")
+                        ->label('Right title')
+                        ->maxLength(255),
+                    RichEditor::make("content_{$locale}.final_section.right.text")
+                        ->label('Right text'),
                 ]),
         ];
     }

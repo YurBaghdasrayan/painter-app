@@ -10,6 +10,28 @@
             ->first();
 
         $homeContent = $homePage?->localizedContent() ?? [];
+        $hero = $homeContent['hero'] ?? [];
+        $homeHeroTitle = $hero['title'] ?? "Your digital twin\nsolution with AI model";
+        $homeHeroSubtitle = $hero['subtitle'] ?? 'Grow smarter, grow faster as we need Solutions at the right place and at Smarttrak we are empowering all your digital twin needs';
+
+        $about = $homeContent['about_section'] ?? [];
+        $aboutKicker = $about['kicker'] ?? 'ARTIST';
+        $aboutTitle = $about['title'] ?? 'ABOUT ME';
+        $aboutLead = $about['lead'] ?? 'Smarttrak is a AI Technology Solutions company focused on';
+        $aboutItems = collect($about['items'] ?? [])->filter()->values();
+        $aboutLowerText = $about['lower_text'] ?? 'Grow smarter with clear strategy, clean design, and dependable delivery. We craft experiences that feel premium, minimal, and precise—built for modern desktop-first performance.';
+        $aboutButtonText = $about['button_text'] ?? 'Read more';
+        $aboutButtonLink = $about['button_link'] ?? '/about';
+        $aboutBg = $about['background_image'] ?? null;
+
+        if (is_array($aboutBg)) {
+            $aboutBg = $aboutBg[0] ?? null;
+        }
+
+        $aboutBgUrl = $aboutBg
+            ? \Illuminate\Support\Facades\Storage::disk('public')->url($aboutBg)
+            : asset('assets/images/about-bg.png');
+
         $articlesSection = $homeContent['articles_section'] ?? [];
 
         $articlesTitle = $articlesSection['title'] ?? '';
@@ -34,36 +56,35 @@
     <section class="hero" aria-label="Hero">
         <div class="hero-inner">
             <h1 class="hero-title">
-                Your digital twin<br />
-                solution with AI model
+                {!! nl2br(e((string) $homeHeroTitle)) !!}
             </h1>
             <p class="hero-subtitle">
-                Grow smarter, grow faster as we need Solutions at the right place and at Smarttrak we are empowering all your digital twin needs
+                {{ $homeHeroSubtitle }}
             </p>
         </div>
     </section>
 
     <section id="about" class="about" aria-label="About">
-        <img src="{{ asset('assets/images/about-bg.png') }}" alt="About background" class="about-bg" />
+        <img src="{{ $aboutBgUrl }}" alt="About background" class="about-bg" />
         <img src="{{ asset('assets/images/line.svg') }}" alt="About background" class="line" />
 
         <div class="about-content">
             <div class="about-card">
-                <div class="about-kicker">ARTIST</div>
-                <div class="about-title">ABOUT ME</div>
-                <div class="about-lead">Smarttrak is a AI Technology Solutions company focused on</div>
+                <div class="about-kicker">{{ $aboutKicker }}</div>
+                <div class="about-title">{{ $aboutTitle }}</div>
+                <div class="about-lead">{{ $aboutLead }}</div>
 
                 <ul class="about-list">
-                    <li>Premium digital twin solutions</li>
-                    <li>AI-driven product intelligence</li>
-                    <li>Luxury-grade execution and detail</li>
+                    @foreach($aboutItems as $li)
+                        <li>{{ $li }}</li>
+                    @endforeach
                 </ul>
 
                 <p class="about-lower">
-                    Grow smarter with clear strategy, clean design, and dependable delivery. We craft experiences that feel premium, minimal, and precise—built for modern desktop-first performance.
+                    {{ $aboutLowerText }}
                 </p>
 
-                <a class="about-btn" href="#read-more">Read more</a>
+                <a class="about-btn" href="{{ $aboutButtonLink }}">{{ $aboutButtonText }}</a>
             </div>
         </div>
     </section>
@@ -121,34 +142,5 @@
         'articlesCardText' => $articlesCardText,
         'articlesMoreText' => $articlesMoreText,
         'articlesMoreLink' => $articlesMoreLink,
-    ])@endsection
-
-@push('scripts')
-    <script>
-        (function () {
-            const toggle = document.querySelector('.nav-toggle');
-            const nav = document.getElementById('primaryNav');
-            if (!toggle || !nav) return;
-
-            function setOpen(isOpen) {
-                toggle.setAttribute('aria-expanded', String(isOpen));
-                document.documentElement.classList.toggle('nav-open', isOpen);
-            }
-
-            toggle.addEventListener('click', function () {
-                const isOpen = toggle.getAttribute('aria-expanded') === 'true';
-                setOpen(!isOpen);
-            });
-
-            nav.addEventListener('click', function (e) {
-                const target = e.target;
-                if (!(target instanceof Element)) return;
-                if (target.closest('a')) setOpen(false);
-            });
-
-            window.addEventListener('keydown', function (e) {
-                if (e.key === 'Escape') setOpen(false);
-            });
-        })();
-    </script>
-@endpush
+    ])
+@endsection

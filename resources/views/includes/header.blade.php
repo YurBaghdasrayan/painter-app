@@ -43,3 +43,35 @@
 
     </div>
 </header>
+
+@once
+    @push('scripts')
+        <script>
+            (function () {
+                const toggle = document.querySelector('.nav-toggle');
+                const nav = document.getElementById('primaryNav');
+                if (!toggle || !nav) return;
+
+                function setOpen(isOpen) {
+                    toggle.setAttribute('aria-expanded', String(isOpen));
+                    document.documentElement.classList.toggle('nav-open', isOpen);
+                }
+
+                toggle.addEventListener('click', function () {
+                    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+                    setOpen(!isOpen);
+                });
+
+                nav.addEventListener('click', function (e) {
+                    const target = e.target;
+                    if (!(target instanceof Element)) return;
+                    if (target.closest('a')) setOpen(false);
+                });
+
+                window.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape') setOpen(false);
+                });
+            })();
+        </script>
+    @endpush
+@endonce
