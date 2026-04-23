@@ -78,29 +78,29 @@
                 </div>
 
                 <div class="artwork-hero-right">
+                    @php
+                        $thumbs = array_values(array_filter([
+                            $item->secondary_image,
+                            $item->third_image,
+                            $item->fourth_image,
+                        ]));
+                    @endphp
+
                     <div class="artwork-hero-image">
                         <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($item->image) }}" alt="{{ $item->localized('title') }}" />
                     </div>
+
+                    @if($thumbs !== [])
+                        <div class="artwork-thumbs" aria-label="Additional images">
+                            @foreach($thumbs as $thumb)
+                                <div class="artwork-thumb">
+                                    <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($thumb) }}" alt="{{ $item->localized('title') }}" loading="lazy" />
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
                 </div>
             </header>
-
-            @php
-                $thumbs = array_values(array_filter([
-                    $item->secondary_image,
-                    $item->third_image,
-                    $item->fourth_image,
-                ]));
-            @endphp
-
-            @if($thumbs !== [])
-                <div class="artwork-thumbs" aria-label="Additional images">
-                    @foreach($thumbs as $thumb)
-                        <div class="artwork-thumb">
-                            <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($thumb) }}" alt="{{ $item->localized('title') }}" loading="lazy" />
-                        </div>
-                    @endforeach
-                </div>
-            @endif
 
             @if(!empty($item->localized('full_description')))
                 <div class="artwork-body">

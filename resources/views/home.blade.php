@@ -44,6 +44,31 @@
         $articlesMoreText = $articlesSection['more_text'] ?? 'more';
         $articlesMoreLink = $articlesSection['more_link'] ?? '/articles';
 
+        $collectionSection = $homeContent['collection_section'] ?? [];
+        $collectionTitle = $collectionSection['title'] ?? '';
+        $collectionLeftText = $collectionSection['left_text'] ?? '';
+        $collectionRightText = $collectionSection['right_text'] ?? '';
+        $collectionMoreText = $collectionSection['more_text'] ?? null;
+        $collectionMoreLink = $collectionSection['more_link'] ?? null;
+
+        $exhibitions = $homeContent['exhibitions_section'] ?? [];
+        $exhibitionsTitle = $exhibitions['title'] ?? 'EXHIBITIONS';
+        $exhibitionsLeftHeading = $exhibitions['left_heading'] ?? '';
+        $exhibitionsBullets = collect($exhibitions['bullets'] ?? [])->filter()->values();
+        $exhibitionsLeftText = $exhibitions['left_text'] ?? '';
+        $exhibitionsRightText = $exhibitions['right_text'] ?? '';
+        $exhibitionsButtonText = $exhibitions['button_text'] ?? 'Read more';
+        $exhibitionsButtonLink = $exhibitions['button_link'] ?? '/exhibitions';
+        $exhibitionsBg = $exhibitions['background_image'] ?? null;
+
+        if (is_array($exhibitionsBg)) {
+            $exhibitionsBg = $exhibitionsBg[0] ?? null;
+        }
+
+        $exhibitionsBgUrl = $exhibitionsBg
+            ? \Illuminate\Support\Facades\Storage::disk('public')->url($exhibitionsBg)
+            : null;
+
         if (is_array($articlesMainImage)) {
             $articlesMainImage = $articlesMainImage[0] ?? null;
         }
@@ -143,4 +168,112 @@
         'articlesMoreText' => $articlesMoreText,
         'articlesMoreLink' => $articlesMoreLink,
     ])
+
+    @if(($collectionSections ?? collect())->count())
+        <section id="collection" class="gallery" aria-label="Collection">
+            <div class="gallery-inner">
+                @php
+                    $head = $collectionSections->first();
+                    $collectionTitleFinal = $collectionTitle ?: ($head?->localized('title') ?? '');
+                    $collectionLeftTextFinal = $collectionLeftText ?: ($head?->localized('description') ?? '');
+                    $collectionRightTextFinal = $collectionRightText ?: '';
+                    $collectionMoreTextFinal = $collectionMoreText ?: ($head?->localized('more_button_text') ?? 'more');
+                    $collectionMoreLinkFinal = $collectionMoreLink ?: (route('collection.index'));
+                @endphp
+
+                <div class="gallery-head">
+                    <h2 class="gallery-title">{{ $collectionTitleFinal }}</h2>
+
+                    <div class="gallery-toptexts">
+                        <div class="gallery-toptext gallery-toptext--left">
+                            {!! nl2br(e((string) $collectionLeftTextFinal)) !!}
+                        </div>
+                        <div class="gallery-toptext gallery-toptext--right">
+                            {!! nl2br(e((string) $collectionRightTextFinal)) !!}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-section-grid" role="list">
+                    @foreach($collectionSections as $section)
+                        @include('collection.partials.section-card', ['section' => $section])
+                    @endforeach
+                </div>
+
+                <div class="gallery-footer">
+                    <div class="gallery-more">
+                        <span class="gallery-more-text">{{ $collectionMoreTextFinal }}</span>
+                        <a class="gallery-more-btn" href="{{ $collectionMoreLinkFinal }}" aria-label="More">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path d="M5 12H18" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M13 7L18 12L13 17" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endif
+
+    @if($exhibitionsTitle || $exhibitionsLeftHeading || $exhibitionsLeftText || $exhibitionsRightText || $exhibitionsBgUrl)
+        <section id="exhibitions" class="home-exhibitions" aria-label="Exhibitions">
+            @if($exhibitionsBgUrl)
+                <img class="home-exhibitions__bg" src="{{ $exhibitionsBgUrl }}" alt="" aria-hidden="true">
+            @endif
+
+            <svg class="home-exhibitions__wave" viewBox="0 0 1440 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
+                <path
+                    d="M0 60
+                       C120 105 220 15 360 42
+                       C520 74 620 18 760 52
+                       C930 92 1050 62 1180 34
+                       C1280 12 1360 30 1440 10
+                       L1440 0
+                       L0 0
+                       Z"
+                    fill="#f7f5ef"
+                />
+            </svg>
+
+            <div class="home-exhibitions__inner">
+                <div class="home-exhibitions__grid">
+                    <div class="home-exhibitions__left">
+                        <h2 class="home-exhibitions__title">{{ $exhibitionsTitle }}</h2>
+
+                        @if($exhibitionsLeftHeading)
+                            <div class="home-exhibitions__heading">
+                                {!! nl2br(e((string) $exhibitionsLeftHeading)) !!}
+                            </div>
+                        @endif
+
+                        @if($exhibitionsBullets->count())
+                            <ul class="home-exhibitions__bullets">
+                                @foreach($exhibitionsBullets->take(4) as $b)
+                                    <li>{{ $b }}</li>
+                                @endforeach
+                            </ul>
+                        @endif
+
+                        @if($exhibitionsLeftText)
+                            <div class="home-exhibitions__copy">
+                                {!! nl2br(e((string) $exhibitionsLeftText)) !!}
+                            </div>
+                        @endif
+                    </div>
+
+                    <div class="home-exhibitions__right">
+                        @if($exhibitionsRightText)
+                            <div class="home-exhibitions__copy home-exhibitions__copy--right">
+                                {!! nl2br(e((string) $exhibitionsRightText)) !!}
+                            </div>
+                        @endif
+
+                        <a class="home-exhibitions__btn" href="{{ $exhibitionsButtonLink }}">
+                            {{ $exhibitionsButtonText }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endif
 @endsection

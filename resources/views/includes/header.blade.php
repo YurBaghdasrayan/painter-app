@@ -6,6 +6,14 @@
 
     $headerContent = $headerPage?->localizedContent() ?? [];
     $headerMenu = collect($headerContent['menu'] ?? []);
+
+    $availableLocales = [
+        'en' => 'EN',
+        'ru' => 'RU',
+        'hy' => 'AM',
+    ];
+    $currentLocale = app()->getLocale() ?: 'en';
+    if (!array_key_exists($currentLocale, $availableLocales)) $currentLocale = 'en';
 @endphp
 
 <header class="site-header" role="banner">
@@ -39,7 +47,19 @@
                     @endforeach
                 </ul>
             </nav>
-            <a class="lang-pill" href="#" aria-label="Language: English">EN</a>
+            <div class="lang-switcher" data-lang-switcher>
+                <button class="lang-pill" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Language">
+                    {{ $availableLocales[$currentLocale] }}
+                </button>
+
+                <div class="lang-menu" role="menu" aria-label="Language menu">
+                    @foreach($availableLocales as $locale => $label)
+                        <a class="lang-menu__item" role="menuitem" href="{{ route('lang.switch', ['locale' => $locale]) }}">
+                            {{ $label }}
+                        </a>
+                    @endforeach
+                </div>
+            </div>
 
     </div>
 </header>
@@ -70,6 +90,34 @@
 
                 window.addEventListener('keydown', function (e) {
                     if (e.key === 'Escape') setOpen(false);
+                });
+
+                // language switcher dropdown
+                const switcher = document.querySelector('[data-lang-switcher]');
+                if (!switcher) return;
+                const langBtn = switcher.querySelector('.lang-pill');
+                const langMenu = switcher.querySelector('.lang-menu');
+                if (!(langBtn instanceof HTMLButtonElement) || !(langMenu instanceof HTMLElement)) return;
+
+                function setLangOpen(isOpen) {
+                    langBtn.setAttribute('aria-expanded', String(isOpen));
+                    switcher.classList.toggle('is-open', isOpen);
+                }
+
+                langBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const isOpen = langBtn.getAttribute('aria-expanded') === 'true';
+                    setLangOpen(!isOpen);
+                });
+
+                document.addEventListener('click', function (e) {
+                    const target = e.target;
+                    if (!(target instanceof Element)) return;
+                    if (!switcher.contains(target)) setLangOpen(false);
+                });
+
+                window.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape') setLangOpen(false);
                 });
             })();
         </script>

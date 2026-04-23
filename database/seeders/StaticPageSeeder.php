@@ -69,6 +69,180 @@ class StaticPageSeeder extends Seeder
         );
 
         StaticPage::updateOrCreate(
+            ['slug' => 'collection'],
+            [
+                'title' => 'Collection Page',
+                'is_active' => true,
+
+                'content_am' => [
+                    'hero' => [
+                        'title' => 'Collection',
+                        'subtitle' => 'Grow smarter, grow faster as we need Solutions at the right place and at Smarttrak we are empowering all your digital twin needs',
+                    ],
+                    'section_hero' => [
+                        'title' => 'Collection',
+                        'subtitle' => 'Grow smarter, grow faster as we need Solutions at the right place and at Smarttrak we are empowering all your digital twin needs',
+                        'background_image' => 'static/collection/section-hero-bg.jpg',
+                        'main_image' => 'static/collection/section-hero-main.jpg',
+                        'card_title' => 'GALLERY',
+                        'card_text' => '<p>Первый текст здесь. Его можно менять из админки.</p>',
+                    ],
+                    'last_section' => [
+                        'title' => 'LOREM IPSUM',
+                        'subtitle' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale.',
+                        'image' => 'static/collection/last-section.jpg',
+                        'button_link' => '/collection',
+                        'left_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale. We help businesses to lead the charge to digital innovation',
+                        'right_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale. We help businesses to lead the charge to digital innovation',
+                    ],
+                    'gallery_text_block' => [
+                        'left_title' => 'GALLERY',
+                        'left_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale. We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale.',
+                        'right_title' => 'GALLERY',
+                        'right_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale. We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale.',
+                    ],
+                    'videos_section' => [
+                        'title' => 'LOREM IPSUM',
+                        'subtitle' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale.',
+                        'left_youtube_url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+                        'left_thumbnail_image' => 'static/collection/video-left.jpg',
+                        'right_youtube_url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+                        'right_thumbnail_image' => 'static/collection/video-right.jpg',
+                        'left_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale. We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a',
+                        'right_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale. We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a',
+                    ],
+                ],
+                'content_ru' => [
+                    'hero' => [
+                        'title' => 'Collection',
+                        'subtitle' => 'Grow smarter, grow faster as we need Solutions at the right place and at Smarttrak we are empowering all your digital twin needs',
+                    ],
+                    'section_hero' => [
+                        'title' => 'Collection',
+                        'subtitle' => 'Grow smarter, grow faster as we need Solutions at the right place and at Smarttrak we are empowering all your digital twin needs',
+                        'background_image' => 'static/collection/section-hero-bg.jpg',
+                        'main_image' => 'static/collection/section-hero-main.jpg',
+                        'card_title' => 'GALLERY',
+                        'card_text' => '<p>Первый текст здесь. Его можно менять из админки.</p>',
+                    ],
+                    'last_section' => [
+                        'title' => 'LOREM IPSUM',
+                        'subtitle' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale.',
+                        'image' => 'static/collection/last-section.jpg',
+                        'button_link' => '/collection',
+                        'left_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale. We help businesses to lead the charge to digital innovation',
+                        'right_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale. We help businesses to lead the charge to digital innovation',
+                    ],
+                    'gallery_text_block' => [
+                        'left_title' => 'GALLERY',
+                        'left_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale. We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale.',
+                        'right_title' => 'GALLERY',
+                        'right_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale. We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale.',
+                    ],
+                    'videos_section' => [
+                        'title' => 'LOREM IPSUM',
+                        'subtitle' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale.',
+                        'left_youtube_url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+                        'left_thumbnail_image' => 'static/collection/video-left.jpg',
+                        'right_youtube_url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+                        'right_thumbnail_image' => 'static/collection/video-right.jpg',
+                        'left_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale. We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a',
+                        'right_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale. We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a',
+                    ],
+                ],
+                'content_en' => [
+                    'hero' => [
+                        'title' => 'Collection',
+                        'subtitle' => 'Grow smarter, grow faster as we need Solutions at the right place and at Smarttrak we are empowering all your digital twin needs',
+                    ],
+                    'section_hero' => [
+                        'title' => 'Collection',
+                        'subtitle' => 'Grow smarter, grow faster as we need Solutions at the right place and at Smarttrak we are empowering all your digital twin needs',
+                        'background_image' => 'static/collection/section-hero-bg.jpg',
+                        'main_image' => 'static/collection/section-hero-main.jpg',
+                        'card_title' => 'GALLERY',
+                        'card_text' => '<p>Lorem ipsum is simply dummy text of the printing and typesetting industry.</p>',
+                    ],
+                    'last_section' => [
+                        'title' => 'LOREM IPSUM',
+                        'subtitle' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale.',
+                        'image' => 'static/collection/last-section.jpg',
+                        'button_link' => '/collection',
+                        'left_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale. We help businesses to lead the charge to digital innovation',
+                        'right_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale. We help businesses to lead the charge to digital innovation',
+                    ],
+                    'gallery_text_block' => [
+                        'left_title' => 'GALLERY',
+                        'left_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale. We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale.',
+                        'right_title' => 'GALLERY',
+                        'right_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale. We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale.',
+                    ],
+                    'videos_section' => [
+                        'title' => 'LOREM IPSUM',
+                        'subtitle' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale.',
+                        'left_youtube_url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+                        'left_thumbnail_image' => 'static/collection/video-left.jpg',
+                        'right_youtube_url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+                        'right_thumbnail_image' => 'static/collection/video-right.jpg',
+                        'left_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale. We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a',
+                        'right_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale. We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a',
+                    ],
+                ],
+            ]
+        );
+
+        StaticPage::updateOrCreate(
+            ['slug' => 'exhibitions'],
+            [
+                'title' => 'Exhibitions Page',
+                'is_active' => true,
+
+                'content_am' => [
+                    'hero' => [
+                        'title' => 'Exhibitions',
+                        'subtitle' => 'Grow smarter, grow faster as we need Solutions at the right place and at Smarttrak we are empowering all your digital twin needs',
+                        'background_image' => 'static/exhibitions/hero-bg.jpg',
+                        'main_image' => 'static/exhibitions/hero-main.jpg',
+                    ],
+                    'text_block' => [
+                        'left_title' => 'GALLERY',
+                        'left_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale. We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale.',
+                        'right_title' => 'GALLERY',
+                        'right_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale. We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale.',
+                    ],
+                ],
+                'content_ru' => [
+                    'hero' => [
+                        'title' => 'Exhibitions',
+                        'subtitle' => 'Grow smarter, grow faster as we need Solutions at the right place and at Smarttrak we are empowering all your digital twin needs',
+                        'background_image' => 'static/exhibitions/hero-bg.jpg',
+                        'main_image' => 'static/exhibitions/hero-main.jpg',
+                    ],
+                    'text_block' => [
+                        'left_title' => 'GALLERY',
+                        'left_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale. We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale.',
+                        'right_title' => 'GALLERY',
+                        'right_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale. We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale.',
+                    ],
+                ],
+                'content_en' => [
+                    'hero' => [
+                        'title' => 'Exhibitions',
+                        'subtitle' => 'Grow smarter, grow faster as we need Solutions at the right place and at Smarttrak we are empowering all your digital twin needs',
+                        'background_image' => 'static/exhibitions/hero-bg.jpg',
+                        'main_image' => 'static/exhibitions/hero-main.jpg',
+                    ],
+                    'text_block' => [
+                        'left_title' => 'GALLERY',
+                        'left_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale. We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale.',
+                        'right_title' => 'GALLERY',
+                        'right_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale. We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale.',
+                    ],
+                ],
+            ]
+        );
+
+        StaticPage::updateOrCreate(
             ['slug' => 'footer'],
             [
                 'title' => 'Footer',
@@ -196,6 +370,26 @@ class StaticPageSeeder extends Seeder
                         'more_text' => 'more',
                         'more_link' => '/articles',
                     ],
+                    'collection_section' => [
+                        'title' => 'COLLECTION',
+                        'left_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale.',
+                        'right_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale. We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a',
+                        'more_text' => 'more',
+                        'more_link' => '/collection',
+                    ],
+                    'exhibitions_section' => [
+                        'title' => 'EXHIBITIONS',
+                        'left_heading' => "Smarttrak is a AI Technology\nSolutions company focused on",
+                        'bullets' => [
+                            'Revolutionizing your business with our Advanced AI',
+                            'Intelligent and Predictive Assets Monitoring',
+                        ],
+                        'left_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale.',
+                        'right_text' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
+                        'button_text' => 'Red more',
+                        'button_link' => '/exhibitions',
+                        'background_image' => 'static/home/exhibitions-bg.jpg',
+                    ],
                 ],
 
                 'content_ru' => [
@@ -228,6 +422,26 @@ class StaticPageSeeder extends Seeder
                         'more_text' => 'more',
                         'more_link' => '/articles',
                     ],
+                    'collection_section' => [
+                        'title' => 'COLLECTION',
+                        'left_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale.',
+                        'right_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale. We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a',
+                        'more_text' => 'more',
+                        'more_link' => '/collection',
+                    ],
+                    'exhibitions_section' => [
+                        'title' => 'EXHIBITIONS',
+                        'left_heading' => "Smarttrak is a AI Technology\nSolutions company focused on",
+                        'bullets' => [
+                            'Revolutionizing your business with our Advanced AI',
+                            'Intelligent and Predictive Assets Monitoring',
+                        ],
+                        'left_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale.',
+                        'right_text' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
+                        'button_text' => 'Red more',
+                        'button_link' => '/exhibitions',
+                        'background_image' => 'static/home/exhibitions-bg.jpg',
+                    ],
                 ],
 
                 'content_en' => [
@@ -259,6 +473,50 @@ class StaticPageSeeder extends Seeder
                         'card_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale. We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a',
                         'more_text' => 'more',
                         'more_link' => '/articles',
+                    ],
+                    'collection_section' => [
+                        'title' => 'COLLECTION',
+                        'left_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale.',
+                        'right_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale. We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a',
+                        'more_text' => 'more',
+                        'more_link' => '/collection',
+                    ],
+                    'exhibitions_section' => [
+                        'title' => 'EXHIBITIONS',
+                        'left_heading' => "Smarttrak is a AI Technology\nSolutions company focused on",
+                        'bullets' => [
+                            'Revolutionizing your business with our Advanced AI',
+                            'Intelligent and Predictive Assets Monitoring',
+                        ],
+                        'left_text' => 'We help businesses to lead the charge to digital innovation and tap into the power of the AI, by transforming and creating a competitive advantage that will scale.',
+                        'right_text' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
+                        'button_text' => 'Red more',
+                        'button_link' => '/exhibitions',
+                        'background_image' => 'static/home/exhibitions-bg.jpg',
+                    ],
+                ],
+            ]
+        );
+
+        StaticPage::updateOrCreate(
+            ['slug' => 'contact'],
+            [
+                'title' => 'Contact Page',
+                'is_active' => true,
+
+                'content_am' => [
+                    'contact' => [
+                        'background_image' => 'static/contact/contact-bg.jpg',
+                    ],
+                ],
+                'content_ru' => [
+                    'contact' => [
+                        'background_image' => 'static/contact/contact-bg.jpg',
+                    ],
+                ],
+                'content_en' => [
+                    'contact' => [
+                        'background_image' => 'static/contact/contact-bg.jpg',
                     ],
                 ],
             ]
