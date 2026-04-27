@@ -472,11 +472,13 @@ class StaticPageResource extends Resource
                 ->visible(fn (Get $get) => $get('slug') === 'home')
                 ->schema([
                     FileUpload::make("content_{$locale}.about_section.background_image")
-                        ->label('Background image')
-                        ->image()
+                        ->label('Background image or video')
                         ->disk('public')
                         ->directory('static/home')
-                        ->visibility('public'),
+                        ->visibility('public')
+                        ->acceptedFileTypes(['image/*', 'video/mp4', 'video/webm', 'video/quicktime'])
+                        ->openable()
+                        ->downloadable(),
 
                     TextInput::make("content_{$locale}.about_section.kicker")
                         ->label('Kicker')

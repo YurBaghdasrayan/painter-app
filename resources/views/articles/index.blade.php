@@ -31,6 +31,8 @@
         $useSlider = $articlesForCards->count() > 3;
     @endphp
 
+    @section('meta_description', strip_tags((string) $heroSubtitle))
+
     <section class="articles-hero-page" aria-label="Articles hero">
         <div class="articles-hero-page__top">
             <div class="articles-hero-page__inner">

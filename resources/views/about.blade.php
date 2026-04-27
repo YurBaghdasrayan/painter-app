@@ -164,6 +164,8 @@
             trim((string) $finalRightText) !== '';
     @endphp
 
+    @section('meta_description', $heroSubtitle)
+
     <section class="about-page-hero" aria-label="About hero">
         <div class="about-page-hero__top">
             <div class="about-page-hero__inner">

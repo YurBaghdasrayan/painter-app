@@ -149,6 +149,8 @@
         $afterPosterUrl = $afterPoster ? \Illuminate\Support\Facades\Storage::disk('public')->url($afterPoster) : null;
     @endphp
 
+    @section('meta_description', strip_tags((string) $heroSubtitle))
+
     <section class="gallery-hero" aria-label="Photos & Videos hero">
         <div class="gallery-hero-inner">
             @if($heroTitle)

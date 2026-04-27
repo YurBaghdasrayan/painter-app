@@ -35,6 +35,8 @@
     }
     @endphp
 
+    @section('meta_description', strip_tags((string) $heroSubtitle))
+
     <section class="gallery-hero" aria-label="Gallery hero">
         <div class="gallery-hero-inner">
             <h1 class="gallery-hero-title">

@@ -28,6 +28,8 @@
         $textRight = $textBlock['right_text'] ?? null;
     @endphp
 
+    @section('meta_description', strip_tags((string) $heroSubtitle))
+
     @if($heroTitle || $heroSubtitle || $heroBgUrl || $heroMainUrl)
         <section class="gallery-hero" aria-label="Exhibitions hero">
             <div class="gallery-hero-inner">

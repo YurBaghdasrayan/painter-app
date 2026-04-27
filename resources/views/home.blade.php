@@ -14,6 +14,9 @@
         $homeHeroTitle = $hero['title'] ?? "Your digital twin\nsolution with AI model";
         $homeHeroSubtitle = $hero['subtitle'] ?? 'Grow smarter, grow faster as we need Solutions at the right place and at Smarttrak we are empowering all your digital twin needs';
 
+        // SEO
+        $__metaDescription = $homeHeroSubtitle;
+
         $about = $homeContent['about_section'] ?? [];
         $aboutKicker = $about['kicker'] ?? 'ARTIST';
         $aboutTitle = $about['title'] ?? 'ABOUT ME';
@@ -26,6 +29,11 @@
 
         if (is_array($aboutBg)) {
             $aboutBg = $aboutBg[0] ?? null;
+        }
+
+        $aboutBgIsVideo = false;
+        if (is_string($aboutBg) && $aboutBg !== '') {
+            $aboutBgIsVideo = (bool) preg_match('/\.(mp4|webm|mov)$/i', $aboutBg);
         }
 
         $aboutBgUrl = $aboutBg
@@ -119,6 +127,8 @@
         $t = $i18n[$locale] ?? $i18n['en'];
     @endphp
 
+    @section('meta_description', $__metaDescription)
+
     <section class="hero" aria-label="Hero">
         <div class="hero-inner">
             <h1 class="hero-title">
@@ -131,7 +141,13 @@
     </section>
 
     <section id="about" class="about" aria-label="About">
-        <img src="{{ $aboutBgUrl }}" alt="About background" class="about-bg" />
+        @if($aboutBgIsVideo)
+            <video class="about-bg about-bg--video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+                <source src="{{ $aboutBgUrl }}">
+            </video>
+        @else
+            <img src="{{ $aboutBgUrl }}" alt="About background" class="about-bg" />
+        @endif
         <img src="{{ asset('assets/images/line.svg') }}" alt="About background" class="line" />
 
         <div class="about-content">

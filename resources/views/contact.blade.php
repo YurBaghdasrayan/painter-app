@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('title', ($staticPage?->title ?? 'Contact'))
+@section('meta_description', $heroSubtitle ?? '')
 
 @php
     /** @var \App\Models\StaticPage|null $staticPage */

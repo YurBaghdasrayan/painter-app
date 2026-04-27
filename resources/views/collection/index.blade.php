@@ -97,6 +97,8 @@
             ->take(2);
     @endphp
 
+    @section('meta_description', strip_tags((string) $heroSubtitle))
+
     <section class="collection-hero-fixed" aria-label="Collection hero">
         <div class="collection-hero-fixed__inner">
             <h1 class="collection-hero-fixed__title">
