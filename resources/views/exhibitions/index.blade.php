@@ -162,168 +162,104 @@
 
     @once
         <style>
-            /* Page padding (less space from sides) */
+
+            /* =====================================================
+               EXHIBITIONS PAGE FULL STYLE + RESPONSIVE MEDIA
+               paste at bottom of blade
+            ===================================================== */
+
+            /* ---------- Base ---------- */
+
             .gallery-index .gallery-inner{
                 padding-left:70px;
                 padding-right:70px;
             }
 
-            /* Hero featured image: centered + wide horizontal block */
+            .gallery-hero{
+                position:relative;
+                background:#f7f5ef;
+                overflow:hidden;
+            }
+
+            .gallery-hero-inner{
+                max-width:1240px;
+                margin:0 auto;
+                padding:62px 20px 30px;
+                text-align:center;
+                position:relative;
+                z-index:3;
+            }
+
+            .gallery-hero-title{
+                margin:0;
+                font-family:var(--serif);
+                color:var(--gold);
+                font-size:86px;
+                line-height:1;
+                font-weight:500;
+                letter-spacing:.02em;
+                text-transform:uppercase;
+            }
+
+            .gallery-hero-subtitle{
+                margin:18px auto 0;
+                max-width:760px;
+                font-size:14px;
+                line-height:1.7;
+                color:#2a2a2a;
+                font-weight:300;
+            }
+
+            .gallery-hero-art{
+                position:relative;
+                min-height:420px;
+            }
+
+            .gallery-hero-art-bg{
+                position:absolute;
+                inset:0;
+            }
+
+            .gallery-hero-art-bg img{
+                width:100%;
+                height:100%;
+                object-fit:cover;
+            }
+
+            .gallery-hero-wave,
+            .gallery-hero-stroke{
+                position:absolute;
+                left:0;
+                right:0;
+                width:100%;
+                height:140px;
+                z-index:2;
+            }
+
+            .gallery-hero-wave{ top:0; }
+            .gallery-hero-stroke{ top:0; }
+
             .gallery-hero-featured{
+                position:absolute;
                 left:50%;
-                right:auto;
+                bottom:-130px;
                 transform:translateX(-50%);
                 width:min(980px, calc(100% - 48px));
                 height:260px;
+                z-index:4;
+                overflow:hidden;
+                background:#fff;
             }
 
             .gallery-hero-featured img{
                 width:100%;
                 height:100%;
                 object-fit:cover;
-                object-position:center;
-            }
-
-            /* Exhibitions cards layout (Figma-like blocks) */
-            .exhibitions-cards{
-                margin-top:54px;
-                display:grid;
-                /* 3 cards per row: 1 + 1 + (span 2) */
-                grid-template-columns:repeat(4, minmax(0, 1fr));
-                gap:44px 34px;
-                align-items:start;
-                grid-auto-flow:dense;
-            }
-
-            .exhibitions-cards .gallery-section-card{
-                grid-column:auto;
-                grid-row:auto;
-            }
-
-            .exhibitions-cards .gallery-section-card-image{
-                background:#eee7d7;
-            }
-
-            .exhibitions-cards .gallery-section-card-image img{
-                width:100%;
-                height:100%;
-                display:block;
-                object-fit:cover;
-                object-position:center;
-            }
-
-            /* Prevent long titles/descriptions from breaking the grid */
-            .exhibitions-cards .gallery-section-card-meta{
-                max-width:100%;
-                min-width:0;
-            }
-
-            .exhibitions-cards .gallery-section-card-title,
-            .exhibitions-cards .gallery-section-card-desc{
-                overflow-wrap:anywhere;
-                word-break:break-word;
-                hyphens:auto;
-            }
-
-            .exhibitions-cards .gallery-section-card-desc{
-                display:-webkit-box;
-                -webkit-box-orient:vertical;
-                -webkit-line-clamp:4;
-                overflow:hidden;
-            }
-
-            /*
-             Base pattern (all rows): small, small, wide-right (3rd only).
-             Uses a 4-col grid: [1] [2] [3-4 wide]
-            */
-            .exhibitions-cards .gallery-section-card:nth-child(3n+1){
-                grid-column: 1;
-            }
-            .exhibitions-cards .gallery-section-card:nth-child(3n+2){
-                grid-column: 2;
-            }
-            .exhibitions-cards .gallery-section-card:nth-child(3n){
-                grid-column: 3 / span 2;
-            }
-
-            .exhibitions-cards .gallery-section-card:nth-child(3n+1) .gallery-section-card-image,
-            .exhibitions-cards .gallery-section-card:nth-child(3n+2) .gallery-section-card-image{
-                aspect-ratio: 360 / 520;
-            }
-
-            .exhibitions-cards .gallery-section-card:nth-child(3n) .gallery-section-card-image{
-                aspect-ratio: 780 / 520;
-            }
-
-            /* Desktop-only per-row overrides (so tablet/mobile keep simpler layout) */
-            @media (min-width: 1201px){
-                /* ONLY 2nd row (cards 4-6): wide-left + 2 small */
-                .exhibitions-cards .gallery-section-card:nth-child(4){
-                    grid-column: 1 / span 2;
-                }
-                .exhibitions-cards .gallery-section-card:nth-child(5){
-                    grid-column: 3;
-                }
-                .exhibitions-cards .gallery-section-card:nth-child(6){
-                    grid-column: 4;
-                }
-
-                .exhibitions-cards .gallery-section-card:nth-child(4) .gallery-section-card-image{
-                    aspect-ratio: 780 / 520;
-                }
-                .exhibitions-cards .gallery-section-card:nth-child(5) .gallery-section-card-image,
-                .exhibitions-cards .gallery-section-card:nth-child(6) .gallery-section-card-image{
-                    aspect-ratio: 360 / 520;
-                }
-
-                /* ONLY 3rd row (cards 7-9): center (8th) wider, others normal */
-                .exhibitions-cards .gallery-section-card:nth-child(8){
-                    grid-column: 2 / span 2;
-                }
-                .exhibitions-cards .gallery-section-card:nth-child(9){
-                    grid-column: 4;
-                }
-
-                .exhibitions-cards .gallery-section-card:nth-child(8) .gallery-section-card-image{
-                    aspect-ratio: 780 / 520;
-                }
-                .exhibitions-cards .gallery-section-card:nth-child(9) .gallery-section-card-image{
-                    aspect-ratio: 360 / 520;
-                }
-            }
-
-            @media (max-width: 1200px){
-                .gallery-index .gallery-inner{
-                    padding-left:18px;
-                    padding-right:18px;
-                }
-
-                .exhibitions-cards{
-                    grid-template-columns:repeat(2, minmax(0, 1fr));
-                    gap:34px 24px;
-                }
-
-                .exhibitions-cards .gallery-section-card:nth-child(3n),
-                .exhibitions-cards .gallery-section-card:nth-child(4){
-                    grid-column:1 / -1;
-                }
-            }
-
-            @media (max-width: 640px){
-                .exhibitions-cards{
-                    grid-template-columns:1fr;
-                }
-
-                .exhibitions-cards .gallery-section-card:nth-child(3n),
-                .exhibitions-cards .gallery-section-card:nth-child(4){
-                    grid-column:auto;
-                }
             }
 
             .exhibitions-text{
                 background:#f7f5ef;
-                /* push down so hero featured image doesn't overlap */
-                padding:160px 20px 74px;
+                padding:170px 20px 74px;
             }
 
             .exhibitions-text__inner{
@@ -333,18 +269,16 @@
 
             .exhibitions-text__grid{
                 display:grid;
-                grid-template-columns:repeat(2, minmax(0, 1fr));
+                grid-template-columns:1fr 1fr;
                 gap:44px;
-                align-items:start;
             }
 
             .exhibitions-text__title{
-                font-family:var(--gallery-serif, "Cormorant Garamond", "Times New Roman", serif);
-                color:var(--gallery-gold, #c88b2a);
-                font-size:clamp(34px, 4vw, 58px);
-                line-height:.95;
+                font-family:var(--serif);
+                color:var(--gold);
+                font-size:58px;
+                line-height:1;
                 font-weight:500;
-                letter-spacing:.03em;
                 text-transform:uppercase;
             }
 
@@ -353,15 +287,250 @@
                 font-size:12px;
                 line-height:1.9;
                 color:#2f2f2f;
-                font-weight:400;
             }
 
-            @media (max-width: 991px){
+            .exhibitions-cards{
+                margin-top:54px;
+                display:grid;
+                grid-template-columns:repeat(4,minmax(0,1fr));
+                gap:44px 34px;
+                grid-auto-flow:dense;
+            }
+
+            .exhibitions-cards .gallery-section-card:nth-child(3n+1){grid-column:1;}
+            .exhibitions-cards .gallery-section-card:nth-child(3n+2){grid-column:2;}
+            .exhibitions-cards .gallery-section-card:nth-child(3n){grid-column:3 / span 2;}
+
+            .exhibitions-cards .gallery-section-card:nth-child(3n+1) .gallery-section-card-image,
+            .exhibitions-cards .gallery-section-card:nth-child(3n+2) .gallery-section-card-image{
+                aspect-ratio:360/520;
+            }
+
+            .exhibitions-cards .gallery-section-card:nth-child(3n) .gallery-section-card-image{
+                aspect-ratio:780/520;
+            }
+
+            .gallery-section-card-image img{
+                width:100%;
+                height:100%;
+                object-fit:cover;
+            }
+
+            .gallery-section-card-title,
+            .gallery-section-card-desc{
+                overflow-wrap:anywhere;
+            }
+
+            /* ---------- 1600 ---------- */
+
+            @media (max-width:1600px){
+
+                .gallery-hero-title{font-size:78px;}
+                .gallery-hero-featured{width:min(920px, calc(100% - 60px));height:240px;}
+                .exhibitions-text{padding:155px 40px 70px;}
+
+            }
+
+            /* ---------- 1440 ---------- */
+
+            @media (max-width:1440px){
+
+                .gallery-index .gallery-inner{
+                    padding-left:40px;
+                    padding-right:40px;
+                }
+
+                .gallery-hero-title{font-size:72px;}
+
+            }
+
+            /* ---------- 1280 ---------- */
+
+            @media (max-width:1280px){
+
+                .gallery-hero-title{font-size:64px;}
+                .gallery-hero-featured{
+                    width:min(860px, calc(100% - 40px));
+                    height:220px;
+                }
+
+                .exhibitions-text{
+                    padding:145px 28px 60px;
+                }
+
+            }
+
+            /* ---------- 1200 ---------- */
+
+            @media (max-width:1200px){
+
+                .gallery-index .gallery-inner{
+                    padding-left:24px;
+                    padding-right:24px;
+                }
+
+                .gallery-hero-title{font-size:58px;}
+                .gallery-hero-subtitle{font-size:13px;}
+
+                .exhibitions-cards{
+                    grid-template-columns:repeat(2,minmax(0,1fr));
+                    gap:28px 22px;
+                }
+
+                .exhibitions-cards .gallery-section-card{
+                    grid-column:auto !important;
+                }
+
+                .exhibitions-cards .gallery-section-card-image{
+                    aspect-ratio:4/3 !important;
+                }
+
+            }
+
+            /* ---------- 1024 ---------- */
+
+            @media (max-width:1024px){
+
+                .gallery-hero-title{font-size:52px;}
+                .gallery-hero-featured{
+                    width:min(760px, calc(100% - 36px));
+                    height:190px;
+                }
+
+                .exhibitions-text{
+                    padding:125px 20px 54px;
+                }
+
+                .exhibitions-text__title{
+                    font-size:42px;
+                }
+
+            }
+
+            /* ---------- 992 ---------- */
+
+            @media (max-width:992px){
+
+                .gallery-hero-title{font-size:46px;}
+                .gallery-hero-featured{
+                    height:180px;
+                    bottom:-90px;
+                }
+
+                .exhibitions-text{
+                    padding:120px 18px 50px;
+                }
+
                 .exhibitions-text__grid{
                     grid-template-columns:1fr;
-                    gap:22px;
+                    gap:24px;
                 }
+
             }
+
+            /* ---------- 768 ---------- */
+
+            @media (max-width:768px){
+
+                .gallery-hero-inner{
+                    padding:48px 16px 24px;
+                }
+
+                .gallery-hero-title{
+                    font-size:38px;
+                }
+
+                .gallery-hero-subtitle{
+                    font-size:12px;
+                    max-width:100%;
+                }
+
+                .gallery-hero-art{
+                    min-height:320px;
+                }
+
+                .gallery-hero-featured{
+                    width:calc(100% - 24px);
+                    height:170px;
+                    bottom:-84px;
+                }
+
+                .gallery-hero-wave,
+                .gallery-hero-stroke{
+                    height:90px;
+                }
+
+                .exhibitions-text{
+                    padding:110px 16px 44px;
+                }
+
+                .exhibitions-text__title{
+                    font-size:34px;
+                }
+
+                .gallery-index .gallery-inner{
+                    padding-left:16px;
+                    padding-right:16px;
+                }
+
+                .exhibitions-cards{
+                    grid-template-columns:1fr;
+                    gap:28px;
+                }
+
+            }
+
+            /* ---------- 576 ---------- */
+
+            @media (max-width:576px){
+
+                .gallery-hero-title{font-size:32px;}
+                .gallery-hero-featured{
+                    height:150px;
+                    bottom:-74px;
+                }
+
+                .exhibitions-text{
+                    padding:96px 14px 40px;
+                }
+
+                .exhibitions-text__title{
+                    font-size:30px;
+                }
+
+            }
+
+            /* ---------- 430 ---------- */
+
+            @media (max-width:430px){
+
+                .gallery-hero-title{font-size:28px;}
+                .gallery-hero-subtitle{font-size:11px;}
+                .gallery-hero-featured{height:138px;}
+                .exhibitions-text__title{font-size:28px;}
+
+            }
+
+            /* ---------- 390 ---------- */
+
+            @media (max-width:390px){
+
+                .gallery-hero-title{font-size:26px;}
+                .gallery-hero-featured{height:128px;}
+                .exhibitions-text{padding:88px 12px 34px;}
+
+            }
+
+            /* ---------- 360 ---------- */
+
+            @media (max-width:360px){
+
+                .gallery-hero-title{font-size:24px;}
+                .gallery-hero-featured{height:118px;}
+                .exhibitions-text__title{font-size:24px;}
+
+            }
+
         </style>
     @endonce
 @endsection

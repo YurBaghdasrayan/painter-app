@@ -243,6 +243,36 @@ class StaticPageSeeder extends Seeder
         );
 
         StaticPage::updateOrCreate(
+            ['slug' => 'pictures-and-videos'],
+            [
+                'title' => 'Pictures & Videos Page',
+                'is_active' => true,
+
+                'content_am' => [
+                    'hero' => [
+                        'title' => 'Photos & Videos',
+                        'subtitle' => 'Grow smarter, grow faster as we need Solutions at the right place and at Smarttrak we are empowering all your digital twin needs',
+                        'background_image' => 'static/pictures-and-videos/hero-bg.jpg',
+                    ],
+                ],
+                'content_ru' => [
+                    'hero' => [
+                        'title' => 'Photos & Videos',
+                        'subtitle' => 'Grow smarter, grow faster as we need Solutions at the right place and at Smarttrak we are empowering all your digital twin needs',
+                        'background_image' => 'static/pictures-and-videos/hero-bg.jpg',
+                    ],
+                ],
+                'content_en' => [
+                    'hero' => [
+                        'title' => 'Photos & Videos',
+                        'subtitle' => 'Grow smarter, grow faster as we need Solutions at the right place and at Smarttrak we are empowering all your digital twin needs',
+                        'background_image' => 'static/pictures-and-videos/hero-bg.jpg',
+                    ],
+                ],
+            ]
+        );
+
+        StaticPage::updateOrCreate(
             ['slug' => 'footer'],
             [
                 'title' => 'Footer',
@@ -506,16 +536,22 @@ class StaticPageSeeder extends Seeder
 
                 'content_am' => [
                     'contact' => [
+                        'hero_title' => 'Contact',
+                        'hero_subtitle' => 'Grow smarter, grow faster as we need Solutions at the right place and at Smarttrak we are empowering all your digital twin needs',
                         'background_image' => 'static/contact/contact-bg.jpg',
                     ],
                 ],
                 'content_ru' => [
                     'contact' => [
+                        'hero_title' => 'Contact',
+                        'hero_subtitle' => 'Grow smarter, grow faster as we need Solutions at the right place and at Smarttrak we are empowering all your digital twin needs',
                         'background_image' => 'static/contact/contact-bg.jpg',
                     ],
                 ],
                 'content_en' => [
                     'contact' => [
+                        'hero_title' => 'Contact',
+                        'hero_subtitle' => 'Grow smarter, grow faster as we need Solutions at the right place and at Smarttrak we are empowering all your digital twin needs',
                         'background_image' => 'static/contact/contact-bg.jpg',
                     ],
                 ],

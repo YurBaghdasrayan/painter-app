@@ -76,6 +76,47 @@
         if (is_array($articlesSideImage)) {
             $articlesSideImage = $articlesSideImage[0] ?? null;
         }
+
+        $contactPage = \App\Models\StaticPage::query()
+            ->where('slug', 'contact')
+            ->where('is_active', true)
+            ->first();
+        $contactContent = $contactPage?->localizedContent() ?? [];
+        $contactHeroTitle = $contactContent['contact']['hero_title'] ?? 'CONTACT WE';
+        $contactHeroSubtitle = $contactContent['contact']['hero_subtitle'] ?? null;
+
+        $locale = app()->getLocale();
+        if ($locale === 'hy') $locale = 'am';
+        $i18n = [
+            'am' => [
+                'first_name' => 'Անուն',
+                'last_name' => 'Ազգանուն',
+                'email' => 'Էլ․ հասցե',
+                'phone' => 'Հեռախոսահամար',
+                'message' => 'Հաղորդագրություն',
+                'message_placeholder' => 'Գրեք ձեր հաղորդագրությունը',
+                'send' => 'Ուղարկել',
+            ],
+            'ru' => [
+                'first_name' => 'Имя',
+                'last_name' => 'Фамилия',
+                'email' => 'Email',
+                'phone' => 'Номер телефона',
+                'message' => 'Сообщение',
+                'message_placeholder' => 'Напишите ваше сообщение',
+                'send' => 'Отправить',
+            ],
+            'en' => [
+                'first_name' => 'First Name',
+                'last_name' => 'Last Name',
+                'email' => 'Email',
+                'phone' => 'Phone Number',
+                'message' => 'Message',
+                'message_placeholder' => 'Write your message',
+                'send' => 'Send Message',
+            ],
+        ];
+        $t = $i18n[$locale] ?? $i18n['en'];
     @endphp
 
     <section class="hero" aria-label="Hero">
@@ -276,4 +317,82 @@
             </div>
         </section>
     @endif
+
+    <section class="home-contact" aria-label="Contact form">
+        <div class="home-contact__hero-wrap" aria-label="Contact header">
+            <div class="home-contact__hero-inner">
+                <header class="home-contact__hero">
+                    <h2 class="home-contact__title">{{ $contactHeroTitle }}</h2>
+                    @if($contactHeroSubtitle)
+                        <p class="home-contact__subtitle">{{ $contactHeroSubtitle }}</p>
+                    @endif
+                </header>
+            </div>
+        </div>
+
+        <svg class="home-contact__wave" viewBox="0 0 1440 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
+            <path
+                d="M0 104
+                   C120 132 210 58 332 86
+                   C476 118 620 90 760 110
+                   C910 132 1050 92 1188 74
+                   C1302 58 1376 76 1440 66
+                   L1440 180
+                   L0 180
+                   Z"
+                fill="#e8e6e1"
+            />
+        </svg>
+        <svg class="home-contact__stroke" viewBox="0 0 1440 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
+            <path
+                d="M0 104
+                   C120 132 210 58 332 86
+                   C476 118 620 90 760 110
+                   C910 132 1050 92 1188 74
+                   C1302 58 1376 76 1440 66"
+                fill="none"
+                stroke="#ffffff"
+                stroke-width="5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+        </svg>
+
+        <div class="home-contact__inner">
+            <form class="contact-form contact-form--home" method="post" action="#">
+                @csrf
+
+                <div class="contact-form__grid">
+                    <label class="contact-field">
+                        <span class="contact-field__label">{{ $t['first_name'] }}</span>
+                        <input class="contact-field__input" type="text" name="first_name" autocomplete="given-name">
+                    </label>
+
+                    <label class="contact-field">
+                        <span class="contact-field__label">{{ $t['last_name'] }}</span>
+                        <input class="contact-field__input" type="text" name="last_name" autocomplete="family-name">
+                    </label>
+
+                    <label class="contact-field">
+                        <span class="contact-field__label">{{ $t['email'] }}</span>
+                        <input class="contact-field__input" type="email" name="email" autocomplete="email">
+                    </label>
+
+                    <label class="contact-field">
+                        <span class="contact-field__label">{{ $t['phone'] }}</span>
+                        <input class="contact-field__input" type="tel" name="phone" autocomplete="tel">
+                    </label>
+
+                    <label class="contact-field contact-field--message">
+                        <span class="contact-field__label">{{ $t['message'] }}</span>
+                        <textarea class="contact-field__textarea" name="message" rows="3" placeholder="{{ $t['message_placeholder'] }}"></textarea>
+                    </label>
+                </div>
+
+                <div class="contact-form__actions">
+                    <button class="contact-form__submit" type="submit">{{ $t['send'] }}</button>
+                </div>
+            </form>
+        </div>
+    </section>
 @endsection

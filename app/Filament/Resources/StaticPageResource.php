@@ -57,6 +57,7 @@ class StaticPageResource extends Resource
                     Tab::make('AM')
                         ->schema([
                             ...static::galleryLanguageFields('am'),
+                            ...static::picturesAndVideosLanguageFields('am'),
                             ...static::collectionLanguageFields('am'),
                             ...static::footerLanguageFields('am'),
                             ...static::headerLanguageFields('am'),
@@ -72,6 +73,7 @@ class StaticPageResource extends Resource
                     Tab::make('RU')
                         ->schema([
                             ...static::galleryLanguageFields('ru'),
+                            ...static::picturesAndVideosLanguageFields('ru'),
                             ...static::collectionLanguageFields('ru'),
                             ...static::footerLanguageFields('ru'),
                             ...static::headerLanguageFields('ru'),
@@ -87,6 +89,7 @@ class StaticPageResource extends Resource
                     Tab::make('EN')
                         ->schema([
                             ...static::galleryLanguageFields('en'),
+                            ...static::picturesAndVideosLanguageFields('en'),
                             ...static::collectionLanguageFields('en'),
                             ...static::footerLanguageFields('en'),
                             ...static::headerLanguageFields('en'),
@@ -99,6 +102,30 @@ class StaticPageResource extends Resource
                         ]),
                 ]),
         ]);
+    }
+
+    protected static function picturesAndVideosLanguageFields(string $locale): array
+    {
+        return [
+            Section::make("Pictures & Videos hero {$locale}")
+                ->visible(fn (Get $get) => $get('slug') === 'pictures-and-videos')
+                ->schema([
+                    TextInput::make("content_{$locale}.hero.title")
+                        ->label('Hero title')
+                        ->maxLength(255),
+
+                    TextInput::make("content_{$locale}.hero.subtitle")
+                        ->label('Hero subtitle')
+                        ->maxLength(1500),
+
+                    FileUpload::make("content_{$locale}.hero.background_image")
+                        ->label('Hero background image')
+                        ->image()
+                        ->disk('public')
+                        ->directory('static/pictures-and-videos')
+                        ->visibility('public'),
+                ]),
+        ];
     }
 
     protected static function exhibitionsLanguageFields(string $locale): array
@@ -835,6 +862,14 @@ class StaticPageResource extends Resource
             Section::make("Contact {$locale}")
                 ->visible(fn (Get $get) => $get('slug') === 'contact')
                 ->schema([
+                    TextInput::make("content_{$locale}.contact.hero_title")
+                        ->label('Hero title')
+                        ->maxLength(255),
+
+                    TextInput::make("content_{$locale}.contact.hero_subtitle")
+                        ->label('Hero subtitle')
+                        ->maxLength(1500),
+
                     FileUpload::make("content_{$locale}.contact.background_image")
                         ->label('Background image')
                         ->image()

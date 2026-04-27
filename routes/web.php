@@ -7,6 +7,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ExhibitionController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\PicturesAndVideosController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/lang/{locale}', function (string $locale) {
@@ -33,6 +34,9 @@ Route::get('/contact', [ContactController::class, 'show'])->name('contact');
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index');
 Route::get('/gallery/sections/{gallery_section}', [GalleryController::class, 'showSection'])->name('gallery.section');
 Route::get('/gallery/{slug}', [GalleryController::class, 'show'])->name('gallery.show');
+
+Route::get('/pictures-and-videos', [PicturesAndVideosController::class, 'show'])->name('pictures-and-videos.index');
+Route::get('/pictures-and-videos/{itemId}', [PicturesAndVideosController::class, 'showItem'])->name('pictures-and-videos.show');
 
 Route::get('/collection', [CollectionController::class, 'index'])->name('collection.index');
 Route::get('/collection/sections/{collection_section}', [CollectionController::class, 'showSection'])->name('collection.section');

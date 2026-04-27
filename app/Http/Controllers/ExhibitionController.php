@@ -42,9 +42,29 @@ class ExhibitionController extends Controller
             ->where('is_active', true)
             ->first();
 
+        $relatedExhibitions = Exhibition::query()
+            ->select([
+                'id',
+                'image',
+                'title',
+                'title_am',
+                'title_ru',
+                'title_en',
+                'sort_order',
+                'is_active',
+            ])
+            ->where('is_active', true)
+            ->whereNotNull('image')
+            ->where('id', '!=', $exhibition->id)
+            ->orderBy('sort_order')
+            ->orderBy('id')
+            ->limit(12)
+            ->get();
+
         return view('exhibitions.show', [
             'exhibition' => $exhibition,
             'staticPage' => $staticPage,
+            'relatedExhibitions' => $relatedExhibitions,
         ]);
     }
 }

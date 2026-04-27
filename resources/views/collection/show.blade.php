@@ -140,22 +140,22 @@
                             <img src="{{ $mainImage }}" alt="{{ $item->localized('title') }}" loading="lazy" />
                         </div>
                     @endif
+
+                    @if($thumbs !== [])
+                        <div class="artwork-thumbs" aria-label="Additional images">
+                            @foreach($thumbs as $thumb)
+                                <div class="artwork-thumb">
+                                    <img
+                                        src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($thumb) }}"
+                                        alt="{{ $item->localized('title') }}"
+                                        loading="lazy"
+                                    />
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
                 </div>
             </header>
-
-            @if($thumbs !== [])
-                <div class="artwork-thumbs" aria-label="Additional images">
-                    @foreach($thumbs as $thumb)
-                        <div class="artwork-thumb">
-                            <img
-                                src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($thumb) }}"
-                                alt="{{ $item->localized('title') }}"
-                                loading="lazy"
-                            />
-                        </div>
-                    @endforeach
-                </div>
-            @endif
 
             @if(!empty($item->localized('full_description')))
                 <div class="artwork-body">

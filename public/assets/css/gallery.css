@@ -612,7 +612,8 @@
     z-index: 1;
     background: #f7f5ef;
     margin-top: -40px;
-    padding: 0 0 40px 0;
+    /* hero featured image hangs below, keep safe spacing */
+    padding: 150px 0 40px 0;
 }
 
 .gallery-index-slider{
@@ -761,7 +762,7 @@
 @media (max-width:768px){
     .gallery-index{
         margin-top: 0;
-        padding: 0 0 26px 0;
+        padding: 120px 0 26px 0;
     }
 
     .gallery-index-slider{
