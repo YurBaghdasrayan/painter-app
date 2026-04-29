@@ -473,7 +473,7 @@ class StaticPageResource extends Resource
                 ->schema([
                     FileUpload::make("content_{$locale}.about_section.background_image")
                         ->label('Background image or video')
-                        ->disk('public')
+                        ->disk(env('FILESYSTEM_DISK', 'public'))
                         ->directory('static/home')
                         ->visibility('public')
                         ->acceptedFileTypes(['image/*', 'video/mp4', 'video/webm', 'video/quicktime'])
