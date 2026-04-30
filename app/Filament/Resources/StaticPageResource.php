@@ -145,35 +145,31 @@ class StaticPageResource extends Resource
                     FileUpload::make("content_{$locale}.hero.background_image")
                         ->label('Hero background image')
                         ->image()
-                        ->disk('public')
+                        ->disk(env('FILESYSTEM_DISK', 'public'))
                         ->directory('static/exhibitions')
-                        ->visibility('public'),
+                        ->visibility('public')
+                        ->openable()
+                        ->downloadable(),
 
                     FileUpload::make("content_{$locale}.hero.main_image")
                         ->label('Hero floating image')
                         ->image()
-                        ->disk('public')
+                        ->disk(env('FILESYSTEM_DISK', 'public'))
                         ->directory('static/exhibitions')
-                        ->visibility('public'),
+                        ->visibility('public')
+                        ->openable()
+                        ->downloadable(),
                 ]),
 
             Section::make("Exhibitions text block {$locale}")
                 ->visible(fn (Get $get) => $get('slug') === 'exhibitions')
                 ->schema([
                     TextInput::make("content_{$locale}.text_block.left_title")
-                        ->label('Left title')
+                        ->label('Title')
                         ->maxLength(255),
 
                     TextInput::make("content_{$locale}.text_block.left_text")
-                        ->label('Left text')
-                        ->maxLength(6000),
-
-                    TextInput::make("content_{$locale}.text_block.right_title")
-                        ->label('Right title')
-                        ->maxLength(255),
-
-                    TextInput::make("content_{$locale}.text_block.right_text")
-                        ->label('Right text')
+                        ->label('Description')
                         ->maxLength(6000),
                 ]),
         ];
@@ -227,33 +223,6 @@ class StaticPageResource extends Resource
                         ->visibility('public'),
                 ]),
 
-            Section::make("Gallery bottom feature {$locale}")
-                ->visible(fn (Get $get) => $get('slug') === 'gallery')
-                ->schema([
-                    TextInput::make("content_{$locale}.bottom_feature_section.title")
-                        ->label('Section title')
-                        ->maxLength(255),
-
-                    FileUpload::make("content_{$locale}.bottom_feature_section.image")
-                        ->label('Section image')
-                        ->image()
-                        ->disk('public')
-                        ->directory('static/gallery')
-                        ->visibility('public'),
-
-                    TextInput::make("content_{$locale}.bottom_feature_section.button_link")
-                        ->label('Button link')
-                        ->maxLength(255),
-
-                    RichEditor::make("content_{$locale}.bottom_feature_section.items.0")
-                        ->label('Description 1'),
-
-                    RichEditor::make("content_{$locale}.bottom_feature_section.items.1")
-                        ->label('Description 2'),
-
-                    RichEditor::make("content_{$locale}.bottom_feature_section.items.2")
-                        ->label('Description 3'),
-                ]),
         ];
     }
 
@@ -599,6 +568,7 @@ class StaticPageResource extends Resource
 
                     TextInput::make("content_{$locale}.exhibitions_section.title")
                         ->label('Title')
+                        ->required()
                         ->maxLength(255),
 
                     TextInput::make("content_{$locale}.exhibitions_section.left_heading")

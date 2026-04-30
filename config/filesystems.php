@@ -46,6 +46,12 @@ return [
             'throw' => false,
             'report' => false,
         ],
+'public_upload' => [
+    'driver' => 'local',
+    'root' => public_path('upload'),
+    'url' => env('APP_URL') . '/upload',
+    'visibility' => 'public',
+],
 
         's3' => [
             'driver' => 's3',

@@ -29,20 +29,6 @@
         $items = $section->items ?? collect();
         $topItems = $items->take(5);
         $tailItems = $items->slice(5)->values();
-
-        $bottomFeature = $galleryContent['bottom_feature_section'] ?? [];
-        $bottomFeatureTitle = $bottomFeature['title'] ?? null;
-        $bottomFeatureItems = collect($bottomFeature['items'] ?? [])->filter()->values();
-        $bottomFeatureButtonLink = $bottomFeature['button_link'] ?? null;
-
-        $bottomFeatureImage = $bottomFeature['image'] ?? null;
-        if (is_array($bottomFeatureImage)) {
-            $bottomFeatureImage = $bottomFeatureImage[0] ?? null;
-        }
-
-        $bottomFeatureImageUrl = $bottomFeatureImage
-            ? \Illuminate\Support\Facades\Storage::disk('public')->url($bottomFeatureImage)
-            : null;
     @endphp
 
     <section class="gallery-section-page">
@@ -258,41 +244,6 @@
             </section>
         @endif
 
-        @if($bottomFeatureTitle || $bottomFeatureItems->count() || $bottomFeatureImageUrl)
-            <section class="gallery-bottom-feature" aria-label="Gallery bottom feature">
-                <div class="gallery-bottom-feature-inner">
-                    <div class="gallery-bottom-feature-content">
-                        @if($bottomFeatureTitle)
-                            <h2 class="gallery-bottom-feature-title">“{{ $bottomFeatureTitle }}”</h2>
-                        @endif
-
-                        @if($bottomFeatureItems->count())
-                            <ul class="gallery-bottom-feature-list">
-                                @foreach($bottomFeatureItems as $featureText)
-                                    <li>{!! $featureText !!}</li>
-                                @endforeach
-                            </ul>
-                        @endif
-                    </div>
-
-                    <div class="gallery-bottom-feature-media">
-                        @if($bottomFeatureImageUrl)
-                            <img
-                                src="{{ $bottomFeatureImageUrl }}"
-                                alt="{{ $bottomFeatureTitle ?? 'Gallery feature image' }}"
-                                class="gallery-bottom-feature-image"
-                            >
-                        @endif
-
-                        @if($bottomFeatureButtonLink)
-                            <a href="{{ $bottomFeatureButtonLink }}" class="gallery-bottom-feature-arrow" aria-label="Open feature">
-                                <span>→</span>
-                            </a>
-                        @endif
-                    </div>
-                </div>
-            </section>
-        @endif
     </section>
 
     <style>
@@ -430,12 +381,6 @@
         .gallery-section-page .gallery-index-slider-inner.gallery-page-inner,
         .gallery-section-page .gallery-index-tail-inner.gallery-page-inner{
             padding:0;
-        }
-
-        .gallery-section-page .gallery-bottom-feature-inner{
-            max-width:1240px;
-            margin:0 auto;
-            padding:0 20px;
         }
 
         .gallery-section-page .gallery-masonry{

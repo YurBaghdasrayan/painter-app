@@ -19,52 +19,46 @@
             $heroMain = $heroMain[0] ?? null;
         }
 
-        $heroBgUrl = $heroBg ? \Illuminate\Support\Facades\Storage::disk('public')->url($heroBg) : null;
-        $heroMainUrl = $heroMain ? \Illuminate\Support\Facades\Storage::disk('public')->url($heroMain) : null;
+        $staticDisk = env('FILESYSTEM_DISK', 'public');
+        $heroBgUrl = $heroBg ? \Illuminate\Support\Facades\Storage::disk($staticDisk)->url($heroBg) : null;
+        $heroMainUrl = $heroMain ? \Illuminate\Support\Facades\Storage::disk($staticDisk)->url($heroMain) : null;
 
         $items = collect($exhibition->items ?? []);
     @endphp
 
     @if($heroTitle || $heroSubtitle || $heroBgUrl || $heroMainUrl)
-        <section class="gallery-hero" aria-label="Exhibitions hero">
-            <div class="gallery-hero-inner">
-                @if($heroTitle)
-                    <h1 class="gallery-hero-title">{{ $heroTitle }}</h1>
-                @endif
+        <section class="articles-hero-page" aria-label="Exhibitions hero">
+            <div class="articles-hero-page__top">
+                <div class="articles-hero-page__inner">
+                    <h1 class="articles-hero-page__title">{{ $heroTitle }}</h1>
 
-                @if($heroSubtitle)
-                    <p class="gallery-hero-subtitle">{{ $heroSubtitle }}</p>
-                @endif
-            </div>
-
-            <div class="gallery-hero-art">
-                <div class="gallery-hero-art-bg">
-                    @if($heroBgUrl)
-                        <img src="{{ $heroBgUrl }}" alt="{{ $heroTitle }}">
+                    @if(!empty($heroSubtitle))
+                        <p class="articles-hero-page__subtitle">
+                            {{ $heroSubtitle }}
+                        </p>
                     @endif
                 </div>
+            </div>
 
-                <svg class="gallery-hero-wave" viewBox="0 0 1440 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
-                    <path
-                        d="M0 60
-                           C120 105 220 15 360 42
-                           C520 74 620 18 760 52
-                           C930 92 1050 62 1180 34
-                           C1280 12 1360 30 1440 10
-                           L1440 0
-                           L0 0
-                           Z"
-                        fill="#f7f5ef"
-                    />
-                </svg>
+            <div class="articles-hero-page__visual">
+                @if($heroBgUrl)
+                    <img
+                        src="{{ $heroBgUrl }}"
+                        alt="{{ $heroTitle }}"
+                        class="articles-hero-page__bg"
+                    >
+                @endif
 
-                <svg class="gallery-hero-stroke" viewBox="0 0 1440 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
+                <div class="articles-hero-page__shape"></div>
+
+                <svg class="articles-hero-page__line" viewBox="0 0 1440 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
                     <path
-                        d="M0 104
-                           C120 132 210 58 332 86
-                           C476 118 620 90 760 110
-                           C910 132 1050 92 1188 74
-                           C1302 58 1376 76 1440 66"
+                        d="M0 110
+                           C90 130 170 60 280 84
+                           C410 112 520 82 640 98
+                           C760 114 900 130 1040 100
+                           C1160 74 1260 56 1360 66
+                           C1400 70 1422 54 1440 40"
                         fill="none"
                         stroke="#ffffff"
                         stroke-width="5"
@@ -73,13 +67,17 @@
                     />
                 </svg>
 
-                @if($heroMainUrl)
-                    <article class="gallery-hero-featured">
-                        <div class="gallery-hero-featured-link">
-                            <img src="{{ $heroMainUrl }}" alt="{{ $heroTitle }}">
+                <div class="articles-hero-page__inner articles-hero-page__image-wrap">
+                    @if($heroMainUrl)
+                        <div class="articles-hero-page__main-image-box">
+                            <img
+                                src="{{ $heroMainUrl }}"
+                                alt="{{ $heroTitle }}"
+                                class="articles-hero-page__main-image"
+                            >
                         </div>
-                    </article>
-                @endif
+                    @endif
+                </div>
             </div>
         </section>
     @endif
