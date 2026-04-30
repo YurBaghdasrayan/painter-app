@@ -27,3 +27,8 @@ Thumbs.db
 /storage/framework/views/*
 /storage/app/public/*
 /public/upload/*
+
+/storage/app/private/*
+/storage/framework/cache/*
+/storage/framework/views/*
+/storage/logs/*
