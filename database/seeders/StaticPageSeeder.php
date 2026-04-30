@@ -20,16 +20,6 @@ class StaticPageSeeder extends Seeder
                         'title' => 'Art Gallery',
                         'subtitle' => 'Grow smarter, grow faster as we need Solutions at the right place and at Smarttrak we are empowering all your digital twin needs',
                     ],
-                    'bottom_feature_section' => [
-                        'title' => 'GALLERY',
-                        'items' => [
-                            '<p>Առաջին տեքստը այստեղ։ Կարող ես փոխել սա ադմինից։</p>',
-                            '<p>Երկրորդ տեքստը այստեղ։ Սա նույնպես կփոխես ադմինից։</p>',
-                            '<p>Երրորդ տեքստը այստեղ։</p>',
-                        ],
-                        'image' => 'static/gallery/bottom-feature.jpg',
-                        'button_link' => '/gallery',
-                    ],
                 ],
 
                 'content_ru' => [
@@ -37,32 +27,12 @@ class StaticPageSeeder extends Seeder
                         'title' => 'Art Gallery',
                         'subtitle' => 'Grow smarter, grow faster as we need Solutions at the right place and at Smarttrak we are empowering all your digital twin needs',
                     ],
-                    'bottom_feature_section' => [
-                        'title' => 'GALLERY',
-                        'items' => [
-                            '<p>Первый текст здесь. Его можно менять из админки.</p>',
-                            '<p>Второй текст здесь. Его тоже можно менять.</p>',
-                            '<p>Третий текст здесь.</p>',
-                        ],
-                        'image' => 'static/gallery/bottom-feature.jpg',
-                        'button_link' => '/gallery',
-                    ],
                 ],
 
                 'content_en' => [
                     'hero' => [
                         'title' => 'Art Gallery',
                         'subtitle' => 'Grow smarter, grow faster as we need Solutions at the right place and at Smarttrak we are empowering all your digital twin needs',
-                    ],
-                    'bottom_feature_section' => [
-                        'title' => 'GALLERY',
-                        'items' => [
-                            '<p>Lorem ipsum is simply dummy text of the printing and typesetting industry.</p>',
-                            '<p>Lorem ipsum has been the industry standard dummy text ever since the 1500s.</p>',
-                            '<p>Lorem ipsum has survived not only five centuries, but also the leap into electronic typesetting.</p>',
-                        ],
-                        'image' => 'static/gallery/bottom-feature.jpg',
-                        'button_link' => '/gallery',
                     ],
                 ],
             ]

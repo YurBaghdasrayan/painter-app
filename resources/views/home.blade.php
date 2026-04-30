@@ -59,15 +59,15 @@
         $collectionMoreText = $collectionSection['more_text'] ?? null;
         $collectionMoreLink = $collectionSection['more_link'] ?? null;
 
-        $exhibitions = $homeContent['exhibitions_section'] ?? [];
-        $exhibitionsTitle = $exhibitions['title'] ?? 'EXHIBITIONS';
-        $exhibitionsLeftHeading = $exhibitions['left_heading'] ?? '';
-        $exhibitionsBullets = collect($exhibitions['bullets'] ?? [])->filter()->values();
-        $exhibitionsLeftText = $exhibitions['left_text'] ?? '';
-        $exhibitionsRightText = $exhibitions['right_text'] ?? '';
-        $exhibitionsButtonText = $exhibitions['button_text'] ?? 'Read more';
-        $exhibitionsButtonLink = $exhibitions['button_link'] ?? '/exhibitions';
-        $exhibitionsBg = $exhibitions['background_image'] ?? null;
+        $exhibitionsSection = $homeContent['exhibitions_section'] ?? [];
+        $exhibitionsTitle = $exhibitionsSection['title'] ?? 'EXHIBITIONS';
+        $exhibitionsLeftHeading = $exhibitionsSection['left_heading'] ?? '';
+        $exhibitionsBullets = collect($exhibitionsSection['bullets'] ?? [])->filter()->values();
+        $exhibitionsLeftText = $exhibitionsSection['left_text'] ?? '';
+        $exhibitionsRightText = $exhibitionsSection['right_text'] ?? '';
+        $exhibitionsButtonText = $exhibitionsSection['button_text'] ?? 'Read more';
+        $exhibitionsButtonLink = route('exhibitions.index');
+        $exhibitionsBg = $exhibitionsSection['background_image'] ?? null;
 
         if (is_array($exhibitionsBg)) {
             $exhibitionsBg = $exhibitionsBg[0] ?? null;
@@ -272,143 +272,128 @@
         </section>
     @endif
 
-    @if($exhibitionsTitle || $exhibitionsLeftHeading || $exhibitionsLeftText || $exhibitionsRightText || $exhibitionsBgUrl)
+    @if($exhibitionsTitle || (($exhibitions ?? collect())->count()))
         <section id="exhibitions" class="home-exhibitions" aria-label="Exhibitions">
-            @if($exhibitionsBgUrl)
-                <img class="home-exhibitions__bg" src="{{ $exhibitionsBgUrl }}" alt="" aria-hidden="true">
-            @endif
-
-            <svg class="home-exhibitions__wave" viewBox="0 0 1440 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
-                <path
-                    d="M0 60
-                       C120 105 220 15 360 42
-                       C520 74 620 18 760 52
-                       C930 92 1050 62 1180 34
-                       C1280 12 1360 30 1440 10
-                       L1440 0
-                       L0 0
-                       Z"
-                    fill="#f7f5ef"
-                />
-            </svg>
-
             <div class="home-exhibitions__inner">
-                <div class="home-exhibitions__grid">
-                    <div class="home-exhibitions__left">
-                        <h2 class="home-exhibitions__title">{{ $exhibitionsTitle }}</h2>
+                <header class="home-exhibitions__head">
+                    <h2 class="home-exhibitions__title">{{ $exhibitionsTitle }}</h2>
+                </header>
 
-                        @if($exhibitionsLeftHeading)
-                            <div class="home-exhibitions__heading">
-                                {!! nl2br(e((string) $exhibitionsLeftHeading)) !!}
-                            </div>
-                        @endif
+                @if(($exhibitions ?? collect())->count())
+                    <div class="home-exhibitions__cards" role="list">
+                        @foreach(($exhibitions ?? collect()) as $ex)
+                            @php
+                                $img = !empty($ex->image) ? \Illuminate\Support\Facades\Storage::disk('public')->url($ex->image) : null;
+                                $title = $ex->localized('title') ?? 'Exhibition';
+                                $desc = trim((string) ($ex->localized('description') ?? ''));
+                            @endphp
 
-                        @if($exhibitionsBullets->count())
-                            <ul class="home-exhibitions__bullets">
-                                @foreach($exhibitionsBullets->take(4) as $b)
-                                    <li>{{ $b }}</li>
-                                @endforeach
-                            </ul>
-                        @endif
+                            <article class="home-exhibitions-card" role="listitem">
+                                <a class="home-exhibitions-card__link" href="{{ route('exhibitions.show', $ex) }}" aria-label="{{ $title }}">
+                                    <div class="home-exhibitions-card__media">
+                                        @if($img)
+                                            <img src="{{ $img }}" alt="{{ $title }}" loading="lazy" />
+                                        @endif
+                                    </div>
 
-                        @if($exhibitionsLeftText)
-                            <div class="home-exhibitions__copy">
-                                {!! nl2br(e((string) $exhibitionsLeftText)) !!}
-                            </div>
-                        @endif
+                                    <div class="home-exhibitions-card__meta">
+                                        <div class="home-exhibitions-card__title">
+                                            “{{ strtoupper((string) $title) }}”
+                                        </div>
+                                        @if($desc !== '')
+                                            <div class="home-exhibitions-card__desc">{{ $desc }}</div>
+                                        @endif
+                                    </div>
+                                </a>
+                            </article>
+                        @endforeach
                     </div>
+                @endif
 
-                    <div class="home-exhibitions__right">
-                        @if($exhibitionsRightText)
-                            <div class="home-exhibitions__copy home-exhibitions__copy--right">
-                                {!! nl2br(e((string) $exhibitionsRightText)) !!}
-                            </div>
-                        @endif
-
-                        <a class="home-exhibitions__btn" href="{{ $exhibitionsButtonLink }}">
-                            {{ $exhibitionsButtonText }}
-                        </a>
-                    </div>
+                <div class="home-exhibitions__footer">
+                    <a class="home-exhibitions__btn" href="{{ $exhibitionsButtonLink }}">
+                        {{ $exhibitionsButtonText }}
+                    </a>
                 </div>
             </div>
         </section>
     @endif
 
-    <section class="home-contact" aria-label="Contact form">
-        <div class="home-contact__hero-wrap" aria-label="Contact header">
-            <div class="home-contact__hero-inner">
-                <header class="home-contact__hero">
-                    <h2 class="home-contact__title">{{ $contactHeroTitle }}</h2>
-                    @if($contactHeroSubtitle)
-                        <p class="home-contact__subtitle">{{ $contactHeroSubtitle }}</p>
-                    @endif
-                </header>
-            </div>
-        </div>
+{{--    <section class="home-contact" aria-label="Contact form">--}}
+{{--        <div class="home-contact__hero-wrap" aria-label="Contact header">--}}
+{{--            <div class="home-contact__hero-inner">--}}
+{{--                <header class="home-contact__hero">--}}
+{{--                    <h2 class="home-contact__title">{{ $contactHeroTitle }}</h2>--}}
+{{--                    @if($contactHeroSubtitle)--}}
+{{--                        <p class="home-contact__subtitle">{{ $contactHeroSubtitle }}</p>--}}
+{{--                    @endif--}}
+{{--                </header>--}}
+{{--            </div>--}}
+{{--        </div>--}}
 
-        <svg class="home-contact__wave" viewBox="0 0 1440 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
-            <path
-                d="M0 104
-                   C120 132 210 58 332 86
-                   C476 118 620 90 760 110
-                   C910 132 1050 92 1188 74
-                   C1302 58 1376 76 1440 66
-                   L1440 180
-                   L0 180
-                   Z"
-                fill="#e8e6e1"
-            />
-        </svg>
-        <svg class="home-contact__stroke" viewBox="0 0 1440 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
-            <path
-                d="M0 104
-                   C120 132 210 58 332 86
-                   C476 118 620 90 760 110
-                   C910 132 1050 92 1188 74
-                   C1302 58 1376 76 1440 66"
-                fill="none"
-                stroke="#ffffff"
-                stroke-width="5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-            />
-        </svg>
+{{--        <svg class="home-contact__wave" viewBox="0 0 1440 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">--}}
+{{--            <path--}}
+{{--                d="M0 104--}}
+{{--                   C120 132 210 58 332 86--}}
+{{--                   C476 118 620 90 760 110--}}
+{{--                   C910 132 1050 92 1188 74--}}
+{{--                   C1302 58 1376 76 1440 66--}}
+{{--                   L1440 180--}}
+{{--                   L0 180--}}
+{{--                   Z"--}}
+{{--                fill="#e8e6e1"--}}
+{{--            />--}}
+{{--        </svg>--}}
+{{--        <svg class="home-contact__stroke" viewBox="0 0 1440 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">--}}
+{{--            <path--}}
+{{--                d="M0 104--}}
+{{--                   C120 132 210 58 332 86--}}
+{{--                   C476 118 620 90 760 110--}}
+{{--                   C910 132 1050 92 1188 74--}}
+{{--                   C1302 58 1376 76 1440 66"--}}
+{{--                fill="none"--}}
+{{--                stroke="#ffffff"--}}
+{{--                stroke-width="5"--}}
+{{--                stroke-linecap="round"--}}
+{{--                stroke-linejoin="round"--}}
+{{--            />--}}
+{{--        </svg>--}}
 
-        <div class="home-contact__inner">
-            <form class="contact-form contact-form--home" method="post" action="#">
-                @csrf
+{{--        <div class="home-contact__inner">--}}
+{{--            <form class="contact-form contact-form--home" method="post" action="#">--}}
+{{--                @csrf--}}
 
-                <div class="contact-form__grid">
-                    <label class="contact-field">
-                        <span class="contact-field__label">{{ $t['first_name'] }}</span>
-                        <input class="contact-field__input" type="text" name="first_name" autocomplete="given-name">
-                    </label>
+{{--                <div class="contact-form__grid">--}}
+{{--                    <label class="contact-field">--}}
+{{--                        <span class="contact-field__label">{{ $t['first_name'] }}</span>--}}
+{{--                        <input class="contact-field__input" type="text" name="first_name" autocomplete="given-name">--}}
+{{--                    </label>--}}
 
-                    <label class="contact-field">
-                        <span class="contact-field__label">{{ $t['last_name'] }}</span>
-                        <input class="contact-field__input" type="text" name="last_name" autocomplete="family-name">
-                    </label>
+{{--                    <label class="contact-field">--}}
+{{--                        <span class="contact-field__label">{{ $t['last_name'] }}</span>--}}
+{{--                        <input class="contact-field__input" type="text" name="last_name" autocomplete="family-name">--}}
+{{--                    </label>--}}
 
-                    <label class="contact-field">
-                        <span class="contact-field__label">{{ $t['email'] }}</span>
-                        <input class="contact-field__input" type="email" name="email" autocomplete="email">
-                    </label>
+{{--                    <label class="contact-field">--}}
+{{--                        <span class="contact-field__label">{{ $t['email'] }}</span>--}}
+{{--                        <input class="contact-field__input" type="email" name="email" autocomplete="email">--}}
+{{--                    </label>--}}
 
-                    <label class="contact-field">
-                        <span class="contact-field__label">{{ $t['phone'] }}</span>
-                        <input class="contact-field__input" type="tel" name="phone" autocomplete="tel">
-                    </label>
+{{--                    <label class="contact-field">--}}
+{{--                        <span class="contact-field__label">{{ $t['phone'] }}</span>--}}
+{{--                        <input class="contact-field__input" type="tel" name="phone" autocomplete="tel">--}}
+{{--                    </label>--}}
 
-                    <label class="contact-field contact-field--message">
-                        <span class="contact-field__label">{{ $t['message'] }}</span>
-                        <textarea class="contact-field__textarea" name="message" rows="3" placeholder="{{ $t['message_placeholder'] }}"></textarea>
-                    </label>
-                </div>
+{{--                    <label class="contact-field contact-field--message">--}}
+{{--                        <span class="contact-field__label">{{ $t['message'] }}</span>--}}
+{{--                        <textarea class="contact-field__textarea" name="message" rows="3" placeholder="{{ $t['message_placeholder'] }}"></textarea>--}}
+{{--                    </label>--}}
+{{--                </div>--}}
 
-                <div class="contact-form__actions">
-                    <button class="contact-form__submit" type="submit">{{ $t['send'] }}</button>
-                </div>
-            </form>
-        </div>
-    </section>
+{{--                <div class="contact-form__actions">--}}
+{{--                    <button class="contact-form__submit" type="submit">{{ $t['send'] }}</button>--}}
+{{--                </div>--}}
+{{--            </form>--}}
+{{--        </div>--}}
+{{--    </section>--}}
 @endsection
