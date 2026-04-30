@@ -216,23 +216,57 @@
     @if($profileImageUrl || $profileName || $profileText)
         <section class="about-page-profile" aria-label="About profile">
             <div class="about-page-profile__inner">
-                @if($profileImageUrl)
-                    <div class="about-page-profile__image">
-                        <img src="{{ $profileImageUrl }}" alt="{{ $profileName ?: 'Profile image' }}" loading="lazy">
+                @php
+                    $profileHtml = (string) $profileText;
+                    $topHtml = $profileHtml;
+                    $bottomHtml = '';
+
+                    preg_match_all('/<p\\b[^>]*>.*?<\\/p>/is', $profileHtml, $m);
+                    $paragraphs = $m[0] ?? [];
+
+                    if (count($paragraphs) >= 3) {
+                        $topParas = array_slice($paragraphs, 0, 2);
+                        $topHtml = implode('', $topParas);
+
+                        $rest = $profileHtml;
+                        foreach ($topParas as $p) {
+                            $rest = \Illuminate\Support\Str::replaceFirst($p, '', $rest);
+                        }
+                        $bottomHtml = trim($rest);
+                    }
+                @endphp
+
+                <div class="about-page-profile__grid">
+                    @if($profileImageUrl)
+                        <div class="about-page-profile__image">
+                            <img src="{{ $profileImageUrl }}" alt="{{ $profileName ?: 'Profile image' }}" loading="lazy">
+                        </div>
+                    @endif
+
+                    <div class="about-page-profile__card">
+                        @if($profileName)
+                            <h2 class="about-page-profile__name">{{ $profileName }}</h2>
+                        @endif
+
+                        @if(trim(strip_tags($topHtml)) !== '')
+                            <div class="about-page-profile__cols">
+                                <div class="about-page-profile__text about-page-profile__text--cols">
+                                    {!! $topHtml !!}
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+
+                @if(trim(strip_tags($bottomHtml)) !== '')
+                    <div class="about-page-profile__bottom">
+                        <div class="about-page-profile__text about-page-profile__text--bottom">
+                            {!! $bottomHtml !!}
+                        </div>
                     </div>
                 @endif
 
-                <div class="about-page-profile__card">
-                    @if($profileName)
-                        <h2 class="about-page-profile__name">{{ $profileName }}</h2>
-                    @endif
-
-                    @if($profileText)
-                        <div class="about-page-profile__text">{!! $profileText !!}</div>
-                    @endif
-
-                    <div class="about-page-profile__divider" aria-hidden="true"></div>
-                </div>
+                <div class="about-page-profile__divider" aria-hidden="true"></div>
             </div>
         </section>
     @endif
