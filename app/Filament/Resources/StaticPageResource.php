@@ -532,6 +532,26 @@ class StaticPageResource extends Resource
                         ->maxLength(255),
                 ]),
 
+            Section::make("Home gallery {$locale}")
+                ->visible(fn (Get $get) => $get('slug') === 'home')
+                ->schema([
+                    TextInput::make("content_{$locale}.gallery_section.title")
+                        ->label('Section title')
+                        ->maxLength(255),
+
+                    TextInput::make("content_{$locale}.gallery_section.left_text")
+                        ->label('Left text')
+                        ->maxLength(2000),
+
+                    TextInput::make("content_{$locale}.gallery_section.right_text")
+                        ->label('Right text')
+                        ->maxLength(3000),
+
+                    TextInput::make("content_{$locale}.gallery_section.more_text")
+                        ->label('More text')
+                        ->maxLength(255),
+                ]),
+
             Section::make("Home collection {$locale}")
                 ->visible(fn (Get $get) => $get('slug') === 'home')
                 ->schema([

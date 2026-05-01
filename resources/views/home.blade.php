@@ -52,6 +52,12 @@
         $articlesMoreText = $articlesSection['more_text'] ?? 'more';
         $articlesMoreLink = $articlesSection['more_link'] ?? '/articles';
 
+        $gallerySection = $homeContent['gallery_section'] ?? [];
+        $galleryTitle = $gallerySection['title'] ?? 'GALLERY';
+        $galleryLeftText = $gallerySection['left_text'] ?? '';
+        $galleryRightText = $gallerySection['right_text'] ?? '';
+        $galleryMoreText = $gallerySection['more_text'] ?? 'more';
+
         $collectionSection = $homeContent['collection_section'] ?? [];
         $collectionTitle = $collectionSection['title'] ?? '';
         $collectionLeftText = $collectionSection['left_text'] ?? '';
@@ -175,7 +181,18 @@
         <section id="gallery" class="gallery" aria-label="Gallery">
             <div class="gallery-inner">
                 <div class="gallery-head">
-                    <h2 class="gallery-title">GALLERY</h2>
+                    <h2 class="gallery-title">{{ $galleryTitle }}</h2>
+
+                    @if(trim((string) $galleryLeftText) !== '' || trim((string) $galleryRightText) !== '')
+                        <div class="gallery-toptexts">
+                            <div class="gallery-toptext gallery-toptext--left">
+                                {!! nl2br(e((string) $galleryLeftText)) !!}
+                            </div>
+                            <div class="gallery-toptext gallery-toptext--right">
+                                {!! nl2br(e((string) $galleryRightText)) !!}
+                            </div>
+                        </div>
+                    @endif
                 </div>
 
                 <div class="gallery-section-grid" role="list">
@@ -208,7 +225,7 @@
 
                 <div class="gallery-footer">
                     <div class="gallery-more">
-                        <span class="gallery-more-text">more</span>
+                        <span class="gallery-more-text">{{ $galleryMoreText }}</span>
                         <a class="gallery-more-btn" href="{{ route('gallery.index') }}" aria-label="More">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                 <path d="M5 12H18" stroke="white" stroke-width="2" stroke-linecap="round"/>

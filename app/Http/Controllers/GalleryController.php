@@ -14,7 +14,7 @@ class GalleryController extends Controller
         $items = GalleryItem::query()
             ->where('is_active', true)
             ->orderBy('sort_order')
-            ->orderBy('id')
+            ->orderByDesc('id')
             ->get();
 
         $heroItem = $items->first();

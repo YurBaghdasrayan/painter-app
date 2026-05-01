@@ -16,7 +16,7 @@ class CollectionController extends Controller
             ->where('is_active', true)
             ->where('is_featured_on_home', true)
             ->orderBy('sort_order')
-            ->orderBy('id')
+            ->orderByDesc('id')
             ->get();
 
         $sections = CollectionSection::query()
