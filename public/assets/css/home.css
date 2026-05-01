@@ -660,8 +660,7 @@ a{color:inherit;text-decoration:none}
 }
 
 .about-page-profile__text--cols{
-    column-count: 2;
-    column-gap: 44px;
+    column-gap: 0;
     column-rule: none;
 }
 

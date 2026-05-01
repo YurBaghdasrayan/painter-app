@@ -121,5 +121,84 @@
             </div>
         </section>
     @endif
+    <style>
+        @media (max-width: 1024px) {
+            .gallery-inner,
+            .gallery-hero-inner {
+                width: 100% !important;
+                max-width: 100% !important;
+                padding-left: 24px !important;
+                padding-right: 24px !important;
+                box-sizing: border-box !important;
+            }
 
-@endsection
+            .gallery-section-grid {
+                display: grid !important;
+                grid-template-columns: 1fr !important;
+                gap: 56px !important;
+            }
+
+            .gallery-section-card,
+            .gallery-section-card-link,
+            .gallery-section-card-image {
+                width: 100% !important;
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+            }
+
+            .gallery-section-card-image img {
+                width: 100% !important;
+                max-width: 100% !important;
+                height: auto !important;
+                display: block !important;
+                object-fit: cover !important;
+            }
+
+            .gallery-section-card-title,
+            .gallery-section-card-desc {
+                max-width: 100% !important;
+                overflow-wrap: break-word !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .gallery-inner,
+            .gallery-hero-inner {
+                padding-left: 18px !important;
+                padding-right: 18px !important;
+            }
+
+            .gallery-section-grid {
+                grid-template-columns: 1fr !important;
+                gap: 44px !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-inner,
+            .gallery-hero-inner {
+                padding-left: 14px !important;
+                padding-right: 14px !important;
+            }
+
+            .gallery-section-grid {
+                grid-template-columns: 1fr !important;
+                gap: 36px !important;
+            }
+        }
+
+        @media (max-width: 390px) {
+            .gallery-inner,
+            .gallery-hero-inner {
+                padding-left: 12px !important;
+                padding-right: 12px !important;
+            }
+
+            .gallery-section-grid {
+                gap: 30px !important;
+            }
+        }
+    </style>@endsection
+
+
+

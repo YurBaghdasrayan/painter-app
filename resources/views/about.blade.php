@@ -247,12 +247,15 @@
 
                     // Force top block to be exactly one <p> (Figma-like).
                     // Some editors may inject nested <p> or multiple paragraphs.
-                    $topInner = preg_replace('/^<p\\b[^>]*>|<\\/p>$/i', '', trim((string) $topHtml));
-                    if (is_string($topInner)) {
-                        $topInner = preg_replace('/<\\/?p\\b[^>]*>/i', ' ', $topInner);
-                        $topInner = trim(preg_replace('/\\s+/u', ' ', $topInner) ?? $topInner);
-                        $topHtml = '<p>' . $topInner . '</p>';
-                    }
+                    $topInner = trim((string) $topHtml);
+                    // Drop outer <p> wrapper if present
+                    $topInner = preg_replace('/^<p\\b[^>]*>/i', '', $topInner);
+                    $topInner = preg_replace('/<\\/p>$/i', '', $topInner);
+                    // Collapse any remaining paragraphs / line breaks into a single flow
+                    $topInner = preg_replace('/<\\/?p\\b[^>]*>/i', ' ', $topInner);
+                    $topInner = preg_replace('/<br\\s*\\/?>/i', ' ', $topInner);
+                    $topInner = trim(preg_replace('/\\s+/u', ' ', $topInner) ?? $topInner);
+                    $topHtml = $topInner !== '' ? ('<p>' . $topInner . '</p>') : '';
                 @endphp
 
                 <div class="about-page-profile__grid">
