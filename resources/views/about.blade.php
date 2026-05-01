@@ -218,14 +218,15 @@
             <div class="about-page-profile__inner">
                 @php
                     $profileHtml = (string) $profileText;
+                    // top = first <p>, bottom = rest (like Figma)
                     $topHtml = $profileHtml;
                     $bottomHtml = '';
 
                     preg_match_all('/<p\\b[^>]*>.*?<\\/p>/is', $profileHtml, $m);
                     $paragraphs = $m[0] ?? [];
 
-                    if (count($paragraphs) >= 3) {
-                        $topParas = array_slice($paragraphs, 0, 2);
+                    if (count($paragraphs) >= 2) {
+                        $topParas = array_slice($paragraphs, 0, 1);
                         $topHtml = implode('', $topParas);
 
                         $rest = $profileHtml;
@@ -233,6 +234,15 @@
                             $rest = \Illuminate\Support\Str::replaceFirst($p, '', $rest);
                         }
                         $bottomHtml = trim($rest);
+                    }
+
+                    // Force top block to be exactly one <p> (Figma-like).
+                    // Some editors may inject nested <p> or multiple paragraphs.
+                    $topInner = preg_replace('/^<p\\b[^>]*>|<\\/p>$/i', '', trim((string) $topHtml));
+                    if (is_string($topInner)) {
+                        $topInner = preg_replace('/<\\/?p\\b[^>]*>/i', ' ', $topInner);
+                        $topInner = trim(preg_replace('/\\s+/u', ' ', $topInner) ?? $topInner);
+                        $topHtml = '<p>' . $topInner . '</p>';
                     }
                 @endphp
 
@@ -265,8 +275,6 @@
                         </div>
                     </div>
                 @endif
-
-                <div class="about-page-profile__divider" aria-hidden="true"></div>
             </div>
         </section>
     @endif

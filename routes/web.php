@@ -34,7 +34,6 @@ Route::get('/about', [AboutController::class, 'show'])->name('about');
 Route::get('/contact', [ContactController::class, 'show'])->name('contact');
 
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index');
-Route::get('/gallery/sections/{gallery_section}', [GalleryController::class, 'showSection'])->name('gallery.section');
 Route::get('/gallery/{slug}', [GalleryController::class, 'show'])->name('gallery.show');
 
 Route::get('/pictures-and-videos', [PicturesAndVideosController::class, 'show'])->name('pictures-and-videos.index');

@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', $heroSection?->localized('title') ?? 'Gallery')
+@section('title', 'Gallery')
 
 @section('content')
     @php
-        $heroTitle = $staticPage?->getBlock('hero')['title'] ?? ($heroSection?->localized('title') ?? 'Art Gallery');
-        $heroSubtitle = $staticPage?->getBlock('hero')['subtitle'] ?? ($heroSection?->localized('left_text') ?? '');
+        $heroTitle = $staticPage?->getBlock('hero')['title'] ?? 'Art Gallery';
+        $heroSubtitle = $staticPage?->getBlock('hero')['subtitle'] ?? '';
     @endphp
 
     @section('meta_description', strip_tags((string) $heroSubtitle))
@@ -64,8 +64,8 @@
 
             @if($heroItem && !empty($heroItem->image))
                 <article class="gallery-hero-featured">
-                    @if($heroSection)
-                        <a href="{{ route('gallery.section', $heroSection) }}" class="gallery-hero-featured-link">
+                    @if(!empty($heroItem->slug))
+                        <a href="{{ route('gallery.show', $heroItem->slug) }}" class="gallery-hero-featured-link">
                             <img
                                 src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($heroItem->image) }}"
                                 alt="{{ $heroItem->localized('title') }}"
@@ -84,30 +84,38 @@
         </div>
     </section>
 
-    @if($sections->count())
-        @php
-            $head = $sections->first();
-            $topGridSections = $sections;
-        @endphp
-
+    @if(($items ?? collect())->count())
         <section class="gallery-index" aria-label="Gallery index">
             <div class="gallery-inner">
-                <div class="gallery-head">
-                    <h2 class="gallery-title">{{ $head->localized('title') }}</h2>
-
-                    <div class="gallery-toptexts">
-                        <div class="gallery-toptext gallery-toptext--left">
-                            {!! nl2br(e($head->localized('left_text') ?? '')) !!}
-                        </div>
-                        <div class="gallery-toptext gallery-toptext--right">
-                            {!! nl2br(e($head->localized('right_text') ?? '')) !!}
-                        </div>
-                    </div>
-                </div>
-
                 <div class="gallery-section-grid" role="list">
-                    @foreach($topGridSections as $section)
-                        @include('gallery.partials.section-card', ['section' => $section])
+                    @foreach(($items ?? collect()) as $item)
+                        @php
+                            $img = !empty($item->image) ? \Illuminate\Support\Facades\Storage::disk('public')->url($item->image) : null;
+                            $title = $item->localized('title') ?? 'Gallery';
+                            $desc = trim((string) ($item->localized('full_description') ?? $item->localized('short_description') ?? ''));
+                        @endphp
+
+                        @if($img && !empty($item->slug))
+                            <article class="gallery-section-card" role="listitem">
+                                <a class="gallery-section-card-link" href="{{ route('gallery.show', $item->slug) }}" aria-label="{{ $title }}">
+                                    <div class="gallery-section-card-image">
+                                        <img src="{{ $img }}" alt="{{ $title }}" loading="lazy" />
+                                    </div>
+
+                                    <div class="gallery-section-card-meta">
+                                        <div class="gallery-section-card-title">
+                                            “{{ strtoupper((string) $title) }}”
+                                        </div>
+
+                                        @if($desc !== '')
+                                            <div class="gallery-section-card-desc">
+                                                {{ $desc }}
+                                            </div>
+                                        @endif
+                                    </div>
+                                </a>
+                            </article>
+                        @endif
                     @endforeach
                 </div>
             </div>

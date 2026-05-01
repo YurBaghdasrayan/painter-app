@@ -25,6 +25,7 @@ class GalleryItemResource extends Resource
     protected static string|\UnitEnum|null $navigationGroup = 'Content';
 
     protected static ?string $navigationLabel = 'Gallery Items';
+    protected static bool $shouldRegisterNavigation = false;
 
     public static function form(Schema $schema): Schema
     {

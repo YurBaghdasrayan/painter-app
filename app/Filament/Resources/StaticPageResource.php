@@ -568,7 +568,6 @@ class StaticPageResource extends Resource
 
                     TextInput::make("content_{$locale}.exhibitions_section.title")
                         ->label('Title')
-                        ->required()
                         ->maxLength(255),
 
                     TextInput::make("content_{$locale}.exhibitions_section.left_heading")

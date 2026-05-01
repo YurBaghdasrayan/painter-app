@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CollectionItem;
 use App\Models\CollectionSection;
-use App\Models\GallerySection;
+use App\Models\GalleryItem;
 use App\Models\StaticPage;
 use Illuminate\View\View;
 
@@ -12,14 +12,10 @@ class CollectionController extends Controller
 {
     public function index(): View
     {
-        $gallerySections = GallerySection::query()
+        $galleryItems = GalleryItem::query()
             ->where('is_active', true)
-            ->whereHas('items', function ($q) {
-                $q->where('is_active', true);
-            })
-            ->with(['items' => function ($q) {
-                $q->where('is_active', true)->orderBy('sort_order');
-            }])
+            ->where('is_featured_on_home', true)
+            ->orderBy('sort_order')
             ->orderBy('id')
             ->get();
 
@@ -45,7 +41,7 @@ class CollectionController extends Controller
             ->first();
 
         return view('collection.index', [
-            'gallerySections' => $gallerySections,
+            'galleryItems' => $galleryItems,
             'sections' => $sections,
             'heroSection' => $heroSection,
             'heroItem' => $heroItem,

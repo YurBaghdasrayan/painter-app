@@ -4,21 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\CollectionSection;
 use App\Models\Exhibition;
-use App\Models\GallerySection;
+use App\Models\GalleryItem;
 use Illuminate\View\View;
 
 class HomeController extends Controller
 {
     public function index(): View
     {
-        $gallerySections = GallerySection::query()
+        $galleryItems = GalleryItem::query()
             ->where('is_active', true)
-            ->whereHas('items', function ($q) {
-                $q->where('is_active', true);
-            })
-            ->with(['items' => function ($q) {
-                $q->where('is_active', true)->orderBy('sort_order');
-            }])
+            ->where('is_featured_on_home', true)
+            ->orderBy('sort_order')
             ->orderBy('id')
             ->get();
 
@@ -55,7 +51,7 @@ class HomeController extends Controller
             ->get();
 
         return view('home', [
-            'gallerySections' => $gallerySections,
+            'galleryItems' => $galleryItems,
             'collectionSections' => $collectionSections,
             'exhibitions' => $exhibitions,
         ]);

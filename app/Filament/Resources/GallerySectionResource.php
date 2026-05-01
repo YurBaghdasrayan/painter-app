@@ -20,6 +20,7 @@ class GallerySectionResource extends Resource
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-photo';
 
     protected static string|\UnitEnum|null $navigationGroup = 'Content';
+    protected static bool $shouldRegisterNavigation = false;
 
     public static function form(Schema $schema): Schema
     {

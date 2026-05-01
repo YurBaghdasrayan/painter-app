@@ -7,7 +7,6 @@ use App\Models\CollectionItem;
 use App\Models\CollectionSection;
 use App\Models\Exhibition;
 use App\Models\GalleryItem;
-use App\Models\GallerySection;
 use Illuminate\Http\Response;
 
 class SitemapController extends Controller
@@ -29,20 +28,6 @@ class SitemapController extends Controller
                 'priority' => '0.8',
             ]);
         }
-
-        GallerySection::query()
-            ->where('is_active', true)
-            ->select(['id'])
-            ->orderBy('id')
-            ->chunk(200, function ($rows) use (&$urls) {
-                foreach ($rows as $row) {
-                    $urls->push([
-                        'loc' => route('gallery.section', $row),
-                        'changefreq' => 'weekly',
-                        'priority' => '0.7',
-                    ]);
-                }
-            });
 
         GalleryItem::query()
             ->where('is_active', true)

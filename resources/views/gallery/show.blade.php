@@ -10,9 +10,17 @@
         $showHeroSubtitle = $showHero['subtitle'] ?? ($item->localized('short_description') ?? '');
 
         $showHeroBg = $showHero['background_image'] ?? null;
-        $showHeroBgUrl = $showHeroBg
-            ? \Illuminate\Support\Facades\Storage::disk('public')->url($showHeroBg)
-            : null;
+        if (is_array($showHeroBg)) {
+            $showHeroBg = $showHeroBg[0] ?? null;
+        }
+
+        $showHeroBgUrl = null;
+        if (!empty($showHeroBg)) {
+            $showHeroBgUrl = \Illuminate\Support\Facades\Storage::disk('public')->url($showHeroBg);
+        } elseif (!empty($item->image)) {
+            // fallback to current gallery image (Figma-like)
+            $showHeroBgUrl = \Illuminate\Support\Facades\Storage::disk('public')->url($item->image);
+        }
     @endphp
 
     @if($showHeroBgUrl || $showHeroTitle || $showHeroSubtitle)
@@ -72,8 +80,15 @@
                 <div class="artwork-hero-left">
                     <h2 class="artwork-title">{{ $item->localized('title') }}</h2>
 
-                    @if(!empty($item->localized('short_description')))
-                        <div class="artwork-lead">{{ $item->localized('short_description') }}</div>
+                    @php
+                        $leadText = $item->localized('short_description');
+                        if (empty($leadText)) {
+                            $leadText = $item->localized('full_description');
+                        }
+                    @endphp
+
+                    @if(!empty($leadText))
+                        <div class="artwork-lead">{{ $leadText }}</div>
                     @endif
                 </div>
 
@@ -102,10 +117,16 @@
                 </div>
             </header>
 
-            @if(!empty($item->localized('full_description')))
+            @php
+                $full = $item->localized('full_description');
+                $short = $item->localized('short_description');
+                $showBody = !empty($full) && !empty($short) && trim((string) $full) !== trim((string) $short);
+            @endphp
+
+            @if($showBody)
                 <div class="artwork-body">
                     <div class="artwork-body-text">
-                        {!! nl2br(e($item->localized('full_description'))) !!}
+                        {!! nl2br(e($full)) !!}
                     </div>
                 </div>
             @endif

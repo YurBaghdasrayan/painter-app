@@ -261,35 +261,44 @@
         </section>
     @endif
 
-    @if(($gallerySections ?? collect())->count())
+    @if(($galleryItems ?? collect())->count())
         <section id="gallery" class="gallery" aria-label="Gallery">
             <div class="gallery-inner">
-                @php
-                    $head = $gallerySections->first();
-                @endphp
-
                 <div class="gallery-head">
-                    <h2 class="gallery-title">{{ $head->localized('title') }}</h2>
-
-                    <div class="gallery-toptexts">
-                        <div class="gallery-toptext gallery-toptext--left">
-                            {!! nl2br(e($head->localized('left_text') ?? '')) !!}
-                        </div>
-                        <div class="gallery-toptext gallery-toptext--right">
-                            {!! nl2br(e($head->localized('right_text') ?? '')) !!}
-                        </div>
-                    </div>
+                    <h2 class="gallery-title">GALLERY</h2>
                 </div>
 
                 <div class="gallery-section-grid" role="list">
-                    @foreach($gallerySections as $section)
-                        @include('gallery.partials.section-card', ['section' => $section])
+                    @foreach(($galleryItems ?? collect()) as $item)
+                        @php
+                            $img = !empty($item->image) ? \Illuminate\Support\Facades\Storage::disk('public')->url($item->image) : null;
+                            $title = $item->localized('title') ?? 'Gallery';
+                            $desc = trim((string) ($item->localized('full_description') ?? $item->localized('short_description') ?? ''));
+                        @endphp
+
+                        @if($img && !empty($item->slug))
+                            <article class="gallery-section-card" role="listitem">
+                                <a class="gallery-section-card-link" href="{{ route('gallery.show', $item->slug) }}" aria-label="{{ $title }}">
+                                    <div class="gallery-section-card-image">
+                                        <img src="{{ $img }}" alt="{{ $title }}" loading="lazy" />
+                                    </div>
+                                    <div class="gallery-section-card-meta">
+                                        <div class="gallery-section-card-title">
+                                            “{{ strtoupper((string) $title) }}”
+                                        </div>
+                                        @if($desc !== '')
+                                            <div class="gallery-section-card-desc">{{ $desc }}</div>
+                                        @endif
+                                    </div>
+                                </a>
+                            </article>
+                        @endif
                     @endforeach
                 </div>
 
                 <div class="gallery-footer">
                     <div class="gallery-more">
-                        <span class="gallery-more-text">{{ $gallerySections->first()->localized('more_button_text') }}</span>
+                        <span class="gallery-more-text">more</span>
                         <a class="gallery-more-btn" href="{{ route('gallery.index') }}" aria-label="More">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                 <path d="M5 12H18" stroke="white" stroke-width="2" stroke-linecap="round"/>
