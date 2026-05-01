@@ -11,7 +11,23 @@
 
         $homeContent = $homePage?->localizedContent() ?? [];
         $hero = $homeContent['hero'] ?? [];
-        $homeHeroTitle = $hero['title'] ?? "Your digital twin\nsolution with AI model";
+        $heroTitle1 = $hero['title_line_1'] ?? ($hero['title'] ?? null);
+        $heroTitle2 = $hero['title_line_2'] ?? null;
+
+        if (is_string($heroTitle1) && str_contains($heroTitle1, "\n") && empty($heroTitle2)) {
+            $parts = preg_split("/\\R/u", $heroTitle1, 2);
+            $heroTitle1 = $parts[0] ?? $heroTitle1;
+            $heroTitle2 = $parts[1] ?? null;
+        }
+
+        $homeHeroTitle = trim(implode("\n", array_values(array_filter([
+            is_string($heroTitle1) ? $heroTitle1 : null,
+            is_string($heroTitle2) ? $heroTitle2 : null,
+        ]))));
+
+        if ($homeHeroTitle === '') {
+            $homeHeroTitle = "Your digital twin\nsolution with AI model";
+        }
         $homeHeroSubtitle = $hero['subtitle'] ?? 'Grow smarter, grow faster as we need Solutions at the right place and at Smarttrak we are empowering all your digital twin needs';
 
         // SEO

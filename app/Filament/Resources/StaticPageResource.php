@@ -428,8 +428,12 @@ class StaticPageResource extends Resource
             Section::make("Home hero {$locale}")
                 ->visible(fn (Get $get) => $get('slug') === 'home')
                 ->schema([
-                    TextInput::make("content_{$locale}.hero.title")
-                        ->label('Hero title')
+                    TextInput::make("content_{$locale}.hero.title_line_1")
+                        ->label('Hero title (line 1)')
+                        ->maxLength(255),
+
+                    TextInput::make("content_{$locale}.hero.title_line_2")
+                        ->label('Hero title (line 2)')
                         ->maxLength(255),
 
                     TextInput::make("content_{$locale}.hero.subtitle")
