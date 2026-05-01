@@ -174,7 +174,7 @@
 
         <div class="about-content">
             <div class="about-card">
-                <div class="about-kicker">{{ $aboutKicker }}</div>
+{{--                <div class="about-kicker">{{ $aboutKicker }}</div>--}}
                 <div class="about-title">{{ $aboutTitle }}</div>
                 <div class="about-lead">{{ $aboutLead }}</div>
 

@@ -47,6 +47,30 @@
 
 @section('content')
     <section class="contact-page">
+        <style>
+            /* Slightly bolder text, keep transparent design */
+            .contact-page .contact-field__label{
+                color: rgba(10,10,10,.92) !important;
+                font-weight: 700 !important;
+                font-size: 13px !important;
+                text-shadow: 0 1px 0 rgba(255,255,255,.55) !important;
+            }
+
+            .contact-page .contact-field__input,
+            .contact-page .contact-field__textarea{
+                color: rgba(5,5,5,.95) !important;
+                font-weight: 700 !important;
+                font-size: 14px !important;
+            }
+
+            .contact-page .contact-field__input::placeholder,
+            .contact-page .contact-field__textarea::placeholder{
+                color: rgba(20,20,20,.65) !important;
+                font-weight: 600 !important;
+            }
+
+            /* keep existing focus styles from CSS */
+        </style>
         @if($bgUrl)
             <img class="contact-page__bg" src="{{ $bgUrl }}" alt="" aria-hidden="true">
         @endif
