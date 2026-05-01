@@ -4,8 +4,23 @@
 
 @section('content')
     @php
-        $heroTitle = $staticPage?->getBlock('hero')['title'] ?? 'Art Gallery';
-        $heroSubtitle = $staticPage?->getBlock('hero')['subtitle'] ?? '';
+        $heroBlock = $staticPage?->getBlock('hero') ?? [];
+        $heroTitle = $heroBlock['title'] ?? 'Art Gallery';
+        $heroSubtitle = $heroBlock['subtitle'] ?? '';
+
+        $heroBg = $heroBlock['background_image'] ?? null;
+        $heroMain = $heroBlock['main_image'] ?? null;
+
+        if (is_array($heroBg)) $heroBg = $heroBg[0] ?? null;
+        if (is_array($heroMain)) $heroMain = $heroMain[0] ?? null;
+
+        $heroBgUrl = !empty($heroBg)
+            ? \Illuminate\Support\Facades\Storage::disk('public')->url($heroBg)
+            : asset('assets/images/gallery.hero.bg.png');
+
+        $heroMainUrl = !empty($heroMain)
+            ? \Illuminate\Support\Facades\Storage::disk('public')->url($heroMain)
+            : null;
     @endphp
 
     @section('meta_description', strip_tags((string) $heroSubtitle))
@@ -25,12 +40,10 @@
 
         <div class="gallery-hero-art">
             <div class="gallery-hero-art-bg">
-                @if($heroItem && !empty($heroItem->image))
-                    <img
-                        src="{{ asset('assets/images/gallery.hero.bg.png') }}"
-                        alt="{{ $heroItem->localized('title') }}"
-                    >
-                @endif
+                <img
+                    src="{{ $heroBgUrl }}"
+                    alt="{{ $heroTitle }}"
+                >
             </div>
 
             <svg class="gallery-hero-wave" viewBox="0 0 1440 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
@@ -62,20 +75,25 @@
                 />
             </svg>
 
-            @if($heroItem && !empty($heroItem->image))
+            @if($heroMainUrl || ($heroItem && !empty($heroItem->image)))
                 <article class="gallery-hero-featured">
-                    @if(!empty($heroItem->slug))
+                    @php
+                        $featuredImgUrl = $heroMainUrl ?: \Illuminate\Support\Facades\Storage::disk('public')->url($heroItem->image);
+                        $featuredAlt = $heroTitle ?: ($heroItem?->localized('title') ?? 'Gallery');
+                    @endphp
+
+                    @if($heroItem && !empty($heroItem->slug))
                         <a href="{{ route('gallery.show', $heroItem->slug) }}" class="gallery-hero-featured-link">
                             <img
-                                src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($heroItem->image) }}"
-                                alt="{{ $heroItem->localized('title') }}"
+                                src="{{ $featuredImgUrl }}"
+                                alt="{{ $featuredAlt }}"
                             >
                         </a>
                     @else
                         <div class="gallery-hero-featured-link">
                             <img
-                                src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($heroItem->image) }}"
-                                alt="{{ $heroItem->localized('title') }}"
+                                src="{{ $featuredImgUrl }}"
+                                alt="{{ $featuredAlt }}"
                             >
                         </div>
                     @endif
