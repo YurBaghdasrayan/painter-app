@@ -4,6 +4,13 @@
 
 @section('content')
     @php
+        $hasHtml = function ($html): bool {
+            $text = trim((string) strip_tags((string) $html));
+            // normalize non-breaking spaces
+            $text = trim(str_replace("\xc2\xa0", ' ', $text));
+            return $text !== '';
+        };
+
         $content = $staticPage->localizedContent() ?? [];
         $hero = $content['hero'] ?? [];
         $profile = $content['profile_section'] ?? [];
@@ -40,7 +47,9 @@
             ? \Illuminate\Support\Facades\Storage::disk('public')->url($videoThumb)
             : null;
 
-        $videoColumns = collect($videoSection['columns'] ?? [])->filter()->values();
+        $videoColumns = collect($videoSection['columns'] ?? [])
+            ->filter(fn ($col) => $hasHtml($col))
+            ->values();
 
         $youtubeId = null;
         if (is_string($youtubeUrl) && $youtubeUrl !== '') {
@@ -133,7 +142,7 @@
         $hasQuad = !empty($quadCenterImageUrl);
         if (!$hasQuad) {
             foreach ($quadBlocks as $b) {
-                if (trim((string) ($b['title'] ?? '')) !== '' || trim((string) ($b['text'] ?? '')) !== '') {
+                if (trim((string) ($b['title'] ?? '')) !== '' || $hasHtml($b['text'] ?? '')) {
                     $hasQuad = true;
                     break;
                 }
@@ -160,8 +169,8 @@
             !empty($finalImageUrl) ||
             trim((string) $finalLeftTitle) !== '' ||
             trim((string) $finalRightTitle) !== '' ||
-            trim((string) $finalLeftText) !== '' ||
-            trim((string) $finalRightText) !== '';
+            $hasHtml($finalLeftText) ||
+            $hasHtml($finalRightText);
     @endphp
 
     @section('meta_description', $heroSubtitle)
@@ -319,10 +328,10 @@
     @php
         $hasFeature =
             trim((string) $featureTitle) !== '' ||
-            trim((string) $featureTopLeft) !== '' ||
-            trim((string) $featureTopRight) !== '' ||
-            trim((string) $featureBottomLeft) !== '' ||
-            trim((string) $featureBottomRight) !== '' ||
+            $hasHtml($featureTopLeft) ||
+            $hasHtml($featureTopRight) ||
+            $hasHtml($featureBottomLeft) ||
+            $hasHtml($featureBottomRight) ||
             !empty($featureImageUrl);
     @endphp
 
@@ -372,8 +381,8 @@
             !empty($duoRightImageUrl) ||
             trim((string) $duoLeftTitle) !== '' ||
             trim((string) $duoRightTitle) !== '' ||
-            trim((string) $duoLeftText) !== '' ||
-            trim((string) $duoRightText) !== '';
+            $hasHtml($duoLeftText) ||
+            $hasHtml($duoRightText);
     @endphp
 
     @if($hasDuo)
