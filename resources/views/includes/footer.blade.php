@@ -1,6 +1,13 @@
 @php
     $footerTopText = $footerContent['top_text'] ?? '';
     $footerMenu = collect($footerContent['menu'] ?? []);
+
+    // Hide menu links to inactive static pages.
+    $activeStaticSlugs = \App\Models\StaticPage::query()
+        ->where('is_active', true)
+        ->pluck('slug')
+        ->all();
+    $activeStaticSlugSet = array_fill_keys($activeStaticSlugs, true);
 @endphp
 
 <footer class="site-footer" aria-label="Footer">
@@ -35,6 +42,26 @@
         <div class="site-footer__inner">
             <nav class="site-footer__nav" aria-label="Footer menu">
                 @foreach($footerMenu as $item)
+                    @php
+                        $url = (string) ($item['url'] ?? '');
+                        $shouldShow = true;
+
+                        if ($url !== '' && $url !== '#') {
+                            $isExternal = (bool) preg_match('/^https?:\\/\\//i', $url);
+                            if (!$isExternal) {
+                                $path = trim(parse_url($url, PHP_URL_PATH) ?? '', '/');
+                                $slug = $path !== '' ? $path : null;
+                                if ($slug && isset($activeStaticSlugSet[$slug]) === false) {
+                                    $exists = \App\Models\StaticPage::query()->where('slug', $slug)->exists();
+                                    if ($exists) $shouldShow = false;
+                                }
+                            }
+                        }
+                    @endphp
+
+                    @if(!$shouldShow)
+                        @continue
+                    @endif
                     <a href="{{ url($item['url'] ?? '#') }}" class="site-footer__nav-link">
                         {{ $item['label'] ?? '' }}
                     </a>

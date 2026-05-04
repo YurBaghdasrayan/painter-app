@@ -21,6 +21,20 @@
         $heroMainUrl = !empty($heroMain)
             ? \Illuminate\Support\Facades\Storage::disk('public')->url($heroMain)
             : null;
+
+        $locale = app()->getLocale();
+
+        $moreText = match ($locale) {
+            'hy' => 'Ավելին',
+            'ru' => 'Подробнее',
+            default => 'More',
+        };
+
+        $lessText = match ($locale) {
+            'hy' => 'Փակել',
+            'ru' => 'Скрыть',
+            default => 'Less',
+        };
     @endphp
 
     @section('meta_description', strip_tags((string) $heroSubtitle))
@@ -40,10 +54,7 @@
 
         <div class="gallery-hero-art">
             <div class="gallery-hero-art-bg">
-                <img
-                    src="{{ $heroBgUrl }}"
-                    alt="{{ $heroTitle }}"
-                >
+                <img src="{{ $heroBgUrl }}" alt="{{ $heroTitle }}">
             </div>
 
             <svg class="gallery-hero-wave" viewBox="0 0 1440 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
@@ -84,17 +95,11 @@
 
                     @if($heroItem && !empty($heroItem->slug))
                         <a href="{{ route('gallery.show', $heroItem->slug) }}" class="gallery-hero-featured-link">
-                            <img
-                                src="{{ $featuredImgUrl }}"
-                                alt="{{ $featuredAlt }}"
-                            >
+                            <img src="{{ $featuredImgUrl }}" alt="{{ $featuredAlt }}">
                         </a>
                     @else
                         <div class="gallery-hero-featured-link">
-                            <img
-                                src="{{ $featuredImgUrl }}"
-                                alt="{{ $featuredAlt }}"
-                            >
+                            <img src="{{ $featuredImgUrl }}" alt="{{ $featuredAlt }}">
                         </div>
                     @endif
                 </article>
@@ -115,23 +120,30 @@
 
                         @if($img && !empty($item->slug))
                             <article class="gallery-section-card" role="listitem">
-                                <a class="gallery-section-card-link" href="{{ route('gallery.show', $item->slug) }}" aria-label="{{ $title }}">
-                                    <div class="gallery-section-card-image">
-                                        <img src="{{ $img }}" alt="{{ $title }}" loading="lazy" />
-                                    </div>
+                                <a class="gallery-section-card-image" href="{{ route('gallery.show', $item->slug) }}" aria-label="{{ $title }}">
+                                    <img src="{{ $img }}" alt="{{ $title }}" loading="lazy" />
+                                </a>
 
-                                    <div class="gallery-section-card-meta">
-                                        <div class="gallery-section-card-title">
-                                            “{{ strtoupper((string) $title) }}”
+                                <div class="gallery-section-card-meta">
+                                    <a class="gallery-section-card-title" href="{{ route('gallery.show', $item->slug) }}">
+                                        “{{ strtoupper((string) $title) }}”
+                                    </a>
+
+                                    @if($desc !== '')
+                                        <div class="gallery-section-card-desc js-gallery-desc">
+                                            {{ $desc }}
                                         </div>
 
-                                        @if($desc !== '')
-                                            <div class="gallery-section-card-desc">
-                                                {{ $desc }}
-                                            </div>
-                                        @endif
-                                    </div>
-                                </a>
+                                        <button
+                                            type="button"
+                                            class="gallery-more-btn js-gallery-more"
+                                            data-more="{{ $moreText }}"
+                                            data-less="{{ $lessText }}"
+                                        >
+                                            {{ $moreText }}
+                                        </button>
+                                    @endif
+                                </div>
                             </article>
                         @endif
                     @endforeach
@@ -139,6 +151,30 @@
             </div>
         </section>
     @endif
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.js-gallery-more').forEach(function (button) {
+                const card = button.closest('.gallery-section-card');
+                const desc = card ? card.querySelector('.js-gallery-desc') : null;
+
+                if (!desc) return;
+
+                if (desc.scrollHeight <= desc.clientHeight + 5) {
+                    button.style.display = 'none';
+                }
+
+                button.addEventListener('click', function () {
+                    desc.classList.toggle('is-expanded');
+
+                    button.textContent = desc.classList.contains('is-expanded')
+                        ? button.dataset.less
+                        : button.dataset.more;
+                });
+            });
+        });
+    </script>
+
     <style>
         @media (max-width: 1024px) {
             .gallery-inner,
@@ -151,31 +187,86 @@
             }
 
             .gallery-section-grid {
-                display: grid !important;
-                grid-template-columns: 1fr !important;
-                gap: 56px !important;
+                display: flex !important;
+                flex-direction: column !important;
+                width: 100% !important;
+                gap: 34px !important;
             }
 
-            .gallery-section-card,
+            .gallery-section-card {
+                display: block !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+                float: none !important;
+                clear: both !important;
+            }
+
             .gallery-section-card-link,
-            .gallery-section-card-image {
+            .gallery-section-card-image,
+            .gallery-section-card-meta {
+                display: block !important;
                 width: 100% !important;
                 max-width: 100% !important;
                 box-sizing: border-box !important;
             }
 
+            .gallery-section-card-link {
+                text-decoration: none !important;
+            }
+
+            .gallery-section-card-image {
+                margin-bottom: 14px !important;
+            }
+
             .gallery-section-card-image img {
+                display: block !important;
                 width: 100% !important;
                 max-width: 100% !important;
                 height: auto !important;
-                display: block !important;
-                object-fit: cover !important;
+                object-fit: contain !important;
             }
 
-            .gallery-section-card-title,
-            .gallery-section-card-desc {
+            .gallery-section-card-title {
+                display: block !important;
+                width: 100% !important;
                 max-width: 100% !important;
+                margin: 0 0 8px 0 !important;
+                font-size: 20px !important;
+                line-height: 1.35 !important;
                 overflow-wrap: break-word !important;
+                word-break: normal !important;
+            }
+
+            .gallery-section-card-desc {
+                display: block !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                font-size: 14px !important;
+                line-height: 1.6 !important;
+                max-height: 90px !important;
+                overflow: hidden !important;
+                overflow-wrap: break-word !important;
+                word-break: normal !important;
+                transition: max-height .25s ease !important;
+            }
+
+            .gallery-section-card-desc.is-expanded {
+                max-height: 2000px !important;
+            }
+
+            .gallery-more-btn {
+                display: inline-block !important;
+                margin-top: 8px !important;
+                padding: 0 !important;
+                border: 0 !important;
+                background: transparent !important;
+                color: #b77b2b !important;
+                font-size: 14px !important;
+                font-weight: 600 !important;
+                line-height: 1.2 !important;
+                cursor: pointer !important;
+                font-family: inherit !important;
             }
         }
 
@@ -187,8 +278,23 @@
             }
 
             .gallery-section-grid {
-                grid-template-columns: 1fr !important;
-                gap: 44px !important;
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 30px !important;
+            }
+
+            .gallery-section-card {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+
+            .gallery-section-card-title {
+                font-size: 18px !important;
+            }
+
+            .gallery-section-card-desc {
+                font-size: 13.5px !important;
+                max-height: 84px !important;
             }
         }
 
@@ -200,8 +306,28 @@
             }
 
             .gallery-section-grid {
-                grid-template-columns: 1fr !important;
-                gap: 36px !important;
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 28px !important;
+            }
+
+            .gallery-section-card,
+            .gallery-section-card-link,
+            .gallery-section-card-image,
+            .gallery-section-card-meta {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+
+            .gallery-section-card-title {
+                font-size: 17px !important;
+                line-height: 1.3 !important;
+            }
+
+            .gallery-section-card-desc {
+                font-size: 13px !important;
+                line-height: 1.55 !important;
+                max-height: 80px !important;
             }
         }
 
@@ -213,10 +339,18 @@
             }
 
             .gallery-section-grid {
-                gap: 30px !important;
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 26px !important;
+            }
+
+            .gallery-section-card-title {
+                font-size: 16px !important;
+            }
+
+            .gallery-section-card-desc {
+                font-size: 12.5px !important;
+                max-height: 76px !important;
             }
         }
     </style>@endsection
-
-
-

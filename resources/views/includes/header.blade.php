@@ -7,6 +7,13 @@
     $headerContent = $headerPage?->localizedContent() ?? [];
     $headerMenu = collect($headerContent['menu'] ?? []);
 
+    // Hide menu links to inactive static pages (e.g. pictures-and-videos).
+    $activeStaticSlugs = \App\Models\StaticPage::query()
+        ->where('is_active', true)
+        ->pluck('slug')
+        ->all();
+    $activeStaticSlugSet = array_fill_keys($activeStaticSlugs, true);
+
     $availableLocales = [
         'en' => 'EN',
         'ru' => 'RU',
@@ -39,6 +46,28 @@
             <nav id="primaryNav" class="primary-nav" aria-label="Primary">
                 <ul class="nav-list">
                     @foreach($headerMenu as $item)
+                        @php
+                            $url = (string) ($item['url'] ?? '');
+                            $shouldShow = true;
+
+                            if ($url !== '' && $url !== '#') {
+                                $isExternal = (bool) preg_match('/^https?:\\/\\//i', $url);
+                                if (!$isExternal) {
+                                    $path = trim(parse_url($url, PHP_URL_PATH) ?? '', '/');
+                                    $slug = $path !== '' ? $path : null;
+                                    if ($slug && isset($activeStaticSlugSet[$slug]) === false) {
+                                        // If the URL points to a known static slug that is inactive, hide it.
+                                        // We only enforce this for slugs that exist in static_pages.
+                                        $exists = \App\Models\StaticPage::query()->where('slug', $slug)->exists();
+                                        if ($exists) $shouldShow = false;
+                                    }
+                                }
+                            }
+                        @endphp
+
+                        @if(!$shouldShow)
+                            @continue
+                        @endif
                         <li>
                             <a class="nav-link" href="{{ $item['url'] ?? '#' }}">
                                 {{ $item['label'] ?? '' }}
