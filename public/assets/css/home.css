@@ -467,6 +467,42 @@ a{color:inherit;text-decoration:none}
     letter-spacing:.02em;
 }
 
+/* Home hero videos (editable from static_pages.home.hero.videos) */
+.hero-videos{
+    margin: 0;
+    padding-top: 34px; /* keep spacing but avoid white gap (margin shows body bg) */
+    background: #f7f5ef;
+}
+
+.hero-videos__inner{
+    max-width: 1700px; /* match .gallery-inner width */
+    margin: 0 auto;
+    padding: 0 110px; /* match .gallery-inner padding */
+}
+
+.hero-videos__grid{
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+    align-items: start;
+}
+
+.hero-video{
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid rgba(20,20,20,.08);
+    background: #f7f5ef;
+}
+
+.hero-video video{
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    background: #000;
+}
+
 /* =========================
    ABOUT PAGE HERO (static_pages.about.hero)
    ========================= */
@@ -606,6 +642,10 @@ a{color:inherit;text-decoration:none}
     align-items: start;
 }
 
+.about-page-profile__media{
+    min-width: 0;
+}
+
 .about-page-profile__image{
     width: 100%;
     margin-top: -160px; /* overlaps hero like in figma */
@@ -624,10 +664,22 @@ a{color:inherit;text-decoration:none}
     aspect-ratio: auto;
 }
 
+.about-page-profile__line{
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-top: 24px;
+    /* keep the line within the same readable container width */
+    max-width: 1240px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .about-page-profile__card{
     padding: 26px 10px 18px;
     text-align: left;
-    margin-top: -6px;
+    /* Push text down to align with image (Figma-like) */
+    margin-top: 259px;
 }
 
 .about-page-profile__name{
@@ -682,16 +734,26 @@ a{color:inherit;text-decoration:none}
 @media (max-width:768px){
     .about-page-profile__image{
         margin-top: -110px;
-        height: 420px;
+        height: auto; /* show full image (no cropping) */
+    }
+
+    .about-page-profile__image img{
+        height: auto;
+        object-fit: contain; /* don't crop on mobile */
     }
 
     .about-page-profile__card{
         padding: 20px 16px 14px;
+        margin-top: 0;
     }
 
     .about-page-profile__grid{
         grid-template-columns: 1fr;
         gap: 22px;
+    }
+
+    .about-page-profile__line{
+        margin-top: 18px;
     }
 
     .about-page-profile__name{
@@ -1381,14 +1443,15 @@ a{color:inherit;text-decoration:none}
 /* About section */
 .about{
     position: relative;
-    height: 900px;
+    height: auto;
+    min-height: 1200px; /* desktop: closer to figma, but can grow with content */
     overflow: hidden;
     background: #f7f5ef;
     z-index: 1;
 }
 .line{
     position: absolute;
-    top: -7%;
+    /*top: -7%;*/
     transform: rotate(-1deg);
     left: -1%;
     z-index: 9;
@@ -1396,9 +1459,12 @@ a{color:inherit;text-decoration:none}
 }
 .about-bg{
     position: absolute;
-    inset: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 120px; /* ֆոնը իջեցնում ենք ներքև՝ տեքստի վերևի հատվածը մաքուր թողնելու համար */
     width: 100%;
-    height: 100%;
+    height: calc(100% - 120px);
     object-fit: cover;
     object-position: 62% top;
 }
@@ -1413,7 +1479,7 @@ a{color:inherit;text-decoration:none}
 .about-card{
     width:430px;
     margin-left:110px;
-    padding-top:265px;
+    padding-top:320px; /* push copy down (Figma-like) */
     color:#fff;
 }
 .about-kicker{
@@ -1736,9 +1802,21 @@ a{color:inherit;text-decoration:none}
 .gallery-section-card:nth-child(4) .gallery-section-card-image{ aspect-ratio: 1026 / 1217; }
 .gallery-section-card:nth-child(5) .gallery-section-card-image{ aspect-ratio: 724 / 623; }
 
+/* Home Gallery: lift the 5th card to reduce whitespace (masonry-like) */
+#gallery.gallery .gallery-section-card:nth-child(5){
+    margin-top: -96px;
+}
+
+@media (max-width: 1200px){
+    #gallery.gallery .gallery-section-card:nth-child(5){
+        margin-top: 0;
+    }
+}
+
 /* Home collection: 1 big card + 1 small card (Figma-like) */
 #collection.gallery .gallery-section-grid{
     grid-template-columns: 1.35fr 0.65fr;
+    column-gap: 44px; /* tighter gap only in this block */
     grid-auto-rows: auto;
     align-items:start;
 }
@@ -1893,12 +1971,13 @@ a{color:inherit;text-decoration:none}
     .hero-subtitle{max-width:560px}
 
     .about{height:820px}
-    .about-card{margin-left:70px; padding-top:130px; width:420px}
+    .about-card{margin-left:70px; padding-top:160px; width:420px}
     .about-title{font-size:60px}
     .about-lead{font-size:22px}
 
     .gallery{padding:78px 0 72px 0}
     .gallery-inner{padding:0 70px}
+    .hero-videos__inner{ padding: 0 70px; }
     .gallery-head{grid-template-columns: 220px 1fr; column-gap:48px}
     .gallery-title{font-size:40px}
     .gallery-toptexts{column-gap:56px}
@@ -1992,6 +2071,7 @@ a{color:inherit;text-decoration:none}
 
     .gallery{padding:56px 0 58px 0}
     .gallery-inner{padding:0 18px}
+    .hero-videos__inner{ padding: 0 18px; }
     .gallery-head{
         grid-template-columns: 1fr;
         row-gap:18px;
@@ -2469,11 +2549,17 @@ img, svg, video, iframe{
 @media (max-width: 1700px){
     .header-inner,
     .hero-inner,
-    .gallery-inner{
+    .gallery-inner,
+    .hero-videos__inner{
         max-width: 1440px;
     }
 
     .gallery-inner{
+        padding-left: 80px;
+        padding-right: 80px;
+    }
+
+    .hero-videos__inner{
         padding-left: 80px;
         padding-right: 80px;
     }
@@ -2502,6 +2588,11 @@ img, svg, video, iframe{
     }
 
     .gallery-inner{
+        padding-left: 72px;
+        padding-right: 72px;
+    }
+
+    .hero-videos__inner{
         padding-left: 72px;
         padding-right: 72px;
     }
@@ -2536,7 +2627,7 @@ img, svg, video, iframe{
     }
 
     .about-card{
-        padding-top: 210px;
+        padding-top: 250px;
         margin-left: 68px;
     }
 
@@ -2578,6 +2669,11 @@ img, svg, video, iframe{
     }
 
     .gallery-inner{
+        padding-left: 56px;
+        padding-right: 56px;
+    }
+
+    .hero-videos__inner{
         padding-left: 56px;
         padding-right: 56px;
     }
@@ -2704,9 +2800,10 @@ img, svg, video, iframe{
     }
 
     .about{
+        position: relative;
         height: auto;
         min-height: 720px;
-        padding: 90px 0 100px;
+        padding: 0 0 56px;
     }
 
     .line{
@@ -2716,20 +2813,33 @@ img, svg, video, iframe{
     }
 
     .about-bg{
-        object-position: center top;
+        /* On mobile/tablet: image on top, text below (no overlap). */
+        position: relative;
+        inset: auto;
+        display: block;
+        width: 100%;
+        height: 520px;
+        object-position: center;
+    }
+
+    /* Home About background image: show fully (no crop) */
+    img.about-bg:not(.about-bg--video){
+        object-fit: contain;
+        background: #f7f5ef;
     }
 
     .about-content{
+        position: relative;
         height: auto;
-        min-height: inherit;
-        display: flex;
-        align-items: center;
+        min-height: 0;
+        display: block;
     }
 
     .about-card{
-        width: min(430px, calc(100% - 44px));
-        margin-left: 22px;
+        width: auto;
+        margin: 0 14px;
         padding-top: 0;
+        color: #2a2a2a;
     }
 
     .about-title{
@@ -2759,6 +2869,11 @@ img, svg, video, iframe{
         padding-right: 26px;
     }
 
+    .hero-videos__inner{
+        padding-left: 26px;
+        padding-right: 26px;
+    }
+
     .gallery-title{
         font-size: 38px;
     }
@@ -2774,6 +2889,11 @@ img, svg, video, iframe{
         grid-template-columns: 1fr;
         gap: 36px;
         margin-top: 38px;
+    }
+
+    /* Home collection: slightly tighter vertical spacing between its images */
+    #collection.gallery .gallery-section-grid{
+        gap: 24px;
     }
 
     .gallery-section-card,
@@ -2858,6 +2978,15 @@ img, svg, video, iframe{
         max-width: 92%;
     }
 
+    .hero-videos{
+        padding-top: 22px;
+    }
+
+    .hero-videos__grid{
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
     .about{
         min-height: 680px;
         padding-top: 76px;
@@ -2912,6 +3041,12 @@ img, svg, video, iframe{
     #collection.gallery .gallery-section-grid{
         margin-top: 32px;
         gap: 30px;
+    }
+
+    /* Home collection: reduce whitespace between stacked images */
+    #collection.gallery .gallery-section-grid{
+        margin-top: 18px;
+        gap: 16px;
     }
 
     .gallery-section-card-title,

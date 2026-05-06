@@ -20,6 +20,7 @@
     @endphp
 
     <title>{{ $seoTitle }}</title>
+    <link rel="icon" type="image/svg+xml" href="/logo.svg">
     <meta name="description" content="{{ $seoDescription }}">
     <meta name="robots" content="{{ $seoRobots }}">
     <link rel="canonical" href="{{ $seoCanonical }}">

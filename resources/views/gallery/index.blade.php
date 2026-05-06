@@ -115,7 +115,7 @@
                         @php
                             $img = !empty($item->image) ? \Illuminate\Support\Facades\Storage::disk('public')->url($item->image) : null;
                             $title = $item->localized('title') ?? 'Gallery';
-                            $desc = trim((string) ($item->localized('full_description') ?? $item->localized('short_description') ?? ''));
+                            $desc = trim((string) ($item->localized('short_description') ?? ''));
                         @endphp
 
                         @if($img && !empty($item->slug))

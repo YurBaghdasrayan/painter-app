@@ -68,10 +68,9 @@ class ArticleResource extends Resource
                                                     ->default('')
                                                     ->maxLength(255),
 
-                                                Textarea::make('content_am.card.description')
+                                                RichEditor::make('content_am.card.description')
                                                     ->label('Description AM')
-                                                    ->default('')
-                                                    ->rows(4),
+                                                    ->default(''),
                                             ]),
 
                                         Tab::make('RU')
@@ -87,10 +86,9 @@ class ArticleResource extends Resource
                                                     ->default('')
                                                     ->maxLength(255),
 
-                                                Textarea::make('content_ru.card.description')
+                                                RichEditor::make('content_ru.card.description')
                                                     ->label('Description RU')
-                                                    ->default('')
-                                                    ->rows(4),
+                                                    ->default(''),
                                             ]),
 
                                         Tab::make('EN')
@@ -106,10 +104,9 @@ class ArticleResource extends Resource
                                                     ->default('')
                                                     ->maxLength(255),
 
-                                                Textarea::make('content_en.card.description')
+                                                RichEditor::make('content_en.card.description')
                                                     ->label('Description EN')
-                                                    ->default('')
-                                                    ->rows(4),
+                                                    ->default(''),
                                             ]),
                                     ]),
                             ]),

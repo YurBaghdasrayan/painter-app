@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\GallerySectionResource\Pages;
 use App\Models\GallerySection;
 use Filament\Forms;
+use Filament\Forms\Components\RichEditor;
 use Filament\Resources\Resource;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
@@ -36,13 +37,11 @@ class GallerySectionResource extends Resource
                                         Forms\Components\TextInput::make('title_am')
                                             ->label('Title (AM)')
                                             ->maxLength(255),
-                                        Forms\Components\Textarea::make('left_text_am')
+                                        RichEditor::make('left_text_am')
                                             ->label('Left text (AM)')
-                                            ->rows(4)
                                             ->columnSpanFull(),
-                                        Forms\Components\Textarea::make('right_text_am')
+                                        RichEditor::make('right_text_am')
                                             ->label('Right text (AM)')
-                                            ->rows(4)
                                             ->columnSpanFull(),
                                         Forms\Components\TextInput::make('more_button_text_am')
                                             ->label('More button text (AM)')
@@ -54,13 +53,11 @@ class GallerySectionResource extends Resource
                                         Forms\Components\TextInput::make('title_ru')
                                             ->label('Title (RU)')
                                             ->maxLength(255),
-                                        Forms\Components\Textarea::make('left_text_ru')
+                                        RichEditor::make('left_text_ru')
                                             ->label('Left text (RU)')
-                                            ->rows(4)
                                             ->columnSpanFull(),
-                                        Forms\Components\Textarea::make('right_text_ru')
+                                        RichEditor::make('right_text_ru')
                                             ->label('Right text (RU)')
-                                            ->rows(4)
                                             ->columnSpanFull(),
                                         Forms\Components\TextInput::make('more_button_text_ru')
                                             ->label('More button text (RU)')
@@ -72,13 +69,11 @@ class GallerySectionResource extends Resource
                                         Forms\Components\TextInput::make('title_en')
                                             ->label('Title (EN)')
                                             ->maxLength(255),
-                                        Forms\Components\Textarea::make('left_text_en')
+                                        RichEditor::make('left_text_en')
                                             ->label('Left text (EN)')
-                                            ->rows(4)
                                             ->columnSpanFull(),
-                                        Forms\Components\Textarea::make('right_text_en')
+                                        RichEditor::make('right_text_en')
                                             ->label('Right text (EN)')
-                                            ->rows(4)
                                             ->columnSpanFull(),
                                         Forms\Components\TextInput::make('more_button_text_en')
                                             ->label('More button text (EN)')

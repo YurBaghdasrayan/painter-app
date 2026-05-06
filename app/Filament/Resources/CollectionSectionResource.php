@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\CollectionSectionResource\Pages;
 use App\Models\CollectionSection;
 use Filament\Forms;
+use Filament\Forms\Components\RichEditor;
 use Filament\Resources\Resource;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
@@ -34,9 +35,8 @@ class CollectionSectionResource extends Resource
                                     Forms\Components\TextInput::make('title_am')
                                         ->label('Title (AM)')
                                         ->maxLength(255),
-                                    Forms\Components\Textarea::make('description_am')
+                                    RichEditor::make('description_am')
                                         ->label('Description (AM)')
-                                        ->rows(4)
                                         ->columnSpanFull(),
                                     Forms\Components\TextInput::make('more_button_text_am')
                                         ->label('More button text (AM)')
@@ -48,9 +48,8 @@ class CollectionSectionResource extends Resource
                                     Forms\Components\TextInput::make('title_ru')
                                         ->label('Title (RU)')
                                         ->maxLength(255),
-                                    Forms\Components\Textarea::make('description_ru')
+                                    RichEditor::make('description_ru')
                                         ->label('Description (RU)')
-                                        ->rows(4)
                                         ->columnSpanFull(),
                                     Forms\Components\TextInput::make('more_button_text_ru')
                                         ->label('More button text (RU)')
@@ -62,9 +61,8 @@ class CollectionSectionResource extends Resource
                                     Forms\Components\TextInput::make('title_en')
                                         ->label('Title (EN)')
                                         ->maxLength(255),
-                                    Forms\Components\Textarea::make('description_en')
+                                    RichEditor::make('description_en')
                                         ->label('Description (EN)')
-                                        ->rows(4)
                                         ->columnSpanFull(),
                                     Forms\Components\TextInput::make('more_button_text_en')
                                         ->label('More button text (EN)')

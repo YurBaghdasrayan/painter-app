@@ -260,8 +260,10 @@
 
                 <div class="about-page-profile__grid">
                     @if($profileImageUrl)
-                        <div class="about-page-profile__image">
-                            <img src="{{ $profileImageUrl }}" alt="{{ $profileName ?: 'Profile image' }}" loading="lazy">
+                        <div class="about-page-profile__media">
+                            <div class="about-page-profile__image">
+                                <img src="{{ $profileImageUrl }}" alt="{{ $profileName ?: 'Profile image' }}" loading="lazy">
+                            </div>
                         </div>
                     @endif
 
@@ -279,6 +281,8 @@
                         @endif
                     </div>
                 </div>
+
+                <img class="about-page-profile__line" src="{{ asset('assets/images/line.png') }}" alt="" aria-hidden="true">
 
                 @if(trim(strip_tags($bottomHtml)) !== '')
                     <div class="about-page-profile__bottom">

@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ExhibitionItemResource\Pages;
 use App\Models\ExhibitionItem;
 use Filament\Forms;
+use Filament\Forms\Components\RichEditor;
 use Filament\Resources\Resource;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
@@ -94,9 +95,8 @@ class ExhibitionItemResource extends Resource
                                     Forms\Components\TextInput::make('title_am')
                                         ->label('Title (AM)')
                                         ->maxLength(255),
-                                    Forms\Components\Textarea::make('description_am')
+                                    RichEditor::make('description_am')
                                         ->label('Description (AM)')
-                                        ->rows(6)
                                         ->columnSpanFull(),
                                 ]),
                             Tab::make('RU')
@@ -104,9 +104,8 @@ class ExhibitionItemResource extends Resource
                                     Forms\Components\TextInput::make('title_ru')
                                         ->label('Title (RU)')
                                         ->maxLength(255),
-                                    Forms\Components\Textarea::make('description_ru')
+                                    RichEditor::make('description_ru')
                                         ->label('Description (RU)')
-                                        ->rows(6)
                                         ->columnSpanFull(),
                                 ]),
                             Tab::make('EN')
@@ -114,9 +113,8 @@ class ExhibitionItemResource extends Resource
                                     Forms\Components\TextInput::make('title_en')
                                         ->label('Title (EN)')
                                         ->maxLength(255),
-                                    Forms\Components\Textarea::make('description_en')
+                                    RichEditor::make('description_en')
                                         ->label('Description (EN)')
-                                        ->rows(6)
                                         ->columnSpanFull(),
                                 ]),
                         ]),

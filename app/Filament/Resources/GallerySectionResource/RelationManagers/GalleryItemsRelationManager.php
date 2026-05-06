@@ -4,6 +4,7 @@ namespace App\Filament\Resources\GallerySectionResource\RelationManagers;
 
 use Filament\Actions;
 use Filament\Forms;
+use Filament\Forms\Components\RichEditor;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Components\Tabs\Tab;
@@ -38,9 +39,8 @@ class GalleryItemsRelationManager extends RelationManager
                             Forms\Components\TextInput::make('title_am')
                                 ->label('Title (AM)')
                                 ->maxLength(255),
-                            Forms\Components\Textarea::make('description_am')
+                            RichEditor::make('description_am')
                                 ->label('Description (AM)')
-                                ->rows(3)
                                 ->columnSpanFull(),
                         ]),
                     Tab::make('RU')
@@ -48,9 +48,8 @@ class GalleryItemsRelationManager extends RelationManager
                             Forms\Components\TextInput::make('title_ru')
                                 ->label('Title (RU)')
                                 ->maxLength(255),
-                            Forms\Components\Textarea::make('description_ru')
+                            RichEditor::make('description_ru')
                                 ->label('Description (RU)')
-                                ->rows(3)
                                 ->columnSpanFull(),
                         ]),
                     Tab::make('EN')
@@ -58,9 +57,8 @@ class GalleryItemsRelationManager extends RelationManager
                             Forms\Components\TextInput::make('title_en')
                                 ->label('Title (EN)')
                                 ->maxLength(255),
-                            Forms\Components\Textarea::make('description_en')
+                            RichEditor::make('description_en')
                                 ->label('Description (EN)')
-                                ->rows(3)
                                 ->columnSpanFull(),
                         ]),
                 ]),

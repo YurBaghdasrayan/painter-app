@@ -402,7 +402,16 @@
     position: relative;
     height: 430px;
     background: var(--gallery-bg);
-    overflow: hidden;
+    overflow: hidden; /* keep hero clean: don't let artwork overlap */
+}
+
+/* Keep consistent distance between hero and artwork (Figma-like) */
+.artwork-show-hero + .artwork,
+.collection-hero-fixed + .artwork{
+    position: relative;
+    z-index: 4;
+    margin-top: -70px;
+    padding-top: 0;
 }
 
 .artwork-show-hero__bg{
@@ -446,6 +455,10 @@
     .artwork-show-hero__visual{
         height: 360px;
     }
+    .artwork-show-hero + .artwork,
+    .collection-hero-fixed + .artwork{
+        margin-top: -54px;
+    }
 }
 
 @media (max-width:768px){
@@ -468,6 +481,10 @@
     .artwork-show-hero__stroke{
         top: 58px;
         height: 80px;
+    }
+    .artwork-show-hero + .artwork,
+    .collection-hero-fixed + .artwork{
+        margin-top: -40px;
     }
 }
 
@@ -1043,6 +1060,27 @@
     gap: 18px;
 }
 
+/* 3 text columns below main image (gallery.show) */
+.artwork-show-columns{
+    margin-top: 22px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    border-left: 1px solid rgba(200,139,42,.35);
+}
+
+.artwork-show-column{
+    padding: 0 18px;
+    font-size: 12px;
+    line-height: 1.8;
+    font-weight: 300;
+    color: var(--gallery-text);
+}
+
+.artwork-show-column + .artwork-show-column{
+    border-left: 1px solid rgba(200,139,42,.35);
+}
+
 .artwork-thumb{
     overflow: hidden;
     border: 1px solid rgba(20,20,20,.08);
@@ -1205,15 +1243,28 @@
 
 @media (max-width:1200px){
     .artwork-inner{ padding: 0 70px; }
-    .artwork-hero{ grid-template-columns: 1fr; }
-    .artwork-hero-left,
-    .artwork-hero-right{ grid-column: auto; }
     .related-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .artwork-body-text{ column-count: 2; }
 
     .related-head,
     .related-grid{
         padding: 0 70px;
+    }
+
+    .artwork-show-columns{
+        grid-template-columns: 1fr;
+        border-left: 0;
+    }
+
+    .artwork-show-column{
+        padding: 0;
+    }
+
+    .artwork-show-column + .artwork-show-column{
+        border-left: 0;
+        border-top: 1px solid rgba(200,139,42,.25);
+        margin-top: 14px;
+        padding-top: 14px;
     }
 }
 
@@ -1231,5 +1282,20 @@
     .related-head,
     .related-grid{
         padding: 0 18px;
+    }
+}
+
+/* Stack artwork hero only on very small screens */
+@media (max-width:480px){
+    .artwork-hero{
+        grid-template-columns: 1fr;
+    }
+    .artwork-hero-right{
+        grid-column: 1;
+        grid-row: 1;
+    }
+    .artwork-hero-left{
+        grid-column: 1;
+        grid-row: 2;
     }
 }

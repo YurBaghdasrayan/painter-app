@@ -38,10 +38,33 @@ class GalleryController extends Controller
             ->where('slug', $slug)
             ->firstOrFail();
 
-        $relatedItems = GalleryItem::query()
+        $locale = app()->getLocale();
+        if ($locale === 'hy') $locale = 'am';
+        if (!in_array($locale, ['am', 'ru', 'en'], true)) $locale = 'en';
+
+        $groupValue = trim((string) ($item->getAttribute("same_line_title_{$locale}") ?? ''));
+        if ($groupValue === '') {
+            $groupValue = trim((string) ($item->getAttribute('same_line_title') ?? ''));
+        }
+
+        $relatedQuery = GalleryItem::query()
             ->where('is_active', true)
             ->where('id', '!=', $item->id)
-            ->orderBy('sort_order')
+            ->whereNotNull('image');
+
+        if ($groupValue !== '') {
+            $col = "same_line_title_{$locale}";
+            // Put same-line items first; if fewer than 4, remaining are filled by others.
+            $relatedQuery
+                ->orderByRaw("CASE WHEN {$col} = ? THEN 0 ELSE 1 END ASC", [$groupValue])
+                ->orderBy('sort_order')
+                ->orderByDesc('id');
+        } else {
+            // No grouping value: just show random other items.
+            $relatedQuery->inRandomOrder();
+        }
+
+        $relatedItems = $relatedQuery
             ->limit(4)
             ->get();
 

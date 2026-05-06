@@ -3,6 +3,36 @@
 @section('title', 'Home')
 
 @section('content')
+    @push('styles')
+        <style>
+            /* Home About section: enforce figma-like spacing (override cached CSS) */
+            #about.about{
+                height: auto !important;
+                min-height: 1200px !important;
+            }
+            #about.about .about-card{
+                padding-top: 450px !important;
+            }
+            @media (max-width: 1366px){
+                #about.about .about-card{
+                    padding-top: 400px !important;
+                }
+            }
+            @media (max-width: 1200px){
+                #about.about .about-card{
+                    padding-top: 160px !important;
+                }
+            }
+            @media (max-width: 992px){
+                #about.about{
+                    min-height: 720px !important;
+                }
+                #about.about .about-card{
+                    padding-top: 0 !important;
+                }
+            }
+        </style>
+    @endpush
     @php
         $homePage = \App\Models\StaticPage::query()
             ->where('slug', 'home')
@@ -13,6 +43,7 @@
         $hero = $homeContent['hero'] ?? [];
         $heroTitle1 = $hero['title_line_1'] ?? ($hero['title'] ?? null);
         $heroTitle2 = $hero['title_line_2'] ?? null;
+        $heroVideosRaw = $hero['videos'] ?? [];
 
         if (is_string($heroTitle1) && str_contains($heroTitle1, "\n") && empty($heroTitle2)) {
             $parts = preg_split("/\\R/u", $heroTitle1, 2);
@@ -29,6 +60,18 @@
             $homeHeroTitle = "Your digital twin\nsolution with AI model";
         }
         $homeHeroSubtitle = $hero['subtitle'] ?? 'Grow smarter, grow faster as we need Solutions at the right place and at Smarttrak we are empowering all your digital twin needs';
+
+        $heroVideos = collect(is_array($heroVideosRaw) ? $heroVideosRaw : [])
+            ->map(function ($v) {
+                if (is_array($v)) {
+                    return $v[0] ?? null;
+                }
+                return $v;
+            })
+            ->map(fn ($v) => is_string($v) ? trim($v) : '')
+            ->filter(fn ($v) => $v !== '')
+            ->values()
+            ->map(fn (string $path) => \Illuminate\Support\Facades\Storage::disk('public')->url($path));
 
         // SEO
         $__metaDescription = $homeHeroSubtitle;
@@ -159,6 +202,7 @@
             <p class="hero-subtitle">
                 {{ $homeHeroSubtitle }}
             </p>
+
         </div>
     </section>
 
@@ -191,7 +235,23 @@
                 <a class="about-btn" href="{{ $aboutButtonLink }}">{{ $aboutButtonText }}</a>
             </div>
         </div>
+
     </section>
+    @if($heroVideos->count())
+        <div class="hero-videos" aria-label="Hero videos">
+            <div class="hero-videos__inner">
+                <div class="hero-videos__grid">
+                    @foreach($heroVideos->take(3) as $videoUrl)
+                        <div class="hero-video">
+                            <video controls playsinline preload="metadata">
+                                <source src="{{ $videoUrl }}">
+                            </video>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    @endif
 
     @if(($galleryItems ?? collect())->count())
         <section id="gallery" class="gallery" aria-label="Gallery">
@@ -216,7 +276,8 @@
                         @php
                             $img = !empty($item->image) ? \Illuminate\Support\Facades\Storage::disk('public')->url($item->image) : null;
                             $title = $item->localized('title') ?? 'Gallery';
-                            $desc = trim((string) ($item->localized('full_description') ?? $item->localized('short_description') ?? ''));
+                                $size = trim((string) ($item->localized('size') ?? ''));
+                                $material = trim((string) ($item->localized('material') ?? ''));
                         @endphp
 
                         @if($img && $item->slug)
@@ -229,9 +290,11 @@
                                         <div class="gallery-section-card-title">
                                             “{{ strtoupper((string) $title) }}”
                                         </div>
-                                        @if($desc !== '')
-                                            <div class="gallery-section-card-desc">{{ $desc }}</div>
-                                        @endif
+                                            @if($size !== '' || $material !== '')
+                                                <div class="gallery-section-card-desc">
+                                                    {{ trim(implode(' • ', array_values(array_filter([$size, $material])))) }}
+                                                </div>
+                                            @endif
                                     </div>
                                 </a>
                             </article>
@@ -314,52 +377,52 @@
         </section>
     @endif
 
-    @if($exhibitionsTitle || (($exhibitions ?? collect())->count()))
-        <section id="exhibitions" class="home-exhibitions" aria-label="Exhibitions">
-            <div class="home-exhibitions__inner">
-                <header class="home-exhibitions__head">
-                    <h2 class="home-exhibitions__title">{{ $exhibitionsTitle }}</h2>
-                </header>
+{{--    @if($exhibitionsTitle || (($exhibitions ?? collect())->count()))--}}
+{{--        <section id="exhibitions" class="home-exhibitions" aria-label="Exhibitions">--}}
+{{--            <div class="home-exhibitions__inner">--}}
+{{--                <header class="home-exhibitions__head">--}}
+{{--                    <h2 class="home-exhibitions__title">{{ $exhibitionsTitle }}</h2>--}}
+{{--                </header>--}}
 
-                @if(($exhibitions ?? collect())->count())
-                    <div class="home-exhibitions__cards" role="list">
-                        @foreach(($exhibitions ?? collect()) as $ex)
-                            @php
-                                $img = !empty($ex->image) ? \Illuminate\Support\Facades\Storage::disk('public')->url($ex->image) : null;
-                                $title = $ex->localized('title') ?? 'Exhibition';
-                                $desc = trim((string) ($ex->localized('description') ?? ''));
-                            @endphp
+{{--                @if(($exhibitions ?? collect())->count())--}}
+{{--                    <div class="home-exhibitions__cards" role="list">--}}
+{{--                        @foreach(($exhibitions ?? collect()) as $ex)--}}
+{{--                            @php--}}
+{{--                                $img = !empty($ex->image) ? \Illuminate\Support\Facades\Storage::disk('public')->url($ex->image) : null;--}}
+{{--                                $title = $ex->localized('title') ?? 'Exhibition';--}}
+{{--                                $desc = trim((string) ($ex->localized('description') ?? ''));--}}
+{{--                            @endphp--}}
 
-                            <article class="home-exhibitions-card" role="listitem">
-                                <a class="home-exhibitions-card__link" href="{{ route('exhibitions.show', $ex) }}" aria-label="{{ $title }}">
-                                    <div class="home-exhibitions-card__media">
-                                        @if($img)
-                                            <img src="{{ $img }}" alt="{{ $title }}" loading="lazy" />
-                                        @endif
-                                    </div>
+{{--                            <article class="home-exhibitions-card" role="listitem">--}}
+{{--                                <a class="home-exhibitions-card__link" href="{{ route('exhibitions.show', $ex) }}" aria-label="{{ $title }}">--}}
+{{--                                    <div class="home-exhibitions-card__media">--}}
+{{--                                        @if($img)--}}
+{{--                                            <img src="{{ $img }}" alt="{{ $title }}" loading="lazy" />--}}
+{{--                                        @endif--}}
+{{--                                    </div>--}}
 
-                                    <div class="home-exhibitions-card__meta">
-                                        <div class="home-exhibitions-card__title">
-                                            “{{ strtoupper((string) $title) }}”
-                                        </div>
-                                        @if($desc !== '')
-                                            <div class="home-exhibitions-card__desc">{{ $desc }}</div>
-                                        @endif
-                                    </div>
-                                </a>
-                            </article>
-                        @endforeach
-                    </div>
-                @endif
+{{--                                    <div class="home-exhibitions-card__meta">--}}
+{{--                                        <div class="home-exhibitions-card__title">--}}
+{{--                                            “{{ strtoupper((string) $title) }}”--}}
+{{--                                        </div>--}}
+{{--                                        @if($desc !== '')--}}
+{{--                                            <div class="home-exhibitions-card__desc">{{ $desc }}</div>--}}
+{{--                                        @endif--}}
+{{--                                    </div>--}}
+{{--                                </a>--}}
+{{--                            </article>--}}
+{{--                        @endforeach--}}
+{{--                    </div>--}}
+{{--                @endif--}}
 
-                <div class="home-exhibitions__footer">
-                    <a class="home-exhibitions__btn" href="{{ $exhibitionsButtonLink }}">
-                        {{ $exhibitionsButtonText }}
-                    </a>
-                </div>
-            </div>
-        </section>
-    @endif
+{{--                <div class="home-exhibitions__footer">--}}
+{{--                    <a class="home-exhibitions__btn" href="{{ $exhibitionsButtonLink }}">--}}
+{{--                        {{ $exhibitionsButtonText }}--}}
+{{--                    </a>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </section>--}}
+{{--    @endif--}}
 
 {{--    <section class="home-contact" aria-label="Contact form">--}}
 {{--        <div class="home-contact__hero-wrap" aria-label="Contact header">--}}

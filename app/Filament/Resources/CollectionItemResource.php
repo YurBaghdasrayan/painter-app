@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\CollectionItemResource\Pages;
 use App\Models\CollectionItem;
 use Filament\Forms;
+use Filament\Forms\Components\RichEditor;
 use Filament\Resources\Resource;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
@@ -67,13 +68,11 @@ class CollectionItemResource extends Resource
                                                 $set('slug', Str::slug($state));
                                             }
                                         }),
-                                    Forms\Components\Textarea::make('short_description_am')
+                                    RichEditor::make('short_description_am')
                                         ->label('Short description (AM)')
-                                        ->rows(3)
                                         ->columnSpanFull(),
-                                    Forms\Components\Textarea::make('full_description_am')
+                                    RichEditor::make('full_description_am')
                                         ->label('Full description (AM)')
-                                        ->rows(8)
                                         ->columnSpanFull(),
                                     Forms\Components\TextInput::make('same_line_title_am')
                                         ->label('Same line title (AM)')
@@ -90,13 +89,11 @@ class CollectionItemResource extends Resource
                                                 $set('slug', Str::slug($state));
                                             }
                                         }),
-                                    Forms\Components\Textarea::make('short_description_ru')
+                                    RichEditor::make('short_description_ru')
                                         ->label('Short description (RU)')
-                                        ->rows(3)
                                         ->columnSpanFull(),
-                                    Forms\Components\Textarea::make('full_description_ru')
+                                    RichEditor::make('full_description_ru')
                                         ->label('Full description (RU)')
-                                        ->rows(8)
                                         ->columnSpanFull(),
                                     Forms\Components\TextInput::make('same_line_title_ru')
                                         ->label('Same line title (RU)')
@@ -114,13 +111,11 @@ class CollectionItemResource extends Resource
                                                 $set('slug', Str::slug($state));
                                             }
                                         }),
-                                    Forms\Components\Textarea::make('short_description_en')
+                                    RichEditor::make('short_description_en')
                                         ->label('Short description (EN)')
-                                        ->rows(3)
                                         ->columnSpanFull(),
-                                    Forms\Components\Textarea::make('full_description_en')
+                                    RichEditor::make('full_description_en')
                                         ->label('Full description (EN)')
-                                        ->rows(8)
                                         ->columnSpanFull(),
                                     Forms\Components\TextInput::make('same_line_title_en')
                                         ->label('Same line title (EN)')

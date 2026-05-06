@@ -439,6 +439,33 @@ class StaticPageResource extends Resource
                     TextInput::make("content_{$locale}.hero.subtitle")
                         ->label('Hero subtitle')
                         ->maxLength(1000),
+
+                    FileUpload::make("content_{$locale}.hero.videos.0")
+                        ->label('Hero video 1')
+                        ->disk('public')
+                        ->directory('static/home/hero-videos')
+                        ->visibility('public')
+                        ->acceptedFileTypes(['video/mp4', 'video/webm', 'video/quicktime'])
+                        ->openable()
+                        ->downloadable(),
+
+                    FileUpload::make("content_{$locale}.hero.videos.1")
+                        ->label('Hero video 2')
+                        ->disk('public')
+                        ->directory('static/home/hero-videos')
+                        ->visibility('public')
+                        ->acceptedFileTypes(['video/mp4', 'video/webm', 'video/quicktime'])
+                        ->openable()
+                        ->downloadable(),
+
+                    FileUpload::make("content_{$locale}.hero.videos.2")
+                        ->label('Hero video 3')
+                        ->disk('public')
+                        ->directory('static/home/hero-videos')
+                        ->visibility('public')
+                        ->acceptedFileTypes(['video/mp4', 'video/webm', 'video/quicktime'])
+                        ->openable()
+                        ->downloadable(),
                 ]),
 
             Section::make("Home about {$locale}")
