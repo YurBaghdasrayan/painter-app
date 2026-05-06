@@ -36,7 +36,8 @@
             ? \Illuminate\Support\Facades\Storage::disk('public')->url($profileImage)
             : null;
         $profileName = $profile['name'] ?? '';
-        $profileText = $profile['text'] ?? '';
+        $profileTextSide = $profile['text'] ?? '';
+        $profileTextBottom = $profile['bottom_text'] ?? '';
 
         $youtubeUrl = $videoSection['youtube_url'] ?? '';
         $videoThumb = $videoSection['thumbnail_image'] ?? null;
@@ -222,40 +223,42 @@
         </div>
     </section>
 
-    @if($profileImageUrl || $profileName || $profileText)
+    @if($profileImageUrl || $profileName || $profileTextSide || $profileTextBottom)
         <section class="about-page-profile" aria-label="About profile">
             <div class="about-page-profile__inner">
                 @php
-                    $profileHtml = (string) $profileText;
-                    // top = first <p>, bottom = rest (like Figma)
-                    $topHtml = $profileHtml;
-                    $bottomHtml = '';
+                    $topHtml = (string) $profileTextSide;
+                    $bottomHtml = (string) $profileTextBottom;
 
-                    preg_match_all('/<p\\b[^>]*>.*?<\\/p>/is', $profileHtml, $m);
-                    $paragraphs = $m[0] ?? [];
+                    // Back-compat: if bottom field is empty, split legacy HTML from side text.
+                    if (trim((string) strip_tags($bottomHtml)) === '' && trim((string) strip_tags($topHtml)) !== '') {
+                        $profileHtml = (string) $topHtml;
+                        $topHtml = $profileHtml;
+                        $bottomHtml = '';
 
-                    if (count($paragraphs) >= 2) {
-                        $topParas = array_slice($paragraphs, 0, 1);
-                        $topHtml = implode('', $topParas);
+                        preg_match_all('/<p\\b[^>]*>.*?<\\/p>/is', $profileHtml, $m);
+                        $paragraphs = $m[0] ?? [];
 
-                        $rest = $profileHtml;
-                        foreach ($topParas as $p) {
-                            $rest = \Illuminate\Support\Str::replaceFirst($p, '', $rest);
+                        if (count($paragraphs) >= 2) {
+                            $topParas = array_slice($paragraphs, 0, 1);
+                            $topHtml = implode('', $topParas);
+
+                            $rest = $profileHtml;
+                            foreach ($topParas as $p) {
+                                $rest = \Illuminate\Support\Str::replaceFirst($p, '', $rest);
+                            }
+                            $bottomHtml = trim($rest);
                         }
-                        $bottomHtml = trim($rest);
-                    }
 
-                    // Force top block to be exactly one <p> (Figma-like).
-                    // Some editors may inject nested <p> or multiple paragraphs.
-                    $topInner = trim((string) $topHtml);
-                    // Drop outer <p> wrapper if present
-                    $topInner = preg_replace('/^<p\\b[^>]*>/i', '', $topInner);
-                    $topInner = preg_replace('/<\\/p>$/i', '', $topInner);
-                    // Collapse any remaining paragraphs / line breaks into a single flow
-                    $topInner = preg_replace('/<\\/?p\\b[^>]*>/i', ' ', $topInner);
-                    $topInner = preg_replace('/<br\\s*\\/?>/i', ' ', $topInner);
-                    $topInner = trim(preg_replace('/\\s+/u', ' ', $topInner) ?? $topInner);
-                    $topHtml = $topInner !== '' ? ('<p>' . $topInner . '</p>') : '';
+                        // Force top block to be exactly one <p> (Figma-like).
+                        $topInner = trim((string) $topHtml);
+                        $topInner = preg_replace('/^<p\\b[^>]*>/i', '', $topInner);
+                        $topInner = preg_replace('/<\\/p>$/i', '', $topInner);
+                        $topInner = preg_replace('/<\\/?p\\b[^>]*>/i', ' ', $topInner);
+                        $topInner = preg_replace('/<br\\s*\\/?>/i', ' ', $topInner);
+                        $topInner = trim(preg_replace('/\\s+/u', ' ', $topInner) ?? $topInner);
+                        $topHtml = $topInner !== '' ? ('<p>' . $topInner . '</p>') : '';
+                    }
                 @endphp
 
                 <div class="about-page-profile__grid">

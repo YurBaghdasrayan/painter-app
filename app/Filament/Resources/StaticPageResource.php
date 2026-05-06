@@ -728,7 +728,10 @@ class StaticPageResource extends Resource
                         ->maxLength(255),
 
                     RichEditor::make("content_{$locale}.profile_section.text")
-                        ->label('Bio text'),
+                        ->label('Bio text (near image)'),
+
+                    RichEditor::make("content_{$locale}.profile_section.bottom_text")
+                        ->label('Bottom text (below line)'),
                 ]),
 
             Section::make("About video {$locale}")
