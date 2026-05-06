@@ -1786,15 +1786,16 @@ a{color:inherit;text-decoration:none}
 .gallery-section-card-image{
     width:100%;
     overflow:hidden;
-    border:1px solid rgba(20,20,20,.08);
-    background:rgba(255,255,255,.35);
+    border:0;
+    background:transparent;
+    aspect-ratio: auto !important; /* never force crop/ratio */
 }
 
 .gallery-section-card-image img{
     width:100%;
-    height:100%;
+    height:auto !important; /* show full image */
     display:block;
-    object-fit:cover;
+    object-fit:contain; /* show full image (no crop) */
     object-position:center;
 }
 
@@ -1806,7 +1807,7 @@ a{color:inherit;text-decoration:none}
 
 /* Home Gallery: lift the 5th card to reduce whitespace (masonry-like) */
 #gallery.gallery .gallery-section-card:nth-child(5){
-    margin-top: -96px;
+    /*margin-top: -96px;*/
 }
 
 @media (max-width: 1200px){
@@ -1896,15 +1897,16 @@ a{color:inherit;text-decoration:none}
 .gallery-image{
     width:100%;
     overflow:hidden;
-    border:1px solid rgba(20,20,20,.08);
-    background:rgba(255,255,255,.35);
+    border:0;
+    background:transparent;
+    aspect-ratio: auto !important; /* never force crop/ratio */
 }
 
 .gallery-image img{
     width:100%;
-    height:100%;
+    height:auto !important; /* show full image */
     display:block;
-    object-fit:cover;
+    object-fit:contain; /* show full image (no crop) */
     object-position:center;
 }
 

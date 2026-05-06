@@ -193,15 +193,16 @@
 .gallery-page-image{
     width: 100%;
     overflow: hidden;
-    border: 1px solid rgba(20,20,20,.08);
-    background: rgba(255,255,255,.35);
+    border: 0;
+    background: transparent;
+    aspect-ratio: auto !important; /* never force crop/ratio */
 }
 
 .gallery-page-image img{
     width: 100%;
-    height: 100%;
+    height: auto !important; /* show full image */
     display: block;
-    object-fit: cover;
+    object-fit: contain !important; /* show full image */
     object-position: center;
 }
 
@@ -210,6 +211,11 @@
 .gallery-page-card:nth-child(3) .gallery-page-image{ aspect-ratio: 723 / 903; }
 .gallery-page-card:nth-child(4) .gallery-page-image{ aspect-ratio: 1026 / 1217; }
 .gallery-page-card:nth-child(5) .gallery-page-image{ aspect-ratio: 724 / 623; }
+
+/* Show full images on all screen sizes */
+.gallery-page-image{
+    aspect-ratio: auto !important;
+}
 
 .gallery-page-meta{
     margin-top: 12px;
@@ -570,7 +576,7 @@
     }
 
     .gallery-page-image{
-        aspect-ratio: 4 / 3 !important;
+        aspect-ratio: auto !important; /* show full image (no forced crop) */
     }
 }
 
@@ -913,15 +919,16 @@
 .gallery-masonry-image{
     width: 100%;
     overflow: hidden;
-    border: 1px solid rgba(20,20,20,.08);
-    background: rgba(255,255,255,.35);
+    border: 0;
+    background: transparent;
+    aspect-ratio: auto !important; /* never force crop/ratio */
 }
 
 .gallery-masonry-image img{
     width: 100%;
-    height: 100%;
+    height: auto !important; /* show full image */
     display: block;
-    object-fit: cover;
+    object-fit: contain !important; /* show full image */
     object-position: center;
 }
 
@@ -930,6 +937,11 @@
 .gallery-masonry-card:nth-child(3) .gallery-masonry-image{ aspect-ratio: 723 / 903; }
 .gallery-masonry-card:nth-child(4) .gallery-masonry-image{ aspect-ratio: 1026 / 1217; }
 .gallery-masonry-card:nth-child(5) .gallery-masonry-image{ aspect-ratio: 724 / 623; }
+
+/* Show full images on all screen sizes */
+.gallery-masonry-image{
+    aspect-ratio: auto !important;
+}
 
 .gallery-masonry-meta{
     margin-top: 12px;
@@ -971,7 +983,7 @@
     }
 
     .gallery-masonry-image{
-        aspect-ratio: 4 / 3 !important;
+        aspect-ratio: auto !important; /* show full image (no forced crop) */
     }
 }
 
@@ -1214,16 +1226,16 @@
 
 .related-image{
     overflow: hidden;
-    border: 1px solid rgba(20,20,20,.08);
-    background: rgba(255,255,255,.35);
-    aspect-ratio: 1 / 1;
+    border: 0;
+    background: transparent;
+    aspect-ratio: auto;
 }
 
 .related-image img{
     width: 100%;
-    height: 100%;
+    height: auto;
     display: block;
-    object-fit: cover;
+    object-fit: contain; /* show full image (no crop) */
     object-position: center;
 }
 
