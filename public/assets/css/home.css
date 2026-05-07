@@ -1768,6 +1768,26 @@ a{color:inherit;text-decoration:none}
     align-items:start;
 }
 
+/* Home page gallery only: masonry to avoid big vertical gaps */
+#gallery.gallery .gallery-section-grid{
+    display:block;
+    column-count:2;
+    column-gap:60px;
+}
+
+#gallery.gallery .gallery-section-card{
+    display:inline-block;
+    width:100%;
+    break-inside:avoid;
+    margin:0 0 64px 0;
+}
+
+/* Disable grid-column alternating when using masonry columns */
+#gallery.gallery .gallery-section-card:nth-child(odd),
+#gallery.gallery .gallery-section-card:nth-child(even){
+    grid-column:auto;
+}
+
 .gallery-section-card{
     display:block;
     width:100%;
@@ -1809,17 +1829,6 @@ a{color:inherit;text-decoration:none}
 .gallery-section-card:nth-child(3) .gallery-section-card-image{ aspect-ratio: 723 / 903; }
 .gallery-section-card:nth-child(4) .gallery-section-card-image{ aspect-ratio: 1026 / 1217; }
 .gallery-section-card:nth-child(5) .gallery-section-card-image{ aspect-ratio: 724 / 623; }
-
-/* Home Gallery: lift the 5th card to reduce whitespace (masonry-like) */
-#gallery.gallery .gallery-section-card:nth-child(5){
-    margin-top: -155px;
-}
-
-@media (max-width: 1200px){
-    #gallery.gallery .gallery-section-card:nth-child(5){
-        margin-top: 0;
-    }
-}
 
 /* Home collection: 1 big card + 1 small card (Figma-like) */
 #collection.gallery .gallery-section-grid{
@@ -2019,6 +2028,16 @@ a{color:inherit;text-decoration:none}
         aspect-ratio: 4 / 3 !important;
     }
     .gallery-image img{height:100%}
+
+    /* keep masonry in a single column on smaller screens */
+    #gallery.gallery .gallery-section-grid{
+        column-count:1;
+        column-gap:0;
+    }
+    #gallery.gallery .gallery-section-card{
+        display:block;
+        margin:0 0 46px 0;
+    }
 }
 
 /* 992px: tighten header spacing */

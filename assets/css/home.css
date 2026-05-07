@@ -1611,6 +1611,26 @@ a{color:inherit;text-decoration:none}
     align-items:start;
 }
 
+/* Home page gallery only: masonry to avoid big vertical gaps */
+#gallery.gallery .gallery-section-grid{
+    display:block;
+    column-count:2;
+    column-gap:60px;
+}
+
+#gallery.gallery .gallery-section-card{
+    display:inline-block;
+    width:100%;
+    break-inside:avoid;
+    margin:0 0 64px 0;
+}
+
+/* Disable grid-column alternating when using masonry columns */
+#gallery.gallery .gallery-section-card:nth-child(odd),
+#gallery.gallery .gallery-section-card:nth-child(even){
+    grid-column:auto;
+}
+
 .gallery-section-card{
     display:block;
     width:100%;
@@ -1838,6 +1858,16 @@ a{color:inherit;text-decoration:none}
         aspect-ratio: 4 / 3 !important;
     }
     .gallery-image img{height:100%}
+
+    /* keep masonry in a single column on smaller screens */
+    #gallery.gallery .gallery-section-grid{
+        column-count:1;
+        column-gap:0;
+    }
+    #gallery.gallery .gallery-section-card{
+        display:block;
+        margin:0 0 46px 0;
+    }
 }
 
 /* 992px: tighten header spacing */
