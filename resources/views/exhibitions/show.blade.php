@@ -133,9 +133,9 @@
                                         @endif
 
                                         @if(trim((string) $desc) !== '')
-                                            <div class="exhibition-item__desc">
-                                                {!! nl2br(e((string) $desc)) !!}
-                                            </div>
+                                            @if(trim((string) strip_tags((string) $desc)) !== '')
+                                                <div class="exhibition-item__desc">{!! (string) $desc !!}</div>
+                                            @endif
                                         @endif
                                     </div>
                                 </div>

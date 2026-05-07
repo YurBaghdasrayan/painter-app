@@ -15,7 +15,7 @@
             grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
             align-items: start !important;
             column-gap: 42px;
-            margin-top: -40px;
+            margin-top: 28px; /* keep comfortable distance from hero bg */
         }
 
         .artwork-hero-right {
@@ -85,7 +85,7 @@
                 return '';
             })
             ->map(fn ($t) => trim((string) $t))
-            ->filter(fn ($t) => $t !== '')
+            ->filter(fn ($t) => trim((string) strip_tags($t)) !== '')
             ->values();
 
         $showHeroBg = $showHero['background_image'] ?? null;
@@ -148,8 +148,8 @@
                     @php
                         $size = trim((string) ($item->localized('size') ?? ''));
                         $material = trim((string) ($item->localized('material') ?? ''));
-                        $leadText = $item->localized('short_description') ?? '';
-                        $bodyText = $item->localized('full_description') ?? '';
+                        $leadText = (string) ($item->localized('short_description') ?? '');
+                        $bodyText = (string) ($item->localized('full_description') ?? '');
 
                         if (trim((string) $bodyText) === '') {
                             $bodyText = $leadText;
@@ -163,44 +163,38 @@
                     @endif
 
                     @if(!empty($leadText))
-                        <div class="artwork-lead">{{ $leadText }}</div>
+                        @if(trim((string) strip_tags($leadText)) !== '')
+                            <div class="artwork-lead">{!! $leadText !!}</div>
+                        @endif
                     @endif
 
                     @if(trim((string) $bodyText) !== '')
-                        <div class="artwork-body-text">
-                            {!! nl2br(e($bodyText)) !!}
-                        </div>
+                        @if(trim((string) strip_tags($bodyText)) !== '')
+                            <div class="artwork-body-text">{!! $bodyText !!}</div>
+                        @endif
                     @endif
                 </div>
 
                 <div class="artwork-hero-right">
-                    @php
-                        $thumbs = array_values(array_filter([
-                            $item->secondary_image,
-                            $item->third_image,
-                            $item->fourth_image,
-                        ]));
-                    @endphp
-
                     <div class="artwork-hero-image">
-                        <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($item->image) }}" alt="{{ $item->localized('title') }}" />
+                        @php
+                            $mainImageUrl = \Illuminate\Support\Facades\Storage::disk('public')->url($item->image);
+                            $mainImageAlt = (string) ($item->localized('title') ?? 'Artwork');
+                        @endphp
+                        <img
+                            src="{{ $mainImageUrl }}"
+                            alt="{{ $mainImageAlt }}"
+                            class="js-zoomable-image"
+                            data-zoom-src="{{ $mainImageUrl }}"
+                            loading="eager"
+                        />
                     </div>
-
-                    @if($thumbs !== [])
-                        <div class="artwork-thumbs" aria-label="Additional images">
-                            @foreach($thumbs as $thumb)
-                                <div class="artwork-thumb">
-                                    <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($thumb) }}" alt="{{ $item->localized('title') }}" loading="lazy" />
-                                </div>
-                            @endforeach
-                        </div>
-                    @endif
 
                     @if($showColumns->count())
                         <div class="artwork-show-columns" aria-label="Artwork text columns">
                             @foreach($showColumns->take(3) as $colText)
                                 <div class="artwork-show-column">
-                                    {!! nl2br(e($colText)) !!}
+                                    {!! $colText !!}
                                 </div>
                             @endforeach
                         </div>
@@ -234,3 +228,58 @@
         </div>
     </section>
 @endsection
+
+@push('scripts')
+    <script>
+        (function () {
+            var img = document.querySelector('.js-zoomable-image');
+            if (!img) return;
+
+            function closeModal(modal) {
+                if (!modal) return;
+                modal.remove();
+                document.documentElement.classList.remove('is-zoom-open');
+            }
+
+            function openModal(src, alt) {
+                document.documentElement.classList.add('is-zoom-open');
+
+                var modal = document.createElement('div');
+                modal.className = 'zoom-modal';
+                modal.setAttribute('role', 'dialog');
+                modal.setAttribute('aria-modal', 'true');
+
+                modal.innerHTML =
+                    '<div class="zoom-modal__backdrop" data-zoom-close></div>' +
+                    '<div class="zoom-modal__panel" role="document">' +
+                        '<button class="zoom-modal__close" type="button" aria-label="Close" data-zoom-close>×</button>' +
+                        '<img class="zoom-modal__img" src="' + String(src).replace(/"/g, '&quot;') + '" alt="' + String(alt || '').replace(/"/g, '&quot;') + '">' +
+                    '</div>';
+
+                document.body.appendChild(modal);
+
+                function onKeyDown(e) {
+                    if (e.key === 'Escape') {
+                        closeModal(modal);
+                        document.removeEventListener('keydown', onKeyDown);
+                    }
+                }
+                document.addEventListener('keydown', onKeyDown);
+
+                modal.addEventListener('click', function (e) {
+                    var t = e.target;
+                    if (t && t.closest && t.closest('[data-zoom-close]')) {
+                        closeModal(modal);
+                        document.removeEventListener('keydown', onKeyDown);
+                    }
+                });
+            }
+
+            img.style.cursor = 'zoom-in';
+            img.addEventListener('click', function () {
+                var src = img.getAttribute('data-zoom-src') || img.getAttribute('src');
+                openModal(src, img.getAttribute('alt') || '');
+            });
+        })();
+    </script>
+@endpush

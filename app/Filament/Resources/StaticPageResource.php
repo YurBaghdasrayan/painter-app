@@ -439,46 +439,49 @@ class StaticPageResource extends Resource
                     TextInput::make("content_{$locale}.hero.subtitle")
                         ->label('Hero subtitle')
                         ->maxLength(1000),
+                    ...($locale === 'en' ? [
+                        FileUpload::make("content_en.hero.videos.0")
+                            ->label('Hero video 1 (shared for all languages)')
+                            ->disk('public')
+                            ->directory('static/home/hero-videos')
+                            ->visibility('public')
+                            ->acceptedFileTypes(['video/mp4', 'video/webm', 'video/quicktime'])
+                            ->openable()
+                            ->downloadable(),
 
-                    FileUpload::make("content_{$locale}.hero.videos.0")
-                        ->label('Hero video 1')
-                        ->disk('public')
-                        ->directory('static/home/hero-videos')
-                        ->visibility('public')
-                        ->acceptedFileTypes(['video/mp4', 'video/webm', 'video/quicktime'])
-                        ->openable()
-                        ->downloadable(),
+                        FileUpload::make("content_en.hero.videos.1")
+                            ->label('Hero video 2 (shared for all languages)')
+                            ->disk('public')
+                            ->directory('static/home/hero-videos')
+                            ->visibility('public')
+                            ->acceptedFileTypes(['video/mp4', 'video/webm', 'video/quicktime'])
+                            ->openable()
+                            ->downloadable(),
 
-                    FileUpload::make("content_{$locale}.hero.videos.1")
-                        ->label('Hero video 2')
-                        ->disk('public')
-                        ->directory('static/home/hero-videos')
-                        ->visibility('public')
-                        ->acceptedFileTypes(['video/mp4', 'video/webm', 'video/quicktime'])
-                        ->openable()
-                        ->downloadable(),
-
-                    FileUpload::make("content_{$locale}.hero.videos.2")
-                        ->label('Hero video 3')
-                        ->disk('public')
-                        ->directory('static/home/hero-videos')
-                        ->visibility('public')
-                        ->acceptedFileTypes(['video/mp4', 'video/webm', 'video/quicktime'])
-                        ->openable()
-                        ->downloadable(),
+                        FileUpload::make("content_en.hero.videos.2")
+                            ->label('Hero video 3 (shared for all languages)')
+                            ->disk('public')
+                            ->directory('static/home/hero-videos')
+                            ->visibility('public')
+                            ->acceptedFileTypes(['video/mp4', 'video/webm', 'video/quicktime'])
+                            ->openable()
+                            ->downloadable(),
+                    ] : []),
                 ]),
 
             Section::make("Home about {$locale}")
                 ->visible(fn (Get $get) => $get('slug') === 'home')
                 ->schema([
-                    FileUpload::make("content_{$locale}.about_section.background_image")
-                        ->label('Background image or video')
-                        ->disk("public")
-                        ->directory('static/home')
-                        ->visibility('public')
-                        ->acceptedFileTypes(['image/*', 'video/mp4', 'video/webm', 'video/quicktime'])
-                        ->openable()
-                        ->downloadable(),
+                    ...($locale === 'en' ? [
+                        FileUpload::make("content_en.about_section.background_image")
+                            ->label('Background image or video (shared for all languages)')
+                            ->disk("public")
+                            ->directory('static/home')
+                            ->visibility('public')
+                            ->acceptedFileTypes(['image/*', 'video/mp4', 'video/webm', 'video/quicktime'])
+                            ->openable()
+                            ->downloadable(),
+                    ] : []),
 
                     TextInput::make("content_{$locale}.about_section.kicker")
                         ->label('Kicker')
@@ -532,19 +535,21 @@ class StaticPageResource extends Resource
                         ->label('Right text')
                         ->maxLength(3000),
 
-                    FileUpload::make("content_{$locale}.articles_section.main_image")
-                        ->label('Main image')
-                        ->image()
-                        ->disk('public')
-                        ->directory('static/home')
-                        ->visibility('public'),
+                    ...($locale === 'en' ? [
+                        FileUpload::make("content_en.articles_section.main_image")
+                            ->label('Main image (shared for all languages)')
+                            ->image()
+                            ->disk('public')
+                            ->directory('static/home')
+                            ->visibility('public'),
 
-                    FileUpload::make("content_{$locale}.articles_section.side_image")
-                        ->label('Side image')
-                        ->image()
-                        ->disk('public')
-                        ->directory('static/home')
-                        ->visibility('public'),
+                        FileUpload::make("content_en.articles_section.side_image")
+                            ->label('Side image (shared for all languages)')
+                            ->image()
+                            ->disk('public')
+                            ->directory('static/home')
+                            ->visibility('public'),
+                    ] : []),
 
                     TextInput::make("content_{$locale}.articles_section.card_title")
                         ->label('Card title')
@@ -610,12 +615,14 @@ class StaticPageResource extends Resource
             Section::make("Home exhibitions {$locale}")
                 ->visible(fn (Get $get) => $get('slug') === 'home')
                 ->schema([
-                    FileUpload::make("content_{$locale}.exhibitions_section.background_image")
-                        ->label('Background image')
-                        ->image()
-                        ->disk('public')
-                        ->directory('static/home')
-                        ->visibility('public'),
+                    ...($locale === 'en' ? [
+                        FileUpload::make("content_en.exhibitions_section.background_image")
+                            ->label('Background image (shared for all languages)')
+                            ->image()
+                            ->disk('public')
+                            ->directory('static/home')
+                            ->visibility('public'),
+                    ] : []),
 
                     TextInput::make("content_{$locale}.exhibitions_section.title")
                         ->label('Title')

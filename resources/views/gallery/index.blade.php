@@ -5,7 +5,11 @@
 @section('content')
     @php
         $heroBlock = $staticPage?->getBlock('hero') ?? [];
-        $heroTitle = $heroBlock['title'] ?? 'Art Gallery';
+        $heroTitle = match (app()->getLocale()) {
+            'hy' => 'ՊԱՏԿԵՐԱՍՐԱՀ',
+            'ru' => 'ГАЛЕРЕЯ',
+            default => 'GALLERY',
+        };
         $heroSubtitle = $heroBlock['subtitle'] ?? '';
 
         $heroBg = $heroBlock['background_image'] ?? null;
@@ -45,10 +49,8 @@
                 {{ $heroTitle }}
             </h1>
 
-            @if(!empty($heroSubtitle))
-                <p class="gallery-hero-subtitle">
-                    {{ $heroSubtitle }}
-                </p>
+            @if(!empty($heroSubtitle) && trim((string) strip_tags((string) $heroSubtitle)) !== '')
+                <div class="gallery-hero-subtitle">{!! (string) $heroSubtitle !!}</div>
             @endif
         </div>
 
@@ -129,10 +131,8 @@
                                         “{{ strtoupper((string) $title) }}”
                                     </a>
 
-                                    @if($desc !== '')
-                                        <div class="gallery-section-card-desc js-gallery-desc">
-                                            {{ $desc }}
-                                        </div>
+                                    @if($desc !== '' && trim((string) strip_tags((string) $desc)) !== '')
+                                        <div class="gallery-section-card-desc js-gallery-desc">{!! (string) $desc !!}</div>
 
                                         <button
                                             type="button"

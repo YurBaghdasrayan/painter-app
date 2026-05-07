@@ -34,6 +34,10 @@
         </style>
     @endpush
     @php
+        $locale = app()->getLocale();
+        if ($locale === 'hy') $locale = 'am';
+        if (!in_array($locale, ['am', 'ru', 'en'], true)) $locale = 'en';
+
         $homePage = \App\Models\StaticPage::query()
             ->where('slug', 'home')
             ->where('is_active', true)
@@ -82,7 +86,11 @@
         $aboutLead = $about['lead'] ?? 'Smarttrak is a AI Technology Solutions company focused on';
         $aboutItems = collect($about['items'] ?? [])->filter()->values();
         $aboutLowerText = $about['lower_text'] ?? 'Grow smarter with clear strategy, clean design, and dependable delivery. We craft experiences that feel premium, minimal, and precise—built for modern desktop-first performance.';
-        $aboutButtonText = $about['button_text'] ?? 'Read more';
+        $aboutButtonText = match ($locale) {
+            'ru' => 'Подробнее',
+            'am' => 'Կարդալ ավելին',
+            default => 'Read more',
+        };
         $aboutButtonLink = $about['button_link'] ?? '/about';
         $aboutBg = $about['background_image'] ?? null;
 
@@ -112,7 +120,11 @@
         $articlesMoreLink = $articlesSection['more_link'] ?? '/articles';
 
         $gallerySection = $homeContent['gallery_section'] ?? [];
-        $galleryTitle = $gallerySection['title'] ?? 'GALLERY';
+        $galleryTitle = match ($locale) {
+            'ru' => 'ГАЛЕРЕЯ',
+            'am' => 'ՊԱՏԿԵՐԱՍՐԱՀ',
+            default => 'GALLERY',
+        };
         $galleryLeftText = $gallerySection['left_text'] ?? '';
         $galleryRightText = $gallerySection['right_text'] ?? '';
         $galleryMoreText = $gallerySection['more_text'] ?? 'more';
@@ -158,8 +170,6 @@
         $contactHeroTitle = $contactContent['contact']['hero_title'] ?? 'CONTACT WE';
         $contactHeroSubtitle = $contactContent['contact']['hero_subtitle'] ?? null;
 
-        $locale = app()->getLocale();
-        if ($locale === 'hy') $locale = 'am';
         $i18n = [
             'am' => [
                 'first_name' => 'Անուն',
@@ -262,10 +272,10 @@
                     @if(trim((string) $galleryLeftText) !== '' || trim((string) $galleryRightText) !== '')
                         <div class="gallery-toptexts">
                             <div class="gallery-toptext gallery-toptext--left">
-                                {!! nl2br(e((string) $galleryLeftText)) !!}
+                                {!! (string) $galleryLeftText !!}
                             </div>
                             <div class="gallery-toptext gallery-toptext--right">
-                                {!! nl2br(e((string) $galleryRightText)) !!}
+                                {!! (string) $galleryRightText !!}
                             </div>
                         </div>
                     @endif
@@ -348,10 +358,10 @@
 
                     <div class="gallery-toptexts">
                         <div class="gallery-toptext gallery-toptext--left">
-                            {!! nl2br(e((string) $collectionLeftTextFinal)) !!}
+                            {!! (string) $collectionLeftTextFinal !!}
                         </div>
                         <div class="gallery-toptext gallery-toptext--right">
-                            {!! nl2br(e((string) $collectionRightTextFinal)) !!}
+                            {!! (string) $collectionRightTextFinal !!}
                         </div>
                     </div>
                 </div>

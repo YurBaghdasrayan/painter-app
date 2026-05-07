@@ -35,10 +35,8 @@
                 <div class="articles-hero-page__inner">
                     <h1 class="articles-hero-page__title">{{ $heroTitle }}</h1>
 
-                    @if(!empty($heroSubtitle))
-                        <p class="articles-hero-page__subtitle">
-                            {{ $heroSubtitle }}
-                        </p>
+                    @if(!empty($heroSubtitle) && trim((string) strip_tags((string) $heroSubtitle)) !== '')
+                        <div class="articles-hero-page__subtitle">{!! (string) $heroSubtitle !!}</div>
                     @endif
                 </div>
             </div>
@@ -94,9 +92,9 @@
                             <div class="exhibitions-text__title">“{{ strtoupper((string) $textLeftTitle) }}”</div>
                         @endif
                         @if($textLeft)
-                            <div class="exhibitions-text__text">
-                                {!! nl2br(e((string) $textLeft)) !!}
-                            </div>
+                            @if(trim((string) strip_tags((string) $textLeft)) !== '')
+                                <div class="exhibitions-text__text">{!! (string) $textLeft !!}</div>
+                            @endif
                         @endif
                     </div>
                 </div>
@@ -133,10 +131,8 @@
                                         $desc = trim((string) ($ex->localized('description') ?? ''));
                                     @endphp
 
-                                    @if($desc !== '')
-                                        <div class="gallery-section-card-desc">
-                                            {{ $desc }}
-                                        </div>
+                                    @if(trim((string) strip_tags((string) $desc)) !== '')
+                                        <div class="gallery-section-card-desc">{!! (string) $desc !!}</div>
                                     @endif
                                 </div>
                             </a>

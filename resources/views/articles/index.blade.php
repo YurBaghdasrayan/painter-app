@@ -38,10 +38,8 @@
             <div class="articles-hero-page__inner">
                 <h1 class="articles-hero-page__title">{{ $heroTitle }}</h1>
 
-                @if(!empty($heroSubtitle))
-                    <p class="articles-hero-page__subtitle">
-                        {{ $heroSubtitle }}
-                    </p>
+                @if(!empty($heroSubtitle) && trim((string) strip_tags((string) $heroSubtitle)) !== '')
+                    <div class="articles-hero-page__subtitle">{!! (string) $heroSubtitle !!}</div>
                 @endif
             </div>
         </div>

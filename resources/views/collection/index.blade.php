@@ -203,7 +203,10 @@
 
                     <div class="gallery-toptexts">
                         <div class="gallery-toptext gallery-toptext--left">
-                            {!! nl2br(e($head?->localized('description') ?? '')) !!}
+                            @php $headDesc = (string) ($head?->localized('description') ?? ''); @endphp
+                            @if(trim((string) strip_tags($headDesc)) !== '')
+                                {!! $headDesc !!}
+                            @endif
                         </div>
                         <div class="gallery-toptext gallery-toptext--right">
                         </div>
@@ -251,10 +254,16 @@
 
                 <div class="collection-last__texts">
                     <div class="collection-last__text">
-                        {!! nl2br(e((string) ($lastLeftText ?? ''))) !!}
+                        @php $lastLeft = (string) ($lastLeftText ?? ''); @endphp
+                        @if(trim((string) strip_tags($lastLeft)) !== '')
+                            {!! $lastLeft !!}
+                        @endif
                     </div>
                     <div class="collection-last__text">
-                        {!! nl2br(e((string) ($lastRightText ?? ''))) !!}
+                        @php $lastRight = (string) ($lastRightText ?? ''); @endphp
+                        @if(trim((string) strip_tags($lastRight)) !== '')
+                            {!! $lastRight !!}
+                        @endif
                     </div>
                 </div>
             </div>
@@ -286,8 +295,8 @@
                                         <div class="gallery-section-card-title">
                                             “{{ strtoupper((string) $title) }}”
                                         </div>
-                                        @if($desc !== '')
-                                            <div class="gallery-section-card-desc">{{ $desc }}</div>
+                                        @if($desc !== '' && trim((string) strip_tags((string) $desc)) !== '')
+                                            <div class="gallery-section-card-desc">{!! (string) $desc !!}</div>
                                         @endif
                                     </div>
                                 </a>
@@ -320,9 +329,9 @@
                             <div class="collection-gallery-text__title">“{{ strtoupper((string) $galleryTextLeftTitle) }}”</div>
                         @endif
                         @if($galleryTextLeft)
-                            <div class="collection-gallery-text__text">
-                                {!! nl2br(e((string) $galleryTextLeft)) !!}
-                            </div>
+                            @if(trim((string) strip_tags((string) $galleryTextLeft)) !== '')
+                                <div class="collection-gallery-text__text">{!! (string) $galleryTextLeft !!}</div>
+                            @endif
                         @endif
                     </div>
 
@@ -331,9 +340,9 @@
                             <div class="collection-gallery-text__title">“{{ strtoupper((string) $galleryTextRightTitle) }}”</div>
                         @endif
                         @if($galleryTextRight)
-                            <div class="collection-gallery-text__text">
-                                {!! nl2br(e((string) $galleryTextRight)) !!}
-                            </div>
+                            @if(trim((string) strip_tags((string) $galleryTextRight)) !== '')
+                                <div class="collection-gallery-text__text">{!! (string) $galleryTextRight !!}</div>
+                            @endif
                         @endif
                     </div>
                 </div>
@@ -400,10 +409,16 @@
 
                 <div class="collection-videos__texts">
                     <div class="collection-videos__text">
-                        {!! nl2br(e((string) ($videosLeftText ?? ''))) !!}
+                        @php $vLeft = (string) ($videosLeftText ?? ''); @endphp
+                        @if(trim((string) strip_tags($vLeft)) !== '')
+                            {!! $vLeft !!}
+                        @endif
                     </div>
                     <div class="collection-videos__text">
-                        {!! nl2br(e((string) ($videosRightText ?? ''))) !!}
+                        @php $vRight = (string) ($videosRightText ?? ''); @endphp
+                        @if(trim((string) strip_tags($vRight)) !== '')
+                            {!! $vRight !!}
+                        @endif
                     </div>
                 </div>
             </div>

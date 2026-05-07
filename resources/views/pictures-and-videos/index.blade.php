@@ -157,8 +157,8 @@
                 <h1 class="gallery-hero-title">{{ $heroTitle }}</h1>
             @endif
 
-            @if($heroSubtitle)
-                <p class="gallery-hero-subtitle">{{ $heroSubtitle }}</p>
+            @if($heroSubtitle && trim((string) strip_tags((string) $heroSubtitle)) !== '')
+                <div class="gallery-hero-subtitle">{!! (string) $heroSubtitle !!}</div>
             @endif
         </div>
 
