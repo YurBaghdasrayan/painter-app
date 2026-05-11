@@ -99,7 +99,7 @@
         if (!empty($showHeroBg)) {
             $showHeroBgUrl = \Illuminate\Support\Facades\Storage::disk('public')->url($showHeroBg);
         } elseif (!empty($item->image)) {
-            $showHeroBgUrl = \Illuminate\Support\Facades\Storage::disk('public')->url($item->image);
+            $showHeroBgUrl = $item->listImagePublicUrl();
         }
     @endphp
 
@@ -178,14 +178,15 @@
                 <div class="artwork-hero-right">
                     <div class="artwork-hero-image">
                         @php
-                            $mainImageUrl = \Illuminate\Support\Facades\Storage::disk('public')->url($item->image);
+                            $mainImageUrl = $item->listImagePublicUrl();
+                            $mainZoomUrl = $item->mainImagePublicUrl();
                             $mainImageAlt = (string) ($item->localized('title') ?? 'Artwork');
                         @endphp
                         <img
                             src="{{ $mainImageUrl }}"
                             alt="{{ $mainImageAlt }}"
                             class="js-zoomable-image"
-                            data-zoom-src="{{ $mainImageUrl }}"
+                            data-zoom-src="{{ $mainZoomUrl }}"
                             loading="eager"
                         />
                     </div>
@@ -214,7 +215,7 @@
                         <article class="related-card" role="listitem">
                             <a class="related-link" href="{{ route('gallery.show', $related->slug) }}" aria-label="{{ $related->localized('title') }}">
                                 <div class="related-image">
-                                    <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($related->image) }}" alt="{{ $related->localized('title') }}" loading="lazy" />
+                                    <img src="{{ $related->listImagePublicUrl() }}" alt="{{ $related->localized('title') }}" loading="lazy" />
                                 </div>
 
                                 <div class="related-meta">

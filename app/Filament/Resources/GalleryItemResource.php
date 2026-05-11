@@ -189,6 +189,7 @@ class GalleryItemResource extends Resource
             ->columns([
                 Tables\Columns\ImageColumn::make('image')
                     ->disk('public')
+                    ->getStateUsing(fn (GalleryItem $record): ?string => $record->image_thumb ?: $record->image)
                     ->square()
                     ->size(56),
                 Tables\Columns\TextColumn::make('title_en')

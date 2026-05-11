@@ -335,7 +335,7 @@
                 <div class="gallery-section-grid" role="list">
                     @foreach(($galleryItems ?? collect()) as $item)
                         @php
-                            $img = !empty($item->image) ? \Illuminate\Support\Facades\Storage::disk('public')->url($item->image) : null;
+                            $img = !empty($item->image) ? $item->listImagePublicUrl() : null;
                             $title = $item->localized('title') ?? 'Gallery';
                                 $size = trim((string) ($item->localized('size') ?? ''));
                                 $material = trim((string) ($item->localized('material') ?? ''));

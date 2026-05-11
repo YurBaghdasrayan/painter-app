@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\GalleryItem;
 use App\Models\StaticPage;
+use App\Observers\GalleryItemObserver;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -15,6 +17,8 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        GalleryItem::observe(GalleryItemObserver::class);
+
         View::composer('*', function ($view) {
             $footerPage = StaticPage::query()
                 ->where('slug', 'footer')

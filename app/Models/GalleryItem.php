@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Storage;
 
 class GalleryItem extends Model
 {
@@ -58,6 +59,31 @@ class GalleryItem extends Model
     public function section(): BelongsTo
     {
         return $this->belongsTo(GallerySection::class, 'gallery_section_id');
+    }
+
+    /**
+     * Public URL for list/grid views (lightweight thumb when available).
+     */
+    public function listImagePublicUrl(): ?string
+    {
+        $path = $this->image_thumb ?: $this->image;
+        if (! is_string($path) || trim($path) === '') {
+            return null;
+        }
+
+        return Storage::disk('public')->url($path);
+    }
+
+    /**
+     * Full-size main image URL (detail page, zoom).
+     */
+    public function mainImagePublicUrl(): ?string
+    {
+        if (! is_string($this->image) || trim($this->image) === '') {
+            return null;
+        }
+
+        return Storage::disk('public')->url($this->image);
     }
 
     public function localized(string $field, ?string $locale = null): ?string

@@ -91,7 +91,7 @@
             @if($heroMainUrl || ($heroItem && !empty($heroItem->image)))
                 <article class="gallery-hero-featured">
                     @php
-                        $featuredImgUrl = $heroMainUrl ?: \Illuminate\Support\Facades\Storage::disk('public')->url($heroItem->image);
+                        $featuredImgUrl = $heroMainUrl ?: $heroItem->listImagePublicUrl();
                         $featuredAlt = $heroTitle ?: ($heroItem?->localized('title') ?? 'Gallery');
                     @endphp
 
@@ -115,7 +115,7 @@
                 <div class="gallery-section-grid" role="list">
                     @foreach(($items ?? collect()) as $item)
                         @php
-                            $img = !empty($item->image) ? \Illuminate\Support\Facades\Storage::disk('public')->url($item->image) : null;
+                            $img = !empty($item->image) ? $item->listImagePublicUrl() : null;
                             $title = $item->localized('title') ?? 'Gallery';
                             $desc = trim((string) ($item->localized('short_description') ?? ''));
                         @endphp
