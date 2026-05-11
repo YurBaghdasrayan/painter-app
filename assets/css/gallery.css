@@ -155,7 +155,7 @@
 .gallery-page-grid{
     margin-top: 54px;
     display: grid;
-    grid-template-columns: 0.92fr 1.08fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     column-gap: 60px;
     row-gap: 64px;
     align-items: start;
@@ -185,6 +185,7 @@
     overflow: hidden;
     border: 1px solid rgba(20,20,20,.08);
     background: rgba(255,255,255,.35);
+    aspect-ratio: 4 / 3;
 }
 
 .gallery-page-image img{
@@ -194,12 +195,6 @@
     object-fit: cover;
     object-position: center;
 }
-
-.gallery-page-card:nth-child(1) .gallery-page-image{ aspect-ratio: 723 / 604; }
-.gallery-page-card:nth-child(2) .gallery-page-image{ aspect-ratio: 1026 / 746; }
-.gallery-page-card:nth-child(3) .gallery-page-image{ aspect-ratio: 723 / 903; }
-.gallery-page-card:nth-child(4) .gallery-page-image{ aspect-ratio: 1026 / 1217; }
-.gallery-page-card:nth-child(5) .gallery-page-image{ aspect-ratio: 724 / 623; }
 
 .gallery-page-meta{
     margin-top: 12px;
@@ -542,9 +537,6 @@
         grid-column: auto;
     }
 
-    .gallery-page-image{
-        aspect-ratio: 4 / 3 !important;
-    }
 }
 
 @media (max-width:768px){
@@ -799,7 +791,7 @@
 .gallery-masonry{
     margin-top: 34px;
     display: grid;
-    grid-template-columns: 0.92fr 1.08fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     column-gap: 60px;
     row-gap: 64px;
     align-items: start;
@@ -825,6 +817,7 @@
     overflow: hidden;
     border: 1px solid rgba(20,20,20,.08);
     background: rgba(255,255,255,.35);
+    aspect-ratio: 4 / 3;
 }
 
 .gallery-masonry-image img{
@@ -834,12 +827,6 @@
     object-fit: cover;
     object-position: center;
 }
-
-.gallery-masonry-card:nth-child(1) .gallery-masonry-image{ aspect-ratio: 723 / 604; }
-.gallery-masonry-card:nth-child(2) .gallery-masonry-image{ aspect-ratio: 1026 / 746; }
-.gallery-masonry-card:nth-child(3) .gallery-masonry-image{ aspect-ratio: 723 / 903; }
-.gallery-masonry-card:nth-child(4) .gallery-masonry-image{ aspect-ratio: 1026 / 1217; }
-.gallery-masonry-card:nth-child(5) .gallery-masonry-image{ aspect-ratio: 724 / 623; }
 
 .gallery-masonry-meta{
     margin-top: 12px;
@@ -880,9 +867,6 @@
         grid-column: auto;
     }
 
-    .gallery-masonry-image{
-        aspect-ratio: 4 / 3 !important;
-    }
 }
 
 @media (max-width:768px){

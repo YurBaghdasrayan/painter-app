@@ -429,6 +429,7 @@
 
         .gallery-page-image{
             width:100%;
+            aspect-ratio:4 / 3;
             overflow:hidden;
             margin-bottom:14px;
             background:#eee7d7;
@@ -436,7 +437,22 @@
 
         .gallery-page-image img{
             width:100%;
-            height:auto;
+            height:100%;
+            display:block;
+            object-fit:cover;
+            object-position:center;
+        }
+
+        .gallery-section-page .gallery-masonry-image{
+            width:100%;
+            aspect-ratio:4 / 3;
+            overflow:hidden;
+            background:#eee7d7;
+        }
+
+        .gallery-section-page .gallery-masonry-image img{
+            width:100%;
+            height:100%;
             display:block;
             object-fit:cover;
             object-position:center;

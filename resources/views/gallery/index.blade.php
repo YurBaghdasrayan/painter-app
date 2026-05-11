@@ -176,6 +176,26 @@
     </script>
 
     <style>
+        /* Ровная высота превью в сетке: сетка/колонки как в CSS, меняется только кадрирование внутри ячейки */
+        .gallery-index .gallery-section-card-image{
+            position: relative;
+            aspect-ratio: 4 / 3 !important;
+            width: 100% !important;
+            overflow: hidden !important;
+            display: block !important;
+            box-sizing: border-box !important;
+        }
+
+        .gallery-index .gallery-section-card-image img{
+            width: 100% !important;
+            max-width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+            object-position: center !important;
+            margin: 0 !important;
+            display: block !important;
+        }
+
         @media (max-width: 1024px) {
             .gallery-inner,
             .gallery-hero-inner {
@@ -215,16 +235,20 @@
                 text-decoration: none !important;
             }
 
-            .gallery-section-card-image {
+            .gallery-index .gallery-section-card-image {
                 margin-bottom: 14px !important;
+                aspect-ratio: 4 / 3 !important;
+                overflow: hidden !important;
             }
 
-            .gallery-section-card-image img {
+            .gallery-index .gallery-section-card-image img {
                 display: block !important;
                 width: 100% !important;
                 max-width: 100% !important;
-                height: auto !important;
-                object-fit: contain !important;
+                height: 100% !important;
+                object-fit: cover !important;
+                object-position: center !important;
+                margin: 0 !important;
             }
 
             .gallery-section-card-title {
