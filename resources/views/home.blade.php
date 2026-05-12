@@ -341,51 +341,51 @@
         'articlesMoreLink' => $articlesMoreLink,
     ])
 
-    @if(($collectionSections ?? collect())->count())
-        <section id="collection" class="gallery" aria-label="Collection">
-            <div class="gallery-inner">
-                @php
-                    $head = $collectionSections->first();
-                    $collectionTitleFinal = $collectionTitle ?: ($head?->localized('title') ?? '');
-                    $collectionLeftTextFinal = $collectionLeftText ?: ($head?->localized('description') ?? '');
-                    $collectionRightTextFinal = $collectionRightText ?: '';
-                    $collectionMoreTextFinal = $collectionMoreText ?: ($head?->localized('more_button_text') ?? 'more');
-                    $collectionMoreLinkFinal = $collectionMoreLink ?: (route('collection.index'));
-                @endphp
+{{--    @if(($collectionSections ?? collect())->count())--}}
+{{--        <section id="collection" class="gallery" aria-label="Collection">--}}
+{{--            <div class="gallery-inner">--}}
+{{--                @php--}}
+{{--                    $head = $collectionSections->first();--}}
+{{--                    $collectionTitleFinal = $collectionTitle ?: ($head?->localized('title') ?? '');--}}
+{{--                    $collectionLeftTextFinal = $collectionLeftText ?: ($head?->localized('description') ?? '');--}}
+{{--                    $collectionRightTextFinal = $collectionRightText ?: '';--}}
+{{--                    $collectionMoreTextFinal = $collectionMoreText ?: ($head?->localized('more_button_text') ?? 'more');--}}
+{{--                    $collectionMoreLinkFinal = $collectionMoreLink ?: (route('collection.index'));--}}
+{{--                @endphp--}}
 
-                <div class="gallery-head">
-                    <h2 class="gallery-title">{{ $collectionTitleFinal }}</h2>
+{{--                <div class="gallery-head">--}}
+{{--                    <h2 class="gallery-title">{{ $collectionTitleFinal }}</h2>--}}
 
-                    <div class="gallery-toptexts">
-                        <div class="gallery-toptext gallery-toptext--left">
-                            {!! (string) $collectionLeftTextFinal !!}
-                        </div>
-                        <div class="gallery-toptext gallery-toptext--right">
-                            {!! (string) $collectionRightTextFinal !!}
-                        </div>
-                    </div>
-                </div>
+{{--                    <div class="gallery-toptexts">--}}
+{{--                        <div class="gallery-toptext gallery-toptext--left">--}}
+{{--                            {!! (string) $collectionLeftTextFinal !!}--}}
+{{--                        </div>--}}
+{{--                        <div class="gallery-toptext gallery-toptext--right">--}}
+{{--                            {!! (string) $collectionRightTextFinal !!}--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
 
-                <div class="gallery-section-grid" role="list">
-                    @foreach($collectionSections as $section)
-                        @include('collection.partials.section-card', ['section' => $section])
-                    @endforeach
-                </div>
+{{--                <div class="gallery-section-grid" role="list">--}}
+{{--                    @foreach($collectionSections as $section)--}}
+{{--                        @include('collection.partials.section-card', ['section' => $section])--}}
+{{--                    @endforeach--}}
+{{--                </div>--}}
 
-                <div class="gallery-footer">
-                    <div class="gallery-more">
-                        <span class="gallery-more-text">{{ $collectionMoreTextFinal }}</span>
-                        <a class="gallery-more-btn" href="{{ $collectionMoreLinkFinal }}" aria-label="More">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <path d="M5 12H18" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                                <path d="M13 7L18 12L13 17" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-    @endif
+{{--                <div class="gallery-footer">--}}
+{{--                    <div class="gallery-more">--}}
+{{--                        <span class="gallery-more-text">{{ $collectionMoreTextFinal }}</span>--}}
+{{--                        <a class="gallery-more-btn" href="{{ $collectionMoreLinkFinal }}" aria-label="More">--}}
+{{--                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">--}}
+{{--                                <path d="M5 12H18" stroke="white" stroke-width="2" stroke-linecap="round"/>--}}
+{{--                                <path d="M13 7L18 12L13 17" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>--}}
+{{--                            </svg>--}}
+{{--                        </a>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </section>--}}
+{{--    @endif--}}
 
     @if($exhibitionsTitle || (($exhibitions ?? collect())->count()))
         <section id="exhibitions" class="home-exhibitions" aria-label="Exhibitions">
