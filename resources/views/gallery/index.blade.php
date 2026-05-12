@@ -176,7 +176,7 @@
     </script>
 
     <style>
-        /* Ровная высота превью в сетке: сетка/колонки как в CSS, меняется только кадрирование внутри ячейки */
+        /* Десктоп / широкий веб: как было — фикс. кадр + cover */
         .gallery-index .gallery-section-card-image{
             position: relative;
             aspect-ratio: 4 / 3 !important;
@@ -237,16 +237,18 @@
 
             .gallery-index .gallery-section-card-image {
                 margin-bottom: 14px !important;
-                aspect-ratio: 4 / 3 !important;
+                aspect-ratio: auto !important;
                 overflow: hidden !important;
+                background: #f7f5ef;
             }
 
             .gallery-index .gallery-section-card-image img {
                 display: block !important;
                 width: 100% !important;
                 max-width: 100% !important;
-                height: 100% !important;
-                object-fit: cover !important;
+                height: auto !important;
+                max-height: none !important;
+                object-fit: contain !important;
                 object-position: center !important;
                 margin: 0 !important;
             }
@@ -377,4 +379,5 @@
                 max-height: 76px !important;
             }
         }
-    </style>@endsection
+        </style>
+@endsection

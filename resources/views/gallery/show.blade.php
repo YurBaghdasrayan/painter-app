@@ -34,12 +34,18 @@
 
         .artwork-hero-image {
             margin-top: 0 !important;
+            aspect-ratio: auto !important;
+            max-height: none !important;
         }
 
         .artwork-hero-image img {
             display: block;
             width: 100%;
-            height: auto;
+            max-width: 100%;
+            height: auto !important;
+            max-height: none !important;
+            object-fit: contain !important;
+            object-position: center;
         }
 
         @media (max-width: 991px) {
