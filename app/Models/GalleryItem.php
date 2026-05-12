@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Storage;
@@ -43,6 +44,7 @@ class GalleryItem extends Model
         'show_columns_ru',
         'show_columns_en',
         'sort_order',
+        'home_sort_order',
         'is_active',
         'is_featured_on_home',
     ];
@@ -51,6 +53,7 @@ class GalleryItem extends Model
         'is_active' => 'boolean',
         'is_featured_on_home' => 'boolean',
         'sort_order' => 'integer',
+        'home_sort_order' => 'integer',
         'show_columns_am' => 'array',
         'show_columns_ru' => 'array',
         'show_columns_en' => 'array',
@@ -59,6 +62,19 @@ class GalleryItem extends Model
     public function section(): BelongsTo
     {
         return $this->belongsTo(GallerySection::class, 'gallery_section_id');
+    }
+
+    /**
+     * Home / collection strip: explicit home_sort_order first (smaller = earlier in the grid),
+     * then gallery sort_order. Rows without home_sort_order follow those with it.
+     */
+    public function scopeOrderedForHomePage(Builder $query): Builder
+    {
+        return $query
+            ->orderByRaw('(home_sort_order IS NULL) ASC')
+            ->orderBy('home_sort_order')
+            ->orderBy('sort_order')
+            ->orderBy('id');
     }
 
     /**

@@ -14,8 +14,7 @@ class HomeController extends Controller
         $galleryItems = GalleryItem::query()
             ->where('is_active', true)
             ->where('is_featured_on_home', true)
-            ->orderBy('sort_order')
-            ->orderByDesc('id')
+            ->orderedForHomePage()
             ->get();
 
         $collectionSections = CollectionSection::query()

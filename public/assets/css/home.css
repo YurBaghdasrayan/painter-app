@@ -1843,7 +1843,7 @@ a{color:inherit;text-decoration:none}
     align-items:start;
 }
 
-/* Home page gallery only: masonry to avoid big vertical gaps */
+/* Home gallery: column masonry (original block proportions). DOM is reordered in JS on wide viewports so reading order is row-major (0|1 / 2|3). */
 #gallery.gallery .gallery-section-grid{
     display:block;
     column-count:2;
@@ -1857,7 +1857,6 @@ a{color:inherit;text-decoration:none}
     margin:0 0 64px 0;
 }
 
-/* Disable grid-column alternating when using masonry columns */
 #gallery.gallery .gallery-section-card:nth-child(odd),
 #gallery.gallery .gallery-section-card:nth-child(even){
     grid-column:auto;
@@ -1904,6 +1903,13 @@ a{color:inherit;text-decoration:none}
 .gallery-section-card:nth-child(3) .gallery-section-card-image{ aspect-ratio: 723 / 903; }
 .gallery-section-card:nth-child(4) .gallery-section-card-image{ aspect-ratio: 1026 / 1217; }
 .gallery-section-card:nth-child(5) .gallery-section-card-image{ aspect-ratio: 724 / 623; }
+
+/* Home masonry after interleaved DOM (see home gallery script): keep slot sizes like the old grid */
+#gallery.gallery .gallery-section-card:nth-child(1) .gallery-section-card-image{ aspect-ratio: 723 / 604; }
+#gallery.gallery .gallery-section-card:nth-child(2) .gallery-section-card-image{ aspect-ratio: 1026 / 746; }
+#gallery.gallery .gallery-section-card:nth-child(3) .gallery-section-card-image{ aspect-ratio: 723 / 903; }
+#gallery.gallery .gallery-section-card:nth-child(4) .gallery-section-card-image{ aspect-ratio: 1026 / 1217; }
+#gallery.gallery .gallery-section-card:nth-child(5) .gallery-section-card-image{ aspect-ratio: 724 / 623; }
 
 /* Home collection: 1 big card + 1 small card (Figma-like) */
 #collection.gallery .gallery-section-grid{
@@ -2104,7 +2110,7 @@ a{color:inherit;text-decoration:none}
     }
     .gallery-image img{height:100%}
 
-    /* keep masonry in a single column on smaller screens */
+    /* Single column: natural sort order (script restores DOM below 1201px) */
     #gallery.gallery .gallery-section-grid{
         column-count:1;
         column-gap:0;

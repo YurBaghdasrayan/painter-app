@@ -41,7 +41,17 @@ class GalleryResource extends Resource
                         ->label('Show on Home')
                         ->default(false),
 
+                    Forms\Components\TextInput::make('home_sort_order')
+                        ->label('Home sort order')
+                        ->helperText('Smaller = higher on home (0, 1, 2…). To put a work second, it must be 1 if the first is 0—not 2. Empty: gallery order after explicit home orders.')
+                        ->numeric()
+                        ->minValue(0)
+                        ->default(null)
+                        ->nullable(),
+
                     Forms\Components\TextInput::make('sort_order')
+                        ->label('Gallery sort order')
+                        ->helperText('Order on /gallery page.')
                         ->numeric()
                         ->default(0),
 
@@ -233,7 +243,11 @@ class GalleryResource extends Resource
                 Tables\Columns\ToggleColumn::make('is_active')
                     ->label('Active')
                     ->sortable(),
+                Tables\Columns\TextColumn::make('home_sort_order')
+                    ->label('Home order')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('sort_order')
+                    ->label('Gallery order')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime('Y-m-d H:i')

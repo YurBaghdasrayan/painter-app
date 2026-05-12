@@ -310,6 +310,7 @@
                 </div>
 
                 <div class="gallery-section-grid" role="list">
+                    @php $homeGalleryIdx = 0; @endphp
                     @foreach(($galleryItems ?? collect()) as $item)
                         @php
                             $img = !empty($item->image) ? \Illuminate\Support\Facades\Storage::disk('public')->url($item->image) : null;
@@ -319,7 +320,8 @@
                         @endphp
 
                         @if($img && $item->slug)
-                            <article class="gallery-section-card" role="listitem">
+                            <article class="gallery-section-card" role="listitem" data-home-gallery-idx="{{ $homeGalleryIdx }}">
+                                @php $homeGalleryIdx++; @endphp
                                 <a class="gallery-section-card-link" href="{{ route('gallery.show', $item->slug) }}" aria-label="{{ $title }}">
                                     <div class="gallery-section-card-image">
                                         <img src="{{ $img }}" alt="{{ $title }}" loading="lazy" />
@@ -339,6 +341,42 @@
                         @endif
                     @endforeach
                 </div>
+                <script>
+                    (function () {
+                        var grid = document.querySelector('#gallery.gallery .gallery-section-grid');
+                        if (!grid) return;
+                        var mq = window.matchMedia('(min-width: 1201px)');
+                        var debounceTimer;
+                        function reorderHomeGalleryMasonry() {
+                            var nodes = Array.prototype.slice.call(grid.querySelectorAll(':scope > .gallery-section-card'));
+                            if (nodes.length <= 1) return;
+                            var sorted = nodes.slice().sort(function (a, b) {
+                                return Number(a.getAttribute('data-home-gallery-idx')) - Number(b.getAttribute('data-home-gallery-idx'));
+                            });
+                            var n = sorted.length;
+                            var ordered;
+                            if (mq.matches) {
+                                ordered = [];
+                                var i;
+                                for (i = 0; i < n; i += 2) ordered.push(sorted[i]);
+                                for (i = 1; i < n; i += 2) ordered.push(sorted[i]);
+                            } else {
+                                ordered = sorted;
+                            }
+                            var frag = document.createDocumentFragment();
+                            for (var j = 0; j < ordered.length; j++) frag.appendChild(ordered[j]);
+                            grid.appendChild(frag);
+                        }
+                        function onResize() {
+                            clearTimeout(debounceTimer);
+                            debounceTimer = setTimeout(reorderHomeGalleryMasonry, 80);
+                        }
+                        reorderHomeGalleryMasonry();
+                        if (mq.addEventListener) mq.addEventListener('change', reorderHomeGalleryMasonry);
+                        else mq.addListener(reorderHomeGalleryMasonry);
+                        window.addEventListener('resize', onResize);
+                    })();
+                </script>
 
                 <div class="gallery-footer">
                     <div class="gallery-more">
