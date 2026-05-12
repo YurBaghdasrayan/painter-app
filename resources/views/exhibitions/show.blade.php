@@ -255,6 +255,7 @@
                 font-weight:500;
                 letter-spacing:.03em;
                 text-transform:uppercase;
+                text-align:center;
                 overflow-wrap:anywhere;
                 word-break:break-word;
             }
@@ -283,7 +284,6 @@
                 overflow:hidden;
                 border:1px solid rgba(20,20,20,.08);
                 background:rgba(255,255,255,.35);
-                aspect-ratio:1026 / 746;
             }
 
             .exhibition-collage__thumbs{
@@ -304,12 +304,19 @@
                 aspect-ratio:1 / 1;
             }
 
-            .exhibition-collage__main img,
+            .exhibition-collage__main img{
+                width:100%;
+                height:auto;
+                display:block;
+                object-fit:contain;
+                object-position:center;
+            }
+
             .exhibition-collage__thumb img{
                 width:100%;
                 height:100%;
                 display:block;
-                object-fit:cover;
+                object-fit:contain;
                 object-position:center;
             }
 
@@ -609,10 +616,6 @@
 
                 .artwork{
                     padding-top:150px;
-                }
-
-                .exhibition-collage__main{
-                    aspect-ratio:4 / 3;
                 }
 
                 .exhibition-collage__thumbs{

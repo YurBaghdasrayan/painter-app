@@ -925,6 +925,12 @@
 }
 
 @media (max-width: 900px){
+    /* Hero background: show full artwork on narrow viewports (no side crop) */
+    .articles-hero-page__bg{
+        object-fit: contain;
+        object-position: center center;
+    }
+
     .articles-hero-page__main-image-box{
         top: 290px;
         max-width: 520px;

@@ -31,32 +31,6 @@
                     padding-top: 0 !important;
                 }
             }
-
-            /* Ультраширокие экраны: cover режет низ кадра — выше секция и центрируем кроп по вертикали */
-            @media (min-width: 1600px){
-                #about.about{
-                    min-height: clamp(1200px, 26vw + 880px, 2000px) !important;
-                }
-                #about.about .about-bg{
-                    object-position: 58% center !important;
-                }
-            }
-            @media (min-width: 2000px){
-                #about.about{
-                    min-height: clamp(1280px, 30vw + 920px, 2200px) !important;
-                }
-                #about.about .about-bg{
-                    object-position: 55% 42% !important;
-                }
-            }
-            @media (min-width: 2400px){
-                #about.about{
-                    min-height: clamp(1360px, 34vw + 960px, 2400px) !important;
-                }
-                #about.about .about-bg{
-                    object-position: 52% 48% !important;
-                }
-            }
         </style>
     @endpush
     @php
@@ -168,33 +142,8 @@
         $exhibitionsBullets = collect($exhibitionsSection['bullets'] ?? [])->filter()->values();
         $exhibitionsLeftText = $exhibitionsSection['left_text'] ?? '';
         $exhibitionsRightText = $exhibitionsSection['right_text'] ?? '';
+        $exhibitionsButtonText = $exhibitionsSection['button_text'] ?? 'Read more';
         $exhibitionsButtonLink = route('exhibitions.index');
-
-        $exhibitionsSanitizeBody = static function (?string $html): string {
-            if ($html === null || trim($html) === '') {
-                return '';
-            }
-            $decoded = html_entity_decode((string) $html, ENT_QUOTES | ENT_HTML5, 'UTF-8');
-
-            return strip_tags(
-                $decoded,
-                '<strong><em><b><i><u><br><a><span><ul><ol><li><sup><sub>'
-            );
-        };
-
-        $exhibitionsLeftTextClean = $exhibitionsSanitizeBody($exhibitionsLeftText);
-        $exhibitionsRightTextClean = $exhibitionsSanitizeBody($exhibitionsRightText);
-
-        $exhibitionsReadMoreLabel = match ($locale) {
-            'ru' => 'Подробнее',
-            'am' => 'Կարդալ ավելին',
-            default => 'Read more',
-        };
-
-        $exhibitionsHasIntro = trim((string) $exhibitionsLeftHeading) !== ''
-            || $exhibitionsBullets->isNotEmpty()
-            || trim($exhibitionsLeftTextClean) !== ''
-            || trim($exhibitionsRightTextClean) !== '';
         $exhibitionsBg = $exhibitionsSection['background_image'] ?? null;
 
         if (is_array($exhibitionsBg)) {
@@ -335,7 +284,7 @@
                 <div class="gallery-section-grid" role="list">
                     @foreach(($galleryItems ?? collect()) as $item)
                         @php
-                            $img = !empty($item->image) ? $item->listImagePublicUrl() : null;
+                            $img = !empty($item->image) ? \Illuminate\Support\Facades\Storage::disk('public')->url($item->image) : null;
                             $title = $item->localized('title') ?? 'Gallery';
                                 $size = trim((string) ($item->localized('size') ?? ''));
                                 $material = trim((string) ($item->localized('material') ?? ''));
@@ -392,51 +341,51 @@
         'articlesMoreLink' => $articlesMoreLink,
     ])
 
-{{--    @if(($collectionSections ?? collect())->count())--}}
-{{--        <section id="collection" class="gallery" aria-label="Collection">--}}
-{{--            <div class="gallery-inner">--}}
-{{--                @php--}}
-{{--                    $head = $collectionSections->first();--}}
-{{--                    $collectionTitleFinal = $collectionTitle ?: ($head?->localized('title') ?? '');--}}
-{{--                    $collectionLeftTextFinal = $collectionLeftText ?: ($head?->localized('description') ?? '');--}}
-{{--                    $collectionRightTextFinal = $collectionRightText ?: '';--}}
-{{--                    $collectionMoreTextFinal = $collectionMoreText ?: ($head?->localized('more_button_text') ?? 'more');--}}
-{{--                    $collectionMoreLinkFinal = $collectionMoreLink ?: (route('collection.index'));--}}
-{{--                @endphp--}}
+    @if(($collectionSections ?? collect())->count())
+        <section id="collection" class="gallery" aria-label="Collection">
+            <div class="gallery-inner">
+                @php
+                    $head = $collectionSections->first();
+                    $collectionTitleFinal = $collectionTitle ?: ($head?->localized('title') ?? '');
+                    $collectionLeftTextFinal = $collectionLeftText ?: ($head?->localized('description') ?? '');
+                    $collectionRightTextFinal = $collectionRightText ?: '';
+                    $collectionMoreTextFinal = $collectionMoreText ?: ($head?->localized('more_button_text') ?? 'more');
+                    $collectionMoreLinkFinal = $collectionMoreLink ?: (route('collection.index'));
+                @endphp
 
-{{--                <div class="gallery-head">--}}
-{{--                    <h2 class="gallery-title">{{ $collectionTitleFinal }}</h2>--}}
+                <div class="gallery-head">
+                    <h2 class="gallery-title">{{ $collectionTitleFinal }}</h2>
 
-{{--                    <div class="gallery-toptexts">--}}
-{{--                        <div class="gallery-toptext gallery-toptext--left">--}}
-{{--                            {!! (string) $collectionLeftTextFinal !!}--}}
-{{--                        </div>--}}
-{{--                        <div class="gallery-toptext gallery-toptext--right">--}}
-{{--                            {!! (string) $collectionRightTextFinal !!}--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
+                    <div class="gallery-toptexts">
+                        <div class="gallery-toptext gallery-toptext--left">
+                            {!! (string) $collectionLeftTextFinal !!}
+                        </div>
+                        <div class="gallery-toptext gallery-toptext--right">
+                            {!! (string) $collectionRightTextFinal !!}
+                        </div>
+                    </div>
+                </div>
 
-{{--                <div class="gallery-section-grid" role="list">--}}
-{{--                    @foreach($collectionSections as $section)--}}
-{{--                        @include('collection.partials.section-card', ['section' => $section])--}}
-{{--                    @endforeach--}}
-{{--                </div>--}}
+                <div class="gallery-section-grid" role="list">
+                    @foreach($collectionSections as $section)
+                        @include('collection.partials.section-card', ['section' => $section])
+                    @endforeach
+                </div>
 
-{{--                <div class="gallery-footer">--}}
-{{--                    <div class="gallery-more">--}}
-{{--                        <span class="gallery-more-text">{{ $collectionMoreTextFinal }}</span>--}}
-{{--                        <a class="gallery-more-btn" href="{{ $collectionMoreLinkFinal }}" aria-label="More">--}}
-{{--                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">--}}
-{{--                                <path d="M5 12H18" stroke="white" stroke-width="2" stroke-linecap="round"/>--}}
-{{--                                <path d="M13 7L18 12L13 17" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>--}}
-{{--                            </svg>--}}
-{{--                        </a>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </section>--}}
-{{--    @endif--}}
+                <div class="gallery-footer">
+                    <div class="gallery-more">
+                        <span class="gallery-more-text">{{ $collectionMoreTextFinal }}</span>
+                        <a class="gallery-more-btn" href="{{ $collectionMoreLinkFinal }}" aria-label="More">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path d="M5 12H18" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M13 7L18 12L13 17" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endif
 
     @if($exhibitionsTitle || (($exhibitions ?? collect())->count()))
         <section id="exhibitions" class="home-exhibitions" aria-label="Exhibitions">
@@ -444,36 +393,6 @@
                 <header class="home-exhibitions__head">
                     <h2 class="home-exhibitions__title">{{ $exhibitionsTitle }}</h2>
                 </header>
-
-                @if($exhibitionsHasIntro)
-                    <div class="home-exhibitions__grid">
-                        <div class="home-exhibitions__col home-exhibitions__col--left">
-                            @if(trim((string) $exhibitionsLeftHeading) !== '')
-                                <div class="home-exhibitions__heading">{{ $exhibitionsLeftHeading }}</div>
-                            @endif
-
-                            @if($exhibitionsBullets->isNotEmpty())
-                                <ul class="home-exhibitions__bullets">
-                                    @foreach($exhibitionsBullets as $bullet)
-                                        <li>{{ $bullet }}</li>
-                                    @endforeach
-                                </ul>
-                            @endif
-
-                            @if(trim($exhibitionsLeftTextClean) !== '')
-                                <div class="home-exhibitions__copy">{!! $exhibitionsLeftTextClean !!}</div>
-                            @endif
-                        </div>
-
-                        <div class="home-exhibitions__col home-exhibitions__col--right">
-                            @if(trim($exhibitionsRightTextClean) !== '')
-                                <div class="home-exhibitions__copy home-exhibitions__copy--right">
-                                    {!! $exhibitionsRightTextClean !!}
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-                @endif
 
                 @if(($exhibitions ?? collect())->count())
                     <div class="home-exhibitions__cards" role="list">
@@ -497,7 +416,7 @@
                                             “{{ strtoupper((string) $title) }}”
                                         </div>
                                         @if($desc !== '')
-                                            <div class="home-exhibitions-card__desc">{!! $exhibitionsSanitizeBody($desc) !!}</div>
+                                            <div class="home-exhibitions-card__desc">{{ $desc }}</div>
                                         @endif
                                     </div>
                                 </a>
@@ -506,19 +425,11 @@
                     </div>
                 @endif
 
-                @if($exhibitionsHasIntro)
-                    <div class="home-exhibitions__footer home-exhibitions__footer--center">
-                        <a class="home-exhibitions__btn" href="{{ $exhibitionsButtonLink }}">
-                            {{ $exhibitionsReadMoreLabel }}
-                        </a>
-                    </div>
-                @elseif(!$exhibitionsHasIntro)
-                    <div class="home-exhibitions__footer">
-                        <a class="home-exhibitions__btn" href="{{ $exhibitionsButtonLink }}">
-                            {{ $exhibitionsReadMoreLabel }}
-                        </a>
-                    </div>
-                @endif
+                <div class="home-exhibitions__footer">
+                    <a class="home-exhibitions__btn" href="{{ $exhibitionsButtonLink }}">
+                        {{ $exhibitionsButtonText }}
+                    </a>
+                </div>
             </div>
         </section>
     @endif

@@ -62,12 +62,50 @@ class GalleryItem extends Model
     }
 
     /**
+     * Filament FileUpload may store a single-element array or JSON array string.
+     */
+    public static function normalizeStoredImage(mixed $value): ?string
+    {
+        if ($value === null || $value === '') {
+            return null;
+        }
+
+        if (is_array($value)) {
+            $first = reset($value);
+
+            return is_string($first) && $first !== '' ? $first : null;
+        }
+
+        if (! is_string($value)) {
+            return null;
+        }
+
+        $trimmed = trim($value);
+        if ($trimmed === '') {
+            return null;
+        }
+
+        if (str_starts_with($trimmed, '[')) {
+            $decoded = json_decode($trimmed, true);
+            if (is_array($decoded)) {
+                $first = reset($decoded);
+
+                return is_string($first) && $first !== '' ? $first : null;
+            }
+        }
+
+        return $trimmed;
+    }
+
+    /**
      * Public URL for list/grid views (lightweight thumb when available).
      */
     public function listImagePublicUrl(): ?string
     {
-        $path = $this->image_thumb ?: $this->image;
-        if (! is_string($path) || trim($path) === '') {
+        $thumb = self::normalizeStoredImage($this->image_thumb ?? null);
+        $main = self::normalizeStoredImage($this->image ?? null);
+        $path = $thumb ?: $main;
+        if ($path === null) {
             return null;
         }
 
@@ -79,11 +117,12 @@ class GalleryItem extends Model
      */
     public function mainImagePublicUrl(): ?string
     {
-        if (! is_string($this->image) || trim($this->image) === '') {
+        $path = self::normalizeStoredImage($this->image ?? null);
+        if ($path === null) {
             return null;
         }
 
-        return Storage::disk('public')->url($this->image);
+        return Storage::disk('public')->url($path);
     }
 
     public function localized(string $field, ?string $locale = null): ?string

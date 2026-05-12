@@ -41,22 +41,23 @@ class GalleryThumbnailService
     /**
      * Build or refresh list thumbnail; updates image_thumb on model (saveQuietly).
      */
-    public function syncMainThumbnail(GalleryItem $item): void
+    public function syncMainThumbnail(GalleryItem $item): bool
     {
         $disk = Storage::disk('public');
 
-        if (! $item->image || ! $disk->exists($item->image)) {
-            $this->deletePublicFile($item->image_thumb);
+        $mainRelative = GalleryItem::normalizeStoredImage($item->image);
+        if ($mainRelative === null || ! $disk->exists($mainRelative)) {
+            $this->deletePublicFile(GalleryItem::normalizeStoredImage($item->image_thumb));
             $item->forceFill(['image_thumb' => null])->saveQuietly();
 
-            return;
+            return false;
         }
 
-        $thumbPath = $this->thumbRelativePathFor($item->image);
+        $thumbPath = $this->thumbRelativePathFor($mainRelative);
         $thumbDir = dirname($thumbPath);
         $disk->makeDirectory($thumbDir);
 
-        $sourcePath = $disk->path($item->image);
+        $sourcePath = $disk->path($mainRelative);
         $targetPath = $disk->path($thumbPath);
 
         try {
@@ -65,19 +66,23 @@ class GalleryThumbnailService
             $image->scaleDown(width: self::MAX_WIDTH);
             $image->encode(new JpegEncoder(quality: self::JPEG_QUALITY))->save($targetPath);
         } catch (Throwable $e) {
-            Log::warning('gallery.thumbnail_failed', [
+            Log::error('gallery.thumbnail_failed', [
                 'gallery_item_id' => $item->getKey(),
-                'image' => $item->image,
+                'image' => $mainRelative,
                 'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
             ]);
 
-            return;
+            return false;
         }
 
-        if ($item->image_thumb && $item->image_thumb !== $thumbPath) {
-            $this->deletePublicFile($item->image_thumb);
+        $oldThumb = GalleryItem::normalizeStoredImage($item->image_thumb);
+        if ($oldThumb && $oldThumb !== $thumbPath) {
+            $this->deletePublicFile($oldThumb);
         }
 
         $item->forceFill(['image_thumb' => $thumbPath])->saveQuietly();
+
+        return true;
     }
 }

@@ -21,15 +21,20 @@ class RegenerateGalleryThumbnails extends Command
         }
 
         $count = 0;
-        $query->orderBy('id')->chunkById(50, function ($items) use ($thumbnails, &$count) {
+        $failed = 0;
+        $query->orderBy('id')->chunkById(50, function ($items) use ($thumbnails, &$count, &$failed) {
             foreach ($items as $item) {
-                $thumbnails->syncMainThumbnail($item);
-                $count++;
-                $this->line('OK #'.$item->getKey());
+                if ($thumbnails->syncMainThumbnail($item)) {
+                    $count++;
+                    $this->line('OK #'.$item->getKey());
+                } else {
+                    $failed++;
+                    $this->warn('Skip #'.$item->getKey().' (missing file or encode error — see storage/logs)');
+                }
             }
         });
 
-        $this->info('Processed '.$count.' item(s).');
+        $this->info('Thumbnails OK: '.$count.', skipped: '.$failed.'.');
 
         return self::SUCCESS;
     }
