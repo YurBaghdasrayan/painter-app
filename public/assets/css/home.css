@@ -626,6 +626,31 @@ a{color:inherit;text-decoration:none}
     }
 }
 
+/* Wide desktop: fluid hero height + scaled wave/stroke; contain shows full portrait (chin); profile overlap tracks hero height */
+@media (min-width: 1201px){
+    .about-page-hero__visual{
+        --aph-h: clamp(430px, calc(100vw * 430 / 1440), 860px);
+        height: var(--aph-h);
+    }
+
+    .about-page-hero__wave{
+        height: calc(var(--aph-h) * 190 / 430);
+    }
+
+    .about-page-hero__stroke{
+        top: calc(var(--aph-h) * 78 / 430);
+        height: calc(var(--aph-h) * 120 / 430);
+    }
+}
+
+/* From design width upward: show full hero photo (no chin crop) */
+@media (min-width: 1440px){
+    .about-page-hero__bg{
+        object-fit: contain;
+        object-position: center center;
+    }
+}
+
 /* About page profile block */
 .about-page-profile{
     position: relative;
@@ -659,6 +684,12 @@ a{color:inherit;text-decoration:none}
     background: rgba(255,255,255,.35);
     border: 1px solid rgba(20,20,20,.08);
     overflow: hidden;
+}
+
+@media (min-width: 1201px){
+    .about-page-profile__image{
+        margin-top: calc(-160px - 0.42 * (clamp(430px, calc(100vw * 430 / 1440), 860px) - 430px));
+    }
 }
 
 .about-page-profile__image img{

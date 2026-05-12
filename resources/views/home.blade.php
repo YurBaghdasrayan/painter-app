@@ -31,6 +31,32 @@
                     padding-top: 0 !important;
                 }
             }
+
+            /* Ультраширокие экраны: cover режет низ кадра — выше секция и центрируем кроп по вертикали */
+            @media (min-width: 1600px){
+                #about.about{
+                    min-height: clamp(1200px, 26vw + 880px, 2000px) !important;
+                }
+                #about.about .about-bg{
+                    object-position: 58% center !important;
+                }
+            }
+            @media (min-width: 2000px){
+                #about.about{
+                    min-height: clamp(1280px, 30vw + 920px, 2200px) !important;
+                }
+                #about.about .about-bg{
+                    object-position: 55% 42% !important;
+                }
+            }
+            @media (min-width: 2400px){
+                #about.about{
+                    min-height: clamp(1360px, 34vw + 960px, 2400px) !important;
+                }
+                #about.about .about-bg{
+                    object-position: 52% 48% !important;
+                }
+            }
         </style>
     @endpush
     @php
@@ -222,7 +248,9 @@
                 <source src="{{ $aboutBgUrl }}">
             </video>
         @else
-            <img src="{{ $aboutBgUrl }}" alt="About background" class="about-bg" />
+            <div class="about-media about-media--photo">
+                <img src="{{ $aboutBgUrl }}" alt="About background" class="about-bg about-bg--photo" />
+            </div>
         @endif
         <img src="{{ asset('assets/images/line.svg') }}" alt="About background" class="line" />
 
@@ -415,8 +443,8 @@
                                         <div class="home-exhibitions-card__title">
                                             “{{ strtoupper((string) $title) }}”
                                         </div>
-                                        @if($desc !== '')
-                                            <div class="home-exhibitions-card__desc">{{ $desc }}</div>
+                                        @if(trim((string) strip_tags((string) $desc)) !== '')
+                                            <div class="home-exhibitions-card__desc">{!! (string) $desc !!}</div>
                                         @endif
                                     </div>
                                 </a>
