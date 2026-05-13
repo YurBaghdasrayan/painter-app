@@ -61,6 +61,20 @@ class GalleryItem extends Model
         'detail_images' => 'array',
     ];
 
+    /**
+     * Empty admin field / API payload must not send NULL (column is NOT NULL).
+     */
+    public function setSortOrderAttribute(mixed $value): void
+    {
+        if ($value === null || $value === '') {
+            $this->attributes['sort_order'] = 0;
+
+            return;
+        }
+
+        $this->attributes['sort_order'] = (int) $value;
+    }
+
     public function section(): BelongsTo
     {
         return $this->belongsTo(GallerySection::class, 'gallery_section_id');

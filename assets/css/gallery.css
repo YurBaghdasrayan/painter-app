@@ -747,6 +747,70 @@
     }
 }
 
+/* =========================================================
+   GALLERY INDEX GRID (12 columns)
+   Row rhythm for first 32 items: 2, 4, 3, 4, 4, 4, 2, 3, 3, 3 (= 32)
+   Item 33+: three per row (span 4)
+   ========================================================= */
+.gallery-index .gallery-section-grid{
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 60px;
+    row-gap: 64px;
+    align-items: start;
+}
+
+.gallery-index .gallery-section-grid .gallery-section-card{
+    grid-column: auto;
+}
+
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(1),
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(2){
+    grid-column: span 6;
+}
+
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(3),
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(4),
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(5),
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(6){
+    grid-column: span 3;
+}
+
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(7),
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(8),
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(9){
+    grid-column: span 4;
+}
+
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(n+10):nth-child(-n+21){
+    grid-column: span 3;
+}
+
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(22),
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(23){
+    grid-column: span 6;
+}
+
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(n+24):nth-child(-n+32){
+    grid-column: span 4;
+}
+
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(n+33){
+    grid-column: span 4;
+}
+
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(1) .gallery-section-card-image,
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(2) .gallery-section-card-image,
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(22) .gallery-section-card-image,
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(23) .gallery-section-card-image{
+    aspect-ratio: 723 / 604;
+}
+
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(n+3):nth-child(-n+21) .gallery-section-card-image,
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(n+24) .gallery-section-card-image{
+    aspect-ratio: 1 / 1;
+}
+
 /* GALLERY INDEX: extra sections after slider (masonry-ish, like figma "GALLERY" grid) */
 .gallery-index-tail{
     position: relative;

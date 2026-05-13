@@ -776,9 +776,9 @@
 }
 
 /* =========================================================
-   GALLERY INDEX TOP GRID (first 5 sections like Figma)
-   Row 1: 2 large cards
-   Row 2: 3 smaller cards
+   GALLERY INDEX GRID (12 columns)
+   Row rhythm for first 32 items: 2, 4, 3, 4, 4, 4, 2, 3, 3, 3 (= 32)
+   Item 33+: three per row (span 4)
    ========================================================= */
 .gallery-index .gallery-section-grid{
     display: grid;
@@ -792,50 +792,59 @@
     grid-column: auto;
 }
 
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(1){
-    grid-column: 1 / span 6; /* 2 big */
-}
-
+/* Row 1: 2 */
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(1),
 .gallery-index .gallery-section-grid .gallery-section-card:nth-child(2){
-    grid-column: 7 / span 6; /* 2 big */
-}
-
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(3){
-    grid-column: 1 / span 4; /* 3 small */
-}
-
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(4){
-    grid-column: 5 / span 4; /* 3 small */
-}
-
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(5){
-    grid-column: 9 / span 4; /* 3 small */
-}
-
-/* Make 2nd row cards slightly smaller/squarer */
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(n+3):nth-child(-n+5) .gallery-section-card-image{
-    aspect-ratio: 1 / 1;
-}
-
-/* After first 5: print 4 per row (like figma) */
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(n+6){
-    grid-column: span 3;
-}
-
-/* keep later cards compact */
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(n+6) .gallery-section-card-image{
-    aspect-ratio: 1 / 1;
-}
-
-/* Rhythm like in figma: occasionally 2 wide cards */
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(12n + 10),
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(12n + 11){
     grid-column: span 6;
 }
 
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(12n + 10) .gallery-section-card-image,
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(12n + 11) .gallery-section-card-image{
-    aspect-ratio: 1026 / 746;
+/* Row 2: 4 */
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(3),
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(4),
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(5),
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(6){
+    grid-column: span 3;
+}
+
+/* Row 3: 3 */
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(7),
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(8),
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(9){
+    grid-column: span 4;
+}
+
+/* Rows 4–6: four cards each (10–21) */
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(n+10):nth-child(-n+21){
+    grid-column: span 3;
+}
+
+/* Row 7: 2 */
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(22),
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(23){
+    grid-column: span 6;
+}
+
+/* Rows 8–10: three each (24–32) */
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(n+24):nth-child(-n+32){
+    grid-column: span 4;
+}
+
+/* Beyond 32: keep 3 per row */
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(n+33){
+    grid-column: span 4;
+}
+
+/* Wider tiles on 2-card rows */
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(1) .gallery-section-card-image,
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(2) .gallery-section-card-image,
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(22) .gallery-section-card-image,
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(23) .gallery-section-card-image{
+    aspect-ratio: 723 / 604;
+}
+
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(n+3):nth-child(-n+21) .gallery-section-card-image,
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(n+24) .gallery-section-card-image{
+    aspect-ratio: 1 / 1;
 }
 
 /* GALLERY INDEX: extra sections after slider (masonry-ish, like figma "GALLERY" grid) */
