@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Forms\AdminRichEditorDefaults;
 use App\Filament\Resources\GalleryItemResource\Pages;
 use App\Models\GalleryItem;
 use Filament\Forms;
@@ -82,11 +83,15 @@ class GalleryItemResource extends Resource
                                                     $set('slug', Str::slug($state));
                                                 }
                                             }),
-                                        RichEditor::make('short_description_am')
-                                            ->label('Short description (AM)')
+                                        AdminRichEditorDefaults::configure(
+                                            RichEditor::make('short_description_am')
+                                                ->label('Short description (AM)')
+                                        )
                                             ->columnSpanFull(),
-                                        RichEditor::make('full_description_am')
-                                            ->label('Full description (AM)')
+                                        AdminRichEditorDefaults::configure(
+                                            RichEditor::make('full_description_am')
+                                                ->label('Full description (AM)')
+                                        )
                                             ->columnSpanFull(),
                                         Forms\Components\TextInput::make('same_line_title_am')
                                             ->label('Same line title (AM)')
@@ -103,11 +108,15 @@ class GalleryItemResource extends Resource
                                                     $set('slug', Str::slug($state));
                                                 }
                                             }),
-                                        RichEditor::make('short_description_ru')
-                                            ->label('Short description (RU)')
+                                        AdminRichEditorDefaults::configure(
+                                            RichEditor::make('short_description_ru')
+                                                ->label('Short description (RU)')
+                                        )
                                             ->columnSpanFull(),
-                                        RichEditor::make('full_description_ru')
-                                            ->label('Full description (RU)')
+                                        AdminRichEditorDefaults::configure(
+                                            RichEditor::make('full_description_ru')
+                                                ->label('Full description (RU)')
+                                        )
                                             ->columnSpanFull(),
                                         Forms\Components\TextInput::make('same_line_title_ru')
                                             ->label('Same line title (RU)')
@@ -125,11 +134,15 @@ class GalleryItemResource extends Resource
                                                     $set('slug', Str::slug($state));
                                                 }
                                             }),
-                                        RichEditor::make('short_description_en')
-                                            ->label('Short description (EN)')
+                                        AdminRichEditorDefaults::configure(
+                                            RichEditor::make('short_description_en')
+                                                ->label('Short description (EN)')
+                                        )
                                             ->columnSpanFull(),
-                                        RichEditor::make('full_description_en')
-                                            ->label('Full description (EN)')
+                                        AdminRichEditorDefaults::configure(
+                                            RichEditor::make('full_description_en')
+                                                ->label('Full description (EN)')
+                                        )
                                             ->columnSpanFull(),
                                         Forms\Components\TextInput::make('same_line_title_en')
                                             ->label('Same line title (EN)')

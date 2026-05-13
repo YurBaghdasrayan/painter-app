@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Forms\AdminRichEditorDefaults;
 use App\Filament\Resources\GalleryResource\Pages;
 use App\Models\GalleryItem;
 use Filament\Forms;
@@ -84,11 +85,15 @@ class GalleryResource extends Resource
                                     Forms\Components\TextInput::make('material_am')
                                         ->label('Material (AM)')
                                         ->maxLength(255),
-                                    RichEditor::make('short_description_am')
-                                        ->label('Short description (AM)')
+                                    AdminRichEditorDefaults::configure(
+                                        RichEditor::make('short_description_am')
+                                            ->label('Short description (AM)')
+                                    )
                                         ->columnSpanFull(),
-                                    RichEditor::make('full_description_am')
-                                        ->label('Long description (AM)')
+                                    AdminRichEditorDefaults::configure(
+                                        RichEditor::make('full_description_am')
+                                            ->label('Long description (AM)')
+                                    )
                                         ->columnSpanFull(),
 
                                     Section::make('Show page (AM)')
@@ -96,8 +101,10 @@ class GalleryResource extends Resource
                                             Repeater::make('show_columns_am')
                                                 ->label('3 text columns (below image)')
                                                 ->schema([
-                                                    RichEditor::make('text')
-                                                        ->label('Text')
+                                                    AdminRichEditorDefaults::configure(
+                                                        RichEditor::make('text')
+                                                            ->label('Text')
+                                                    )
                                                         ->columnSpanFull(),
                                                 ])
                                                 ->maxItems(3)
@@ -126,11 +133,15 @@ class GalleryResource extends Resource
                                     Forms\Components\TextInput::make('material_ru')
                                         ->label('Material (RU)')
                                         ->maxLength(255),
-                                    RichEditor::make('short_description_ru')
-                                        ->label('Short description (RU)')
+                                    AdminRichEditorDefaults::configure(
+                                        RichEditor::make('short_description_ru')
+                                            ->label('Short description (RU)')
+                                    )
                                         ->columnSpanFull(),
-                                    RichEditor::make('full_description_ru')
-                                        ->label('Long description (RU)')
+                                    AdminRichEditorDefaults::configure(
+                                        RichEditor::make('full_description_ru')
+                                            ->label('Long description (RU)')
+                                    )
                                         ->columnSpanFull(),
 
                                     Section::make('Show page (RU)')
@@ -138,8 +149,10 @@ class GalleryResource extends Resource
                                             Repeater::make('show_columns_ru')
                                                 ->label('3 text columns (below image)')
                                                 ->schema([
-                                                    RichEditor::make('text')
-                                                        ->label('Text')
+                                                    AdminRichEditorDefaults::configure(
+                                                        RichEditor::make('text')
+                                                            ->label('Text')
+                                                    )
                                                         ->columnSpanFull(),
                                                 ])
                                                 ->maxItems(3)
@@ -169,11 +182,15 @@ class GalleryResource extends Resource
                                     Forms\Components\TextInput::make('material_en')
                                         ->label('Material (EN)')
                                         ->maxLength(255),
-                                    RichEditor::make('short_description_en')
-                                        ->label('Short description (EN)')
+                                    AdminRichEditorDefaults::configure(
+                                        RichEditor::make('short_description_en')
+                                            ->label('Short description (EN)')
+                                    )
                                         ->columnSpanFull(),
-                                    RichEditor::make('full_description_en')
-                                        ->label('Long description (EN)')
+                                    AdminRichEditorDefaults::configure(
+                                        RichEditor::make('full_description_en')
+                                            ->label('Long description (EN)')
+                                    )
                                         ->columnSpanFull(),
 
                                     Section::make('Show page (EN)')
@@ -181,8 +198,10 @@ class GalleryResource extends Resource
                                             Repeater::make('show_columns_en')
                                                 ->label('3 text columns (below image)')
                                                 ->schema([
-                                                    RichEditor::make('text')
-                                                        ->label('Text')
+                                                    AdminRichEditorDefaults::configure(
+                                                        RichEditor::make('text')
+                                                            ->label('Text')
+                                                    )
                                                         ->columnSpanFull(),
                                                 ])
                                                 ->maxItems(3)

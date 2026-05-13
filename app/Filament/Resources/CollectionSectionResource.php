@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Forms\AdminRichEditorDefaults;
 use App\Filament\Resources\CollectionSectionResource\Pages;
 use App\Models\CollectionSection;
 use Filament\Forms;
@@ -35,8 +36,10 @@ class CollectionSectionResource extends Resource
                                     Forms\Components\TextInput::make('title_am')
                                         ->label('Title (AM)')
                                         ->maxLength(255),
-                                    RichEditor::make('description_am')
-                                        ->label('Description (AM)')
+                                    AdminRichEditorDefaults::configure(
+                                        RichEditor::make('description_am')
+                                            ->label('Description (AM)')
+                                    )
                                         ->columnSpanFull(),
                                     Forms\Components\TextInput::make('more_button_text_am')
                                         ->label('More button text (AM)')
@@ -48,8 +51,10 @@ class CollectionSectionResource extends Resource
                                     Forms\Components\TextInput::make('title_ru')
                                         ->label('Title (RU)')
                                         ->maxLength(255),
-                                    RichEditor::make('description_ru')
-                                        ->label('Description (RU)')
+                                    AdminRichEditorDefaults::configure(
+                                        RichEditor::make('description_ru')
+                                            ->label('Description (RU)')
+                                    )
                                         ->columnSpanFull(),
                                     Forms\Components\TextInput::make('more_button_text_ru')
                                         ->label('More button text (RU)')
@@ -61,8 +66,10 @@ class CollectionSectionResource extends Resource
                                     Forms\Components\TextInput::make('title_en')
                                         ->label('Title (EN)')
                                         ->maxLength(255),
-                                    RichEditor::make('description_en')
-                                        ->label('Description (EN)')
+                                    AdminRichEditorDefaults::configure(
+                                        RichEditor::make('description_en')
+                                            ->label('Description (EN)')
+                                    )
                                         ->columnSpanFull(),
                                     Forms\Components\TextInput::make('more_button_text_en')
                                         ->label('More button text (EN)')

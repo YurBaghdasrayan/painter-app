@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Forms\AdminRichEditorDefaults;
 use App\Filament\Resources\StaticPageResource\Pages\CreateStaticPage;
 use App\Filament\Resources\StaticPageResource\Pages\EditStaticPage;
 use App\Filament\Resources\StaticPageResource\Pages\ListStaticPages;
@@ -270,8 +271,10 @@ class StaticPageResource extends Resource
                         ->label('Floating card title')
                         ->maxLength(255),
 
-                    \Filament\Forms\Components\RichEditor::make("content_{$locale}.section_hero.card_text")
-                        ->label('Floating card text'),
+                    AdminRichEditorDefaults::configure(
+                        RichEditor::make("content_{$locale}.section_hero.card_text")
+                            ->label('Floating card text')
+                    ),
                 ]),
 
             Section::make("Collection last section {$locale}")
@@ -686,14 +689,20 @@ class StaticPageResource extends Resource
                         ->directory('static/articles')
                         ->visibility('public'),
 
-                    RichEditor::make("content_{$locale}.intro_section.columns.0")
-                        ->label('Column 1'),
+                    AdminRichEditorDefaults::configure(
+                        RichEditor::make("content_{$locale}.intro_section.columns.0")
+                            ->label('Column 1')
+                    ),
 
-                    RichEditor::make("content_{$locale}.intro_section.columns.1")
-                        ->label('Column 2'),
+                    AdminRichEditorDefaults::configure(
+                        RichEditor::make("content_{$locale}.intro_section.columns.1")
+                            ->label('Column 2')
+                    ),
 
-                    RichEditor::make("content_{$locale}.intro_section.columns.2")
-                        ->label('Column 3'),
+                    AdminRichEditorDefaults::configure(
+                        RichEditor::make("content_{$locale}.intro_section.columns.2")
+                            ->label('Column 3')
+                    ),
                 ]),
         ];
     }
@@ -734,11 +743,15 @@ class StaticPageResource extends Resource
                         ->label('Name')
                         ->maxLength(255),
 
-                    RichEditor::make("content_{$locale}.profile_section.text")
-                        ->label('Bio text (near image)'),
+                    AdminRichEditorDefaults::configure(
+                        RichEditor::make("content_{$locale}.profile_section.text")
+                            ->label('Bio text (near image)')
+                    ),
 
-                    RichEditor::make("content_{$locale}.profile_section.bottom_text")
-                        ->label('Bottom text (below line)'),
+                    AdminRichEditorDefaults::configure(
+                        RichEditor::make("content_{$locale}.profile_section.bottom_text")
+                            ->label('Bottom text (below line)')
+                    ),
                 ]),
 
             Section::make("About video {$locale}")
@@ -755,14 +768,20 @@ class StaticPageResource extends Resource
                         ->directory('static/about')
                         ->visibility('public'),
 
-                    RichEditor::make("content_{$locale}.video_section.columns.0")
-                        ->label('Column 1'),
+                    AdminRichEditorDefaults::configure(
+                        RichEditor::make("content_{$locale}.video_section.columns.0")
+                            ->label('Column 1')
+                    ),
 
-                    RichEditor::make("content_{$locale}.video_section.columns.1")
-                        ->label('Column 2'),
+                    AdminRichEditorDefaults::configure(
+                        RichEditor::make("content_{$locale}.video_section.columns.1")
+                            ->label('Column 2')
+                    ),
 
-                    RichEditor::make("content_{$locale}.video_section.columns.2")
-                        ->label('Column 3'),
+                    AdminRichEditorDefaults::configure(
+                        RichEditor::make("content_{$locale}.video_section.columns.2")
+                            ->label('Column 3')
+                    ),
                 ]),
 
             Section::make("About feature {$locale}")
@@ -772,11 +791,15 @@ class StaticPageResource extends Resource
                         ->label('Title')
                         ->maxLength(255),
 
-                    RichEditor::make("content_{$locale}.feature_section.top_left")
-                        ->label('Top left text'),
+                    AdminRichEditorDefaults::configure(
+                        RichEditor::make("content_{$locale}.feature_section.top_left")
+                            ->label('Top left text')
+                    ),
 
-                    RichEditor::make("content_{$locale}.feature_section.top_right")
-                        ->label('Top right text'),
+                    AdminRichEditorDefaults::configure(
+                        RichEditor::make("content_{$locale}.feature_section.top_right")
+                            ->label('Top right text')
+                    ),
 
                     FileUpload::make("content_{$locale}.feature_section.image")
                         ->label('Image')
@@ -789,11 +812,15 @@ class StaticPageResource extends Resource
                         ->label('Button link')
                         ->maxLength(255),
 
-                    RichEditor::make("content_{$locale}.feature_section.bottom_left")
-                        ->label('Bottom left text'),
+                    AdminRichEditorDefaults::configure(
+                        RichEditor::make("content_{$locale}.feature_section.bottom_left")
+                            ->label('Bottom left text')
+                    ),
 
-                    RichEditor::make("content_{$locale}.feature_section.bottom_right")
-                        ->label('Bottom right text'),
+                    AdminRichEditorDefaults::configure(
+                        RichEditor::make("content_{$locale}.feature_section.bottom_right")
+                            ->label('Bottom right text')
+                    ),
                 ]),
 
             Section::make("About duo {$locale}")
@@ -810,8 +837,10 @@ class StaticPageResource extends Resource
                         ->label('Left title')
                         ->maxLength(255),
 
-                    RichEditor::make("content_{$locale}.duo_section.left.text")
-                        ->label('Left text'),
+                    AdminRichEditorDefaults::configure(
+                        RichEditor::make("content_{$locale}.duo_section.left.text")
+                            ->label('Left text')
+                    ),
 
                     FileUpload::make("content_{$locale}.duo_section.right.image")
                         ->label('Right image')
@@ -824,8 +853,10 @@ class StaticPageResource extends Resource
                         ->label('Right title')
                         ->maxLength(255),
 
-                    RichEditor::make("content_{$locale}.duo_section.right.text")
-                        ->label('Right text'),
+                    AdminRichEditorDefaults::configure(
+                        RichEditor::make("content_{$locale}.duo_section.right.text")
+                            ->label('Right text')
+                    ),
                 ]),
 
             Section::make("About quad {$locale}")
@@ -841,26 +872,34 @@ class StaticPageResource extends Resource
                     TextInput::make("content_{$locale}.quad_section.left_top.title")
                         ->label('Left top title')
                         ->maxLength(255),
-                    RichEditor::make("content_{$locale}.quad_section.left_top.text")
-                        ->label('Left top text'),
+                    AdminRichEditorDefaults::configure(
+                        RichEditor::make("content_{$locale}.quad_section.left_top.text")
+                            ->label('Left top text')
+                    ),
 
                     TextInput::make("content_{$locale}.quad_section.left_bottom.title")
                         ->label('Left bottom title')
                         ->maxLength(255),
-                    RichEditor::make("content_{$locale}.quad_section.left_bottom.text")
-                        ->label('Left bottom text'),
+                    AdminRichEditorDefaults::configure(
+                        RichEditor::make("content_{$locale}.quad_section.left_bottom.text")
+                            ->label('Left bottom text')
+                    ),
 
                     TextInput::make("content_{$locale}.quad_section.right_top.title")
                         ->label('Right top title')
                         ->maxLength(255),
-                    RichEditor::make("content_{$locale}.quad_section.right_top.text")
-                        ->label('Right top text'),
+                    AdminRichEditorDefaults::configure(
+                        RichEditor::make("content_{$locale}.quad_section.right_top.text")
+                            ->label('Right top text')
+                    ),
 
                     TextInput::make("content_{$locale}.quad_section.right_bottom.title")
                         ->label('Right bottom title')
                         ->maxLength(255),
-                    RichEditor::make("content_{$locale}.quad_section.right_bottom.text")
-                        ->label('Right bottom text'),
+                    AdminRichEditorDefaults::configure(
+                        RichEditor::make("content_{$locale}.quad_section.right_bottom.text")
+                            ->label('Right bottom text')
+                    ),
                 ]),
 
             Section::make("About final {$locale}")
@@ -876,14 +915,18 @@ class StaticPageResource extends Resource
                     TextInput::make("content_{$locale}.final_section.left.title")
                         ->label('Left title')
                         ->maxLength(255),
-                    RichEditor::make("content_{$locale}.final_section.left.text")
-                        ->label('Left text'),
+                    AdminRichEditorDefaults::configure(
+                        RichEditor::make("content_{$locale}.final_section.left.text")
+                            ->label('Left text')
+                    ),
 
                     TextInput::make("content_{$locale}.final_section.right.title")
                         ->label('Right title')
                         ->maxLength(255),
-                    RichEditor::make("content_{$locale}.final_section.right.text")
-                        ->label('Right text'),
+                    AdminRichEditorDefaults::configure(
+                        RichEditor::make("content_{$locale}.final_section.right.text")
+                            ->label('Right text')
+                    ),
                 ]),
         ];
     }

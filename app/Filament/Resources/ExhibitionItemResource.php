@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Forms\AdminRichEditorDefaults;
 use App\Filament\Resources\ExhibitionItemResource\Pages;
 use App\Models\ExhibitionItem;
 use Filament\Forms;
@@ -95,8 +96,10 @@ class ExhibitionItemResource extends Resource
                                     Forms\Components\TextInput::make('title_am')
                                         ->label('Title (AM)')
                                         ->maxLength(255),
-                                    RichEditor::make('description_am')
-                                        ->label('Description (AM)')
+                                    AdminRichEditorDefaults::configure(
+                                        RichEditor::make('description_am')
+                                            ->label('Description (AM)')
+                                    )
                                         ->columnSpanFull(),
                                 ]),
                             Tab::make('RU')
@@ -104,8 +107,10 @@ class ExhibitionItemResource extends Resource
                                     Forms\Components\TextInput::make('title_ru')
                                         ->label('Title (RU)')
                                         ->maxLength(255),
-                                    RichEditor::make('description_ru')
-                                        ->label('Description (RU)')
+                                    AdminRichEditorDefaults::configure(
+                                        RichEditor::make('description_ru')
+                                            ->label('Description (RU)')
+                                    )
                                         ->columnSpanFull(),
                                 ]),
                             Tab::make('EN')
@@ -113,8 +118,10 @@ class ExhibitionItemResource extends Resource
                                     Forms\Components\TextInput::make('title_en')
                                         ->label('Title (EN)')
                                         ->maxLength(255),
-                                    RichEditor::make('description_en')
-                                        ->label('Description (EN)')
+                                    AdminRichEditorDefaults::configure(
+                                        RichEditor::make('description_en')
+                                            ->label('Description (EN)')
+                                    )
                                         ->columnSpanFull(),
                                 ]),
                         ]),

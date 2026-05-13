@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Forms\AdminRichEditorDefaults;
 use App\Filament\Resources\PicturesAndVideoResource\Pages;
 use App\Models\PicturesAndVideo;
 use Filament\Forms;
@@ -53,36 +54,42 @@ class PicturesAndVideoResource extends Resource
                                             Forms\Components\TextInput::make('content.second_block.title_am')
                                                 ->label('Title (AM)')
                                                 ->maxLength(255),
-                                            Forms\Components\RichEditor::make('content.second_block.text_am')
-                                                ->label('Text (AM)')
-                                                ->columnSpanFull(),
-                                            Forms\Components\RichEditor::make('content.second_block.bottom_text_am')
-                                                ->label('Bottom text (AM)')
-                                                ->columnSpanFull(),
+                                            AdminRichEditorDefaults::configure(
+                                                Forms\Components\RichEditor::make('content.second_block.text_am')
+                                                    ->label('Text (AM)')
+                                            )->columnSpanFull(),
+                                            AdminRichEditorDefaults::configure(
+                                                Forms\Components\RichEditor::make('content.second_block.bottom_text_am')
+                                                    ->label('Bottom text (AM)')
+                                            )->columnSpanFull(),
                                         ]),
                                     Tab::make('RU')
                                         ->schema([
                                             Forms\Components\TextInput::make('content.second_block.title_ru')
                                                 ->label('Title (RU)')
                                                 ->maxLength(255),
-                                            Forms\Components\RichEditor::make('content.second_block.text_ru')
-                                                ->label('Text (RU)')
-                                                ->columnSpanFull(),
-                                            Forms\Components\RichEditor::make('content.second_block.bottom_text_ru')
-                                                ->label('Bottom text (RU)')
-                                                ->columnSpanFull(),
+                                            AdminRichEditorDefaults::configure(
+                                                Forms\Components\RichEditor::make('content.second_block.text_ru')
+                                                    ->label('Text (RU)')
+                                            )->columnSpanFull(),
+                                            AdminRichEditorDefaults::configure(
+                                                Forms\Components\RichEditor::make('content.second_block.bottom_text_ru')
+                                                    ->label('Bottom text (RU)')
+                                            )->columnSpanFull(),
                                         ]),
                                     Tab::make('EN')
                                         ->schema([
                                             Forms\Components\TextInput::make('content.second_block.title_en')
                                                 ->label('Title (EN)')
                                                 ->maxLength(255),
-                                            Forms\Components\RichEditor::make('content.second_block.text_en')
-                                                ->label('Text (EN)')
-                                                ->columnSpanFull(),
-                                            Forms\Components\RichEditor::make('content.second_block.bottom_text_en')
-                                                ->label('Bottom text (EN)')
-                                                ->columnSpanFull(),
+                                            AdminRichEditorDefaults::configure(
+                                                Forms\Components\RichEditor::make('content.second_block.text_en')
+                                                    ->label('Text (EN)')
+                                            )->columnSpanFull(),
+                                            AdminRichEditorDefaults::configure(
+                                                Forms\Components\RichEditor::make('content.second_block.bottom_text_en')
+                                                    ->label('Bottom text (EN)')
+                                            )->columnSpanFull(),
                                         ]),
                                 ])
                                 ->columnSpanFull(),
@@ -134,54 +141,66 @@ class PicturesAndVideoResource extends Resource
                                             Forms\Components\TextInput::make('content.third_block.title_am')
                                                 ->label('Title (AM)')
                                                 ->maxLength(255),
-                                            Forms\Components\RichEditor::make('content.third_block.top_left_text_am')
-                                                ->label('Top left text (AM)')
-                                                ->columnSpanFull(),
-                                            Forms\Components\RichEditor::make('content.third_block.top_right_text_am')
-                                                ->label('Top right text (AM)')
-                                                ->columnSpanFull(),
-                                            Forms\Components\RichEditor::make('content.third_block.bottom_left_text_am')
-                                                ->label('Bottom left text (AM)')
-                                                ->columnSpanFull(),
-                                            Forms\Components\RichEditor::make('content.third_block.bottom_right_text_am')
-                                                ->label('Bottom right text (AM)')
-                                                ->columnSpanFull(),
+                                            AdminRichEditorDefaults::configure(
+                                                Forms\Components\RichEditor::make('content.third_block.top_left_text_am')
+                                                    ->label('Top left text (AM)')
+                                            )->columnSpanFull(),
+                                            AdminRichEditorDefaults::configure(
+                                                Forms\Components\RichEditor::make('content.third_block.top_right_text_am')
+                                                    ->label('Top right text (AM)')
+                                            )->columnSpanFull(),
+                                            AdminRichEditorDefaults::configure(
+                                                Forms\Components\RichEditor::make('content.third_block.bottom_left_text_am')
+                                                    ->label('Bottom left text (AM)')
+                                            )->columnSpanFull(),
+                                            AdminRichEditorDefaults::configure(
+                                                Forms\Components\RichEditor::make('content.third_block.bottom_right_text_am')
+                                                    ->label('Bottom right text (AM)')
+                                            )->columnSpanFull(),
                                         ]),
                                     Tab::make('RU')
                                         ->schema([
                                             Forms\Components\TextInput::make('content.third_block.title_ru')
                                                 ->label('Title (RU)')
                                                 ->maxLength(255),
-                                            Forms\Components\RichEditor::make('content.third_block.top_left_text_ru')
-                                                ->label('Top left text (RU)')
-                                                ->columnSpanFull(),
-                                            Forms\Components\RichEditor::make('content.third_block.top_right_text_ru')
-                                                ->label('Top right text (RU)')
-                                                ->columnSpanFull(),
-                                            Forms\Components\RichEditor::make('content.third_block.bottom_left_text_ru')
-                                                ->label('Bottom left text (RU)')
-                                                ->columnSpanFull(),
-                                            Forms\Components\RichEditor::make('content.third_block.bottom_right_text_ru')
-                                                ->label('Bottom right text (RU)')
-                                                ->columnSpanFull(),
+                                            AdminRichEditorDefaults::configure(
+                                                Forms\Components\RichEditor::make('content.third_block.top_left_text_ru')
+                                                    ->label('Top left text (RU)')
+                                            )->columnSpanFull(),
+                                            AdminRichEditorDefaults::configure(
+                                                Forms\Components\RichEditor::make('content.third_block.top_right_text_ru')
+                                                    ->label('Top right text (RU)')
+                                            )->columnSpanFull(),
+                                            AdminRichEditorDefaults::configure(
+                                                Forms\Components\RichEditor::make('content.third_block.bottom_left_text_ru')
+                                                    ->label('Bottom left text (RU)')
+                                            )->columnSpanFull(),
+                                            AdminRichEditorDefaults::configure(
+                                                Forms\Components\RichEditor::make('content.third_block.bottom_right_text_ru')
+                                                    ->label('Bottom right text (RU)')
+                                            )->columnSpanFull(),
                                         ]),
                                     Tab::make('EN')
                                         ->schema([
                                             Forms\Components\TextInput::make('content.third_block.title_en')
                                                 ->label('Title (EN)')
                                                 ->maxLength(255),
-                                            Forms\Components\RichEditor::make('content.third_block.top_left_text_en')
-                                                ->label('Top left text (EN)')
-                                                ->columnSpanFull(),
-                                            Forms\Components\RichEditor::make('content.third_block.top_right_text_en')
-                                                ->label('Top right text (EN)')
-                                                ->columnSpanFull(),
-                                            Forms\Components\RichEditor::make('content.third_block.bottom_left_text_en')
-                                                ->label('Bottom left text (EN)')
-                                                ->columnSpanFull(),
-                                            Forms\Components\RichEditor::make('content.third_block.bottom_right_text_en')
-                                                ->label('Bottom right text (EN)')
-                                                ->columnSpanFull(),
+                                            AdminRichEditorDefaults::configure(
+                                                Forms\Components\RichEditor::make('content.third_block.top_left_text_en')
+                                                    ->label('Top left text (EN)')
+                                            )->columnSpanFull(),
+                                            AdminRichEditorDefaults::configure(
+                                                Forms\Components\RichEditor::make('content.third_block.top_right_text_en')
+                                                    ->label('Top right text (EN)')
+                                            )->columnSpanFull(),
+                                            AdminRichEditorDefaults::configure(
+                                                Forms\Components\RichEditor::make('content.third_block.bottom_left_text_en')
+                                                    ->label('Bottom left text (EN)')
+                                            )->columnSpanFull(),
+                                            AdminRichEditorDefaults::configure(
+                                                Forms\Components\RichEditor::make('content.third_block.bottom_right_text_en')
+                                                    ->label('Bottom right text (EN)')
+                                            )->columnSpanFull(),
                                         ]),
                                 ])
                                 ->columnSpanFull(),
@@ -248,36 +267,42 @@ class PicturesAndVideoResource extends Resource
                                             Forms\Components\TextInput::make('content.after_slider_block.title_am')
                                                 ->label('Title (AM)')
                                                 ->maxLength(255),
-                                            Forms\Components\RichEditor::make('content.after_slider_block.top_text_am')
-                                                ->label('Top text (AM)')
-                                                ->columnSpanFull(),
-                                            Forms\Components\RichEditor::make('content.after_slider_block.bottom_text_am')
-                                                ->label('Bottom text (AM)')
-                                                ->columnSpanFull(),
+                                            AdminRichEditorDefaults::configure(
+                                                Forms\Components\RichEditor::make('content.after_slider_block.top_text_am')
+                                                    ->label('Top text (AM)')
+                                            )->columnSpanFull(),
+                                            AdminRichEditorDefaults::configure(
+                                                Forms\Components\RichEditor::make('content.after_slider_block.bottom_text_am')
+                                                    ->label('Bottom text (AM)')
+                                            )->columnSpanFull(),
                                         ]),
                                     Tab::make('RU')
                                         ->schema([
                                             Forms\Components\TextInput::make('content.after_slider_block.title_ru')
                                                 ->label('Title (RU)')
                                                 ->maxLength(255),
-                                            Forms\Components\RichEditor::make('content.after_slider_block.top_text_ru')
-                                                ->label('Top text (RU)')
-                                                ->columnSpanFull(),
-                                            Forms\Components\RichEditor::make('content.after_slider_block.bottom_text_ru')
-                                                ->label('Bottom text (RU)')
-                                                ->columnSpanFull(),
+                                            AdminRichEditorDefaults::configure(
+                                                Forms\Components\RichEditor::make('content.after_slider_block.top_text_ru')
+                                                    ->label('Top text (RU)')
+                                            )->columnSpanFull(),
+                                            AdminRichEditorDefaults::configure(
+                                                Forms\Components\RichEditor::make('content.after_slider_block.bottom_text_ru')
+                                                    ->label('Bottom text (RU)')
+                                            )->columnSpanFull(),
                                         ]),
                                     Tab::make('EN')
                                         ->schema([
                                             Forms\Components\TextInput::make('content.after_slider_block.title_en')
                                                 ->label('Title (EN)')
                                                 ->maxLength(255),
-                                            Forms\Components\RichEditor::make('content.after_slider_block.top_text_en')
-                                                ->label('Top text (EN)')
-                                                ->columnSpanFull(),
-                                            Forms\Components\RichEditor::make('content.after_slider_block.bottom_text_en')
-                                                ->label('Bottom text (EN)')
-                                                ->columnSpanFull(),
+                                            AdminRichEditorDefaults::configure(
+                                                Forms\Components\RichEditor::make('content.after_slider_block.top_text_en')
+                                                    ->label('Top text (EN)')
+                                            )->columnSpanFull(),
+                                            AdminRichEditorDefaults::configure(
+                                                Forms\Components\RichEditor::make('content.after_slider_block.bottom_text_en')
+                                                    ->label('Bottom text (EN)')
+                                            )->columnSpanFull(),
                                         ]),
                                 ])
                                 ->columnSpanFull(),
@@ -340,12 +365,18 @@ class PicturesAndVideoResource extends Resource
 
                 Section::make('Descriptions')
                     ->schema([
-                        Forms\Components\RichEditor::make("{$base}.description_am")
-                            ->label('Description (AM)'),
-                        Forms\Components\RichEditor::make("{$base}.description_ru")
-                            ->label('Description (RU)'),
-                        Forms\Components\RichEditor::make("{$base}.description_en")
-                            ->label('Description (EN)'),
+                        AdminRichEditorDefaults::configure(
+                            Forms\Components\RichEditor::make("{$base}.description_am")
+                                ->label('Description (AM)')
+                        ),
+                        AdminRichEditorDefaults::configure(
+                            Forms\Components\RichEditor::make("{$base}.description_ru")
+                                ->label('Description (RU)')
+                        ),
+                        AdminRichEditorDefaults::configure(
+                            Forms\Components\RichEditor::make("{$base}.description_en")
+                                ->label('Description (EN)')
+                        ),
                     ])
                     ->columnSpanFull(),
             ]);
@@ -380,12 +411,18 @@ class PicturesAndVideoResource extends Resource
 
                 Section::make('Descriptions')
                     ->schema([
-                        Forms\Components\RichEditor::make("{$base}.description_am")
-                            ->label('Description (AM)'),
-                        Forms\Components\RichEditor::make("{$base}.description_ru")
-                            ->label('Description (RU)'),
-                        Forms\Components\RichEditor::make("{$base}.description_en")
-                            ->label('Description (EN)'),
+                        AdminRichEditorDefaults::configure(
+                            Forms\Components\RichEditor::make("{$base}.description_am")
+                                ->label('Description (AM)')
+                        ),
+                        AdminRichEditorDefaults::configure(
+                            Forms\Components\RichEditor::make("{$base}.description_ru")
+                                ->label('Description (RU)')
+                        ),
+                        AdminRichEditorDefaults::configure(
+                            Forms\Components\RichEditor::make("{$base}.description_en")
+                                ->label('Description (EN)')
+                        ),
                     ])
                     ->columnSpanFull(),
             ]);
@@ -403,7 +440,7 @@ class PicturesAndVideoResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('items')
                     ->label('Items')
-                    ->formatStateUsing(fn ($state) => is_array($state) ? count($state) . ' items' : '0 items'),
+                    ->formatStateUsing(fn ($state) => is_array($state) ? count($state).' items' : '0 items'),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime('Y-m-d H:i')
                     ->sortable(),
@@ -422,4 +459,3 @@ class PicturesAndVideoResource extends Resource
         ];
     }
 }
-

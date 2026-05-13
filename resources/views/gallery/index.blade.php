@@ -176,23 +176,28 @@
     </script>
 
     <style>
-        /* Десктоп / широкий веб: как было — фикс. кадр + cover */
+        /* Десктоп: сетка как есть, картинка целиком (contain), без crop */
         .gallery-index .gallery-section-card-image{
             position: relative;
-            aspect-ratio: 4 / 3 !important;
+            aspect-ratio: auto !important;
             width: 100% !important;
-            overflow: hidden !important;
-            display: block !important;
+            min-height: 0;
+            overflow: visible !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
             box-sizing: border-box !important;
+            background: #f7f5ef;
         }
 
         .gallery-index .gallery-section-card-image img{
-            width: 100% !important;
+            width: auto !important;
             max-width: 100% !important;
-            height: 100% !important;
-            object-fit: cover !important;
+            height: auto !important;
+            max-height: none !important;
+            object-fit: contain !important;
             object-position: center !important;
-            margin: 0 !important;
+            margin: 0 auto !important;
             display: block !important;
         }
 

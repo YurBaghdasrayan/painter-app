@@ -8,14 +8,31 @@
             max-width: 1240px;
             margin: 0 auto;
             padding: 0 20px;
+            box-sizing: border-box;
+            min-width: 0;
+        }
+
+        @media (max-width: 380px) {
+            .artwork-inner {
+                padding-left: max(10px, env(safe-area-inset-left, 0px));
+                padding-right: max(10px, env(safe-area-inset-right, 0px));
+            }
+        }
+
+        @media (max-width: 280px) {
+            .artwork-inner {
+                padding-left: max(6px, env(safe-area-inset-left, 0px));
+                padding-right: max(6px, env(safe-area-inset-right, 0px));
+            }
         }
 
         .artwork-hero {
-            display: grid !important;
+            display: grid !important;   
             grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
             align-items: start !important;
             column-gap: 42px;
             margin-top: 28px; /* keep comfortable distance from hero bg */
+            min-width: 0;
         }
 
         .artwork-hero-right {
@@ -24,18 +41,23 @@
             align-self: start !important;
             margin-top: 10px !important;
             padding-top: 0 !important;
+            min-width: 0;
         }
 
         .artwork-hero-left {
             grid-column: 2;
             grid-row: 1;
             align-self: start !important;
+            min-width: 0;
         }
 
         .artwork-hero-image {
             margin-top: 0 !important;
             aspect-ratio: auto !important;
             max-height: none !important;
+            min-width: 0;
+            max-width: 100%;
+            box-sizing: border-box;
         }
 
         .artwork-hero-image img {
@@ -46,6 +68,14 @@
             max-height: none !important;
             object-fit: contain !important;
             object-position: center;
+            box-sizing: border-box;
+        }
+
+        /* Long tokens / URLs without spaces must not widen the page */
+        .artwork-show-columns,
+        .artwork-show-column {
+            overflow-wrap: anywhere;
+            max-width: 100%;
         }
 
         @media (max-width: 991px) {
@@ -228,33 +258,35 @@
                 </div>
             </header>
 
-            <section class="related" aria-label="Related artworks">
-                <div class="related-head">
-                    <h2 class="related-title">
-                        {{ match ($locale) {
-                            'am' => 'Նույն գծից',
-                            'ru' => 'С той же линии',
-                            default => 'From the same line',
-                        } }}
-                    </h2>
-                </div>
+            @if($relatedItems->isNotEmpty())
+                <section class="related" aria-label="Related artworks">
+                    <div class="related-head">
+                        <h2 class="related-title">
+                            {{ match ($locale) {
+                                'am' => 'Նույն գծից',
+                                'ru' => 'С той же линии',
+                                default => 'From the same line',
+                            } }}
+                        </h2>
+                    </div>
 
-                <div class="related-grid" role="list">
-                    @foreach($relatedItems as $related)
-                        <article class="related-card" role="listitem">
-                            <a class="related-link" href="{{ route('gallery.show', $related->slug) }}" aria-label="{{ $related->localized('title') }}">
-                                <div class="related-image">
-                                    <img src="{{ $related->listImagePublicUrl() }}" alt="{{ $related->localized('title') }}" loading="lazy" />
-                                </div>
+                    <div class="related-grid" role="list">
+                        @foreach($relatedItems as $related)
+                            <article class="related-card" role="listitem">
+                                <a class="related-link" href="{{ route('gallery.show', $related->slug) }}" aria-label="{{ $related->localized('title') }}">
+                                    <div class="related-image">
+                                        <img src="{{ $related->listImagePublicUrl() }}" alt="{{ $related->localized('title') }}" loading="lazy" />
+                                    </div>
 
-                                <div class="related-meta">
-                                    <div class="related-item-title">{{ $related->localized('title') }}</div>
-                                </div>
-                            </a>
-                        </article>
-                    @endforeach
-                </div>
-            </section>
+                                    <div class="related-meta">
+                                        <div class="related-item-title">{{ $related->localized('title') }}</div>
+                                    </div>
+                                </a>
+                            </article>
+                        @endforeach
+                    </div>
+                </section>
+            @endif
         </div>
     </section>
 @endsection

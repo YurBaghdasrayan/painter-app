@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\GallerySectionResource\RelationManagers;
 
+use App\Filament\Forms\AdminRichEditorDefaults;
 use Filament\Actions;
 use Filament\Forms;
 use Filament\Forms\Components\RichEditor;
@@ -52,8 +53,10 @@ class GalleryItemsRelationManager extends RelationManager
                             Forms\Components\TextInput::make('title_am')
                                 ->label('Title (AM)')
                                 ->maxLength(255),
-                            RichEditor::make('description_am')
-                                ->label('Description (AM)')
+                            AdminRichEditorDefaults::configure(
+                                RichEditor::make('description_am')
+                                    ->label('Description (AM)')
+                            )
                                 ->columnSpanFull(),
                         ]),
                     Tab::make('RU')
@@ -61,8 +64,10 @@ class GalleryItemsRelationManager extends RelationManager
                             Forms\Components\TextInput::make('title_ru')
                                 ->label('Title (RU)')
                                 ->maxLength(255),
-                            RichEditor::make('description_ru')
-                                ->label('Description (RU)')
+                            AdminRichEditorDefaults::configure(
+                                RichEditor::make('description_ru')
+                                    ->label('Description (RU)')
+                            )
                                 ->columnSpanFull(),
                         ]),
                     Tab::make('EN')
@@ -70,8 +75,10 @@ class GalleryItemsRelationManager extends RelationManager
                             Forms\Components\TextInput::make('title_en')
                                 ->label('Title (EN)')
                                 ->maxLength(255),
-                            RichEditor::make('description_en')
-                                ->label('Description (EN)')
+                            AdminRichEditorDefaults::configure(
+                                RichEditor::make('description_en')
+                                    ->label('Description (EN)')
+                            )
                                 ->columnSpanFull(),
                         ]),
                 ]),

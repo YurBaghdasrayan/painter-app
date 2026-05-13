@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Forms\AdminRichEditorDefaults;
 use App\Filament\Resources\Articles\Pages;
 use App\Models\Article;
 use BackedEnum;
@@ -68,9 +69,11 @@ class ArticleResource extends Resource
                                                     ->default('')
                                                     ->maxLength(255),
 
-                                                RichEditor::make('content_am.card.description')
-                                                    ->label('Description AM')
-                                                    ->default(''),
+                                                AdminRichEditorDefaults::configure(
+                                                    RichEditor::make('content_am.card.description')
+                                                        ->label('Description AM')
+                                                        ->default('')
+                                                ),
                                             ]),
 
                                         Tab::make('RU')
@@ -86,9 +89,11 @@ class ArticleResource extends Resource
                                                     ->default('')
                                                     ->maxLength(255),
 
-                                                RichEditor::make('content_ru.card.description')
-                                                    ->label('Description RU')
-                                                    ->default(''),
+                                                AdminRichEditorDefaults::configure(
+                                                    RichEditor::make('content_ru.card.description')
+                                                        ->label('Description RU')
+                                                        ->default('')
+                                                ),
                                             ]),
 
                                         Tab::make('EN')
@@ -104,9 +109,11 @@ class ArticleResource extends Resource
                                                     ->default('')
                                                     ->maxLength(255),
 
-                                                RichEditor::make('content_en.card.description')
-                                                    ->label('Description EN')
-                                                    ->default(''),
+                                                AdminRichEditorDefaults::configure(
+                                                    RichEditor::make('content_en.card.description')
+                                                        ->label('Description EN')
+                                                        ->default('')
+                                                ),
                                             ]),
                                     ]),
                             ]),
@@ -161,15 +168,19 @@ class ArticleResource extends Resource
                         ->label('Left title')
                         ->maxLength(255),
 
-                    RichEditor::make("content_{$locale}.text_block_1.left_text")
-                        ->label('Left text'),
+                    AdminRichEditorDefaults::configure(
+                        RichEditor::make("content_{$locale}.text_block_1.left_text")
+                            ->label('Left text')
+                    ),
 
                     TextInput::make("content_{$locale}.text_block_1.right_title")
                         ->label('Right title')
                         ->maxLength(255),
 
-                    RichEditor::make("content_{$locale}.text_block_1.right_text")
-                        ->label('Right text'),
+                    AdminRichEditorDefaults::configure(
+                        RichEditor::make("content_{$locale}.text_block_1.right_text")
+                            ->label('Right text')
+                    ),
                 ]),
 
             Section::make("Image block 1 {$locale}")
@@ -180,11 +191,15 @@ class ArticleResource extends Resource
                         ->disk('public')
                         ->directory('articles'),
 
-                    RichEditor::make("content_{$locale}.image_block_1.left_text")
-                        ->label('Left text under image'),
+                    AdminRichEditorDefaults::configure(
+                        RichEditor::make("content_{$locale}.image_block_1.left_text")
+                            ->label('Left text under image')
+                    ),
 
-                    RichEditor::make("content_{$locale}.image_block_1.right_text")
-                        ->label('Right text under image'),
+                    AdminRichEditorDefaults::configure(
+                        RichEditor::make("content_{$locale}.image_block_1.right_text")
+                            ->label('Right text under image')
+                    ),
                 ]),
 
             Section::make("Text block 2 {$locale}")
@@ -193,11 +208,15 @@ class ArticleResource extends Resource
                         ->label('Block title')
                         ->maxLength(255),
 
-                    RichEditor::make("content_{$locale}.text_block_2.left_text")
-                        ->label('Left text'),
+                    AdminRichEditorDefaults::configure(
+                        RichEditor::make("content_{$locale}.text_block_2.left_text")
+                            ->label('Left text')
+                    ),
 
-                    RichEditor::make("content_{$locale}.text_block_2.right_text")
-                        ->label('Right text'),
+                    AdminRichEditorDefaults::configure(
+                        RichEditor::make("content_{$locale}.text_block_2.right_text")
+                            ->label('Right text')
+                    ),
                 ]),
 
             Section::make("Image block 2 {$locale}")
@@ -208,11 +227,15 @@ class ArticleResource extends Resource
                         ->disk('public')
                         ->directory('articles'),
 
-                    RichEditor::make("content_{$locale}.image_block_2.left_text")
-                        ->label('Left text under second image'),
+                    AdminRichEditorDefaults::configure(
+                        RichEditor::make("content_{$locale}.image_block_2.left_text")
+                            ->label('Left text under second image')
+                    ),
 
-                    RichEditor::make("content_{$locale}.image_block_2.right_text")
-                        ->label('Right text under second image'),
+                    AdminRichEditorDefaults::configure(
+                        RichEditor::make("content_{$locale}.image_block_2.right_text")
+                            ->label('Right text under second image')
+                    ),
                 ]),
 
             Section::make("Text block 3 {$locale}")
@@ -221,11 +244,15 @@ class ArticleResource extends Resource
                         ->label('Bottom title')
                         ->maxLength(255),
 
-                    RichEditor::make("content_{$locale}.text_block_3.left_text")
-                        ->label('Bottom left text'),
+                    AdminRichEditorDefaults::configure(
+                        RichEditor::make("content_{$locale}.text_block_3.left_text")
+                            ->label('Bottom left text')
+                    ),
 
-                    RichEditor::make("content_{$locale}.text_block_3.right_text")
-                        ->label('Bottom right text'),
+                    AdminRichEditorDefaults::configure(
+                        RichEditor::make("content_{$locale}.text_block_3.right_text")
+                            ->label('Bottom right text')
+                    ),
                 ]),
         ];
     }

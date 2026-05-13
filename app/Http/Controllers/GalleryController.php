@@ -39,34 +39,39 @@ class GalleryController extends Controller
             ->firstOrFail();
 
         $locale = app()->getLocale();
-        if ($locale === 'hy') $locale = 'am';
-        if (!in_array($locale, ['am', 'ru', 'en'], true)) $locale = 'en';
-
-        $groupValue = trim((string) ($item->getAttribute("same_line_title_{$locale}") ?? ''));
-        if ($groupValue === '') {
-            $groupValue = trim((string) ($item->getAttribute('same_line_title') ?? ''));
+        if ($locale === 'hy') {
+            $locale = 'am';
+        }
+        if (! in_array($locale, ['am', 'ru', 'en'], true)) {
+            $locale = 'en';
         }
 
-        $relatedQuery = GalleryItem::query()
-            ->where('is_active', true)
-            ->where('id', '!=', $item->id)
-            ->whereNotNull('image');
+        $col = "same_line_title_{$locale}";
+        $groupLocalized = trim((string) ($item->getAttribute($col) ?? ''));
+        $groupLegacy = trim((string) ($item->getAttribute('same_line_title') ?? ''));
+        $groupValue = $groupLocalized !== '' ? $groupLocalized : $groupLegacy;
+
+        $relatedItems = collect();
 
         if ($groupValue !== '') {
-            $col = "same_line_title_{$locale}";
-            // Put same-line items first; if fewer than 4, remaining are filled by others.
-            $relatedQuery
-                ->orderByRaw("CASE WHEN {$col} = ? THEN 0 ELSE 1 END ASC", [$groupValue])
-                ->orderBy('sort_order')
-                ->orderByDesc('id');
-        } else {
-            // No grouping value: just show random other items.
-            $relatedQuery->inRandomOrder();
-        }
+            $relatedQuery = GalleryItem::query()
+                ->where('is_active', true)
+                ->where('id', '!=', $item->id)
+                ->whereNotNull('image')
+                ->whereNotNull('slug')
+                ->where('slug', '!=', '');
 
-        $relatedItems = $relatedQuery
-            ->limit(4)
-            ->get();
+            if ($groupLocalized !== '') {
+                $relatedQuery->where($col, $groupValue);
+            } else {
+                $relatedQuery->where('same_line_title', $groupValue);
+            }
+
+            $relatedItems = $relatedQuery
+                ->orderBy('sort_order')
+                ->orderByDesc('id')
+                ->get();
+        }
 
         $staticPage = StaticPage::query()
             ->where('slug', 'gallery')

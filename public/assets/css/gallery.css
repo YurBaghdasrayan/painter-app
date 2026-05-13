@@ -373,6 +373,9 @@
     margin: 0 auto;
     padding: 0 20px;
     text-align: center;
+    box-sizing: border-box;
+    min-width: 0;
+    overflow-wrap: anywhere;
 }
 
 .artwork-show-hero__title{
@@ -382,6 +385,8 @@
     font-size: clamp(44px, 6vw, 86px);
     font-weight: 500;
     line-height: 1.02;
+    max-width: 100%;
+    overflow-wrap: anywhere;
 }
 
 .artwork-show-hero__subtitle{
@@ -393,6 +398,7 @@
     max-width: 720px;
     margin-left: auto;
     margin-right: auto;
+    overflow-wrap: anywhere;
 }
 
 .artwork-show-hero__visual{
@@ -834,17 +840,26 @@
     grid-column: span 4;
 }
 
-/* Wider tiles on 2-card rows */
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(1) .gallery-section-card-image,
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(2) .gallery-section-card-image,
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(22) .gallery-section-card-image,
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(23) .gallery-section-card-image{
-    aspect-ratio: 723 / 604;
+/* Gallery index: natural image size inside cell (grid column spans unchanged) */
+.gallery-index .gallery-section-grid .gallery-section-card .gallery-section-card-image{
+    aspect-ratio: auto;
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(n+3):nth-child(-n+21) .gallery-section-card-image,
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(n+24) .gallery-section-card-image{
-    aspect-ratio: 1 / 1;
+.gallery-index .gallery-section-grid .gallery-section-card .gallery-section-card-image img{
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: none;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+    margin-inline: auto;
 }
 
 /* GALLERY INDEX: extra sections after slider (masonry-ish, like figma "GALLERY" grid) */
@@ -965,12 +980,16 @@
 .artwork{
     background: var(--gallery-bg);
     padding: 44px 0 90px;
+    min-width: 0;
 }
 
 .artwork-inner{
     max-width: 1700px;
     margin: 0 auto;
     padding: 0 110px;
+    box-sizing: border-box;
+    min-width: 0;
+    overflow-wrap: anywhere;
 }
 
 .artwork-hero{
@@ -978,10 +997,26 @@
     grid-template-columns: 1.25fr 1fr; /* image left, text right (like Figma) */
     gap: 54px;
     align-items: start;
+    min-width: 0;
 }
 
 .artwork-hero-left{ grid-column: 2; }
 .artwork-hero-right{ grid-column: 1; }
+
+.artwork-hero-left,
+.artwork-hero-right{
+    min-width: 0;
+}
+
+.artwork-hero-left{
+    overflow-wrap: anywhere;
+    max-width: 100%;
+}
+
+.artwork-hero-right{
+    overflow-wrap: anywhere;
+    max-width: 100%;
+}
 
 .artwork-title{
     margin: 0;
@@ -992,6 +1027,8 @@
     letter-spacing: .04em;
     text-transform: uppercase;
     line-height: 1;
+    max-width: 100%;
+    overflow-wrap: anywhere;
 }
 
 .artwork-lead{
@@ -1001,22 +1038,29 @@
     font-weight: 300;
     color: var(--gallery-text);
     max-width: 560px;
+    overflow-wrap: anywhere;
 }
 
 .artwork-hero-image{
     width: 100%;
+    max-width: 100%;
     overflow: hidden;
     border: 0;
     background: transparent;
     aspect-ratio: auto;
+    min-width: 0;
+    box-sizing: border-box;
 }
 
-.artwork-hero-image img{
+.artwork-hero-image img,
+.artwork-hero-image .js-zoomable-image{
     width: 100%;
+    max-width: 100%;
     height: auto;
     display: block;
     object-fit: contain;
     object-position: center;
+    box-sizing: border-box;
 }
 
 /* Detail images under main image (gallery.show) */
@@ -1035,11 +1079,13 @@
 
 .artwork-detail-gallery__cell img{
     width: 100%;
+    max-width: 100%;
     height: auto;
     display: block;
     object-fit: contain;
     object-position: center;
     cursor: zoom-in;
+    box-sizing: border-box;
 }
 
 @media (max-width: 700px){
@@ -1070,6 +1116,8 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 0;
     border-left: 1px solid rgba(200,139,42,.35);
+    min-width: 0;
+    overflow-wrap: anywhere;
 }
 
 .artwork-show-column{
@@ -1078,6 +1126,9 @@
     line-height: 1.8;
     font-weight: 300;
     color: var(--gallery-text);
+    min-width: 0;
+    box-sizing: border-box;
+    overflow-wrap: anywhere;
 }
 
 .artwork-show-column + .artwork-show-column{
@@ -1179,6 +1230,8 @@
     line-height: 1.8;
     font-weight: 300;
     color: var(--gallery-text);
+    overflow-wrap: anywhere;
+    max-width: 100%;
     /* Show as one continuous text block (no columns/dividers) */
     column-count: 1;
     column-gap: 0;
@@ -1187,6 +1240,15 @@
 
 .artwork-body-text p{
     margin: 0 0 14px;
+}
+
+.artwork-body-text img,
+.artwork-lead img,
+.artwork-show-column img{
+    max-width: 100%;
+    height: auto;
+    display: block;
+    box-sizing: border-box;
 }
 
 .related{
@@ -1246,6 +1308,8 @@
     max-width: 1700px;
     margin: 0 auto;
     padding: 0 110px;
+    min-width: 0;
+    overflow-wrap: anywhere;
 }
 
 .related-title{
@@ -1257,6 +1321,8 @@
     letter-spacing: .04em;
     text-transform: uppercase;
     line-height: 1.1;
+    max-width: 100%;
+    overflow-wrap: anywhere;
 }
 
 .related-grid{
@@ -1298,6 +1364,8 @@
     letter-spacing: .06em;
     text-transform: uppercase;
     line-height: 1.2;
+    max-width: 100%;
+    overflow-wrap: anywhere;
 }
 
 @media (max-width:1200px){
@@ -1342,6 +1410,20 @@
     .related-head,
     .related-grid{
         padding: 0 18px;
+    }
+}
+
+@media (max-width: 380px){
+    .artwork-inner{
+        padding-left: max(10px, env(safe-area-inset-left, 0px));
+        padding-right: max(10px, env(safe-area-inset-right, 0px));
+    }
+}
+
+@media (max-width: 280px){
+    .artwork-inner{
+        padding-left: max(6px, env(safe-area-inset-left, 0px));
+        padding-right: max(6px, env(safe-area-inset-right, 0px));
     }
 }
 

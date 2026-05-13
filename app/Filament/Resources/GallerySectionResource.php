@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Forms\AdminRichEditorDefaults;
 use App\Filament\Resources\GallerySectionResource\Pages;
 use App\Models\GallerySection;
 use Filament\Forms;
@@ -37,11 +38,15 @@ class GallerySectionResource extends Resource
                                         Forms\Components\TextInput::make('title_am')
                                             ->label('Title (AM)')
                                             ->maxLength(255),
-                                        RichEditor::make('left_text_am')
-                                            ->label('Left text (AM)')
+                                        AdminRichEditorDefaults::configure(
+                                            RichEditor::make('left_text_am')
+                                                ->label('Left text (AM)')
+                                        )
                                             ->columnSpanFull(),
-                                        RichEditor::make('right_text_am')
-                                            ->label('Right text (AM)')
+                                        AdminRichEditorDefaults::configure(
+                                            RichEditor::make('right_text_am')
+                                                ->label('Right text (AM)')
+                                        )
                                             ->columnSpanFull(),
                                         Forms\Components\TextInput::make('more_button_text_am')
                                             ->label('More button text (AM)')
@@ -53,11 +58,15 @@ class GallerySectionResource extends Resource
                                         Forms\Components\TextInput::make('title_ru')
                                             ->label('Title (RU)')
                                             ->maxLength(255),
-                                        RichEditor::make('left_text_ru')
-                                            ->label('Left text (RU)')
+                                        AdminRichEditorDefaults::configure(
+                                            RichEditor::make('left_text_ru')
+                                                ->label('Left text (RU)')
+                                        )
                                             ->columnSpanFull(),
-                                        RichEditor::make('right_text_ru')
-                                            ->label('Right text (RU)')
+                                        AdminRichEditorDefaults::configure(
+                                            RichEditor::make('right_text_ru')
+                                                ->label('Right text (RU)')
+                                        )
                                             ->columnSpanFull(),
                                         Forms\Components\TextInput::make('more_button_text_ru')
                                             ->label('More button text (RU)')
@@ -69,11 +78,15 @@ class GallerySectionResource extends Resource
                                         Forms\Components\TextInput::make('title_en')
                                             ->label('Title (EN)')
                                             ->maxLength(255),
-                                        RichEditor::make('left_text_en')
-                                            ->label('Left text (EN)')
+                                        AdminRichEditorDefaults::configure(
+                                            RichEditor::make('left_text_en')
+                                                ->label('Left text (EN)')
+                                        )
                                             ->columnSpanFull(),
-                                        RichEditor::make('right_text_en')
-                                            ->label('Right text (EN)')
+                                        AdminRichEditorDefaults::configure(
+                                            RichEditor::make('right_text_en')
+                                                ->label('Right text (EN)')
+                                        )
                                             ->columnSpanFull(),
                                         Forms\Components\TextInput::make('more_button_text_en')
                                             ->label('More button text (EN)')
