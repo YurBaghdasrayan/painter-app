@@ -1966,6 +1966,11 @@ a{color:inherit;text-decoration:none}
     max-width:520px;
 }
 
+.gallery-section-card-desc strong,
+.gallery-section-card-desc b{
+    font-weight:600;
+}
+
 .gallery-card{
     display:block;
     width:100%;
@@ -2025,6 +2030,11 @@ a{color:inherit;text-decoration:none}
     font-weight:300;
     color:#2a2a2a;
     max-width:520px;
+}
+
+.gallery-item-desc strong,
+.gallery-item-desc b{
+    font-weight:600;
 }
 .gallery-footer{
     margin-top:18px;

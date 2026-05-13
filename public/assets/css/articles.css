@@ -45,6 +45,19 @@
     line-height: 1.45;
 }
 
+.articles-hero-page__subtitle strong,
+.articles-hero-page__subtitle b{
+    font-weight: 600;
+}
+
+/* Exhibitions index + show: rich text inside light (300) body copy */
+.exhibitions-text__text strong,
+.exhibitions-text__text b,
+.exhibition-item__desc strong,
+.exhibition-item__desc b{
+    font-weight: 600;
+}
+
 .articles-hero-page__visual{
     position: relative;
     height: var(--gallery-hero-band-h, clamp(260px, min(55.56vw, 800px), 800px));
