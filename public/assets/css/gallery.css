@@ -38,6 +38,13 @@
     word-break: break-word;
 }
 
+@media (max-width: 576px){
+    .gallery-hero-title{
+        font-size: clamp(18px, 3.6vw + 0.7rem, 30px);
+        letter-spacing: 0.01em;
+    }
+}
+
 .gallery-hero-subtitle{
     max-width: 620px;
     margin: 18px auto 0;

@@ -191,6 +191,13 @@
                 word-break:break-word;
             }
 
+            @media (max-width:576px){
+                .gallery-hero-title{
+                    font-size:clamp(18px, 3.6vw + 0.7rem, 30px);
+                    letter-spacing:.01em;
+                }
+            }
+
             .gallery-hero-subtitle{
                 margin:18px auto 0;
                 max-width:760px;
