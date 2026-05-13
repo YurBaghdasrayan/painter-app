@@ -290,7 +290,7 @@
         .gallery-section-hero__visual{
             position:relative;
             margin-top:26px;
-            height:430px;
+            height: var(--gallery-hero-band-h, clamp(260px, min(55.56vw, 800px), 800px));
             overflow:visible;
         }
 
@@ -310,7 +310,7 @@
             top:-1px;
             left:0;
             width:100%;
-            height:118px;
+            height: calc(var(--gallery-hero-band-h, clamp(260px, min(55.56vw, 800px), 800px)) * 118 / 430);
             background:#f7f5ef;
             z-index:2;
             clip-path: polygon(
@@ -333,9 +333,9 @@
         .gallery-section-hero__line{
             position:absolute;
             left:0;
-            top:62px;
+            top: calc(var(--gallery-hero-band-h, clamp(260px, min(55.56vw, 800px), 800px)) * 62 / 430);
             width:100%;
-            height:165px;
+            height: calc(var(--gallery-hero-band-h, clamp(260px, min(55.56vw, 800px), 800px)) * 165 / 430);
             z-index:4;
             pointer-events:none;
         }

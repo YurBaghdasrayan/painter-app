@@ -27,7 +27,7 @@
     @endphp
 
     @if($heroTitle || $heroSubtitle || $heroBgUrl || $heroMainUrl)
-        <section class="articles-hero-page" aria-label="Exhibitions hero">
+        <section class="articles-hero-page articles-hero-page--exhibitions" aria-label="Exhibitions hero">
             <div class="articles-hero-page__top">
                 <div class="articles-hero-page__inner">
                     <h1 class="articles-hero-page__title">{{ $heroTitle }}</h1>
@@ -215,7 +215,7 @@
             }
 
             .artwork{
-                padding-top:230px;
+                padding-top: clamp(200px, 18vw + 120px, 320px);
                 overflow:hidden;
             }
 
@@ -400,6 +400,22 @@
                 display:block;
                 object-fit:cover;
                 object-position:center;
+            }
+
+            @media (max-width:900px){
+                .related--exhibitions .related-image{
+                    aspect-ratio:auto;
+                    min-height:0;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                }
+
+                .related--exhibitions .related-image img{
+                    height:auto;
+                    max-height:none;
+                    object-fit:contain;
+                }
             }
 
             .related--exhibitions .related-next{

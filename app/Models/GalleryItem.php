@@ -16,6 +16,7 @@ class GalleryItem extends Model
         'short_description',
         'full_description',
         'image',
+        'detail_images',
         'secondary_image',
         'third_image',
         'fourth_image',
@@ -57,6 +58,7 @@ class GalleryItem extends Model
         'show_columns_am' => 'array',
         'show_columns_ru' => 'array',
         'show_columns_en' => 'array',
+        'detail_images' => 'array',
     ];
 
     public function section(): BelongsTo
@@ -111,6 +113,73 @@ class GalleryItem extends Model
         }
 
         return $trimmed;
+    }
+
+    /**
+     * @return list<string> Relative paths on the public disk (Filament may nest single paths in arrays).
+     */
+    public static function normalizeDetailImagesArray(mixed $value): array
+    {
+        if ($value === null || $value === '') {
+            return [];
+        }
+
+        if (! is_array($value)) {
+            if (is_string($value)) {
+                $decoded = json_decode($value, true);
+                $value = is_array($decoded) ? $decoded : [];
+            } else {
+                return [];
+            }
+        }
+
+        $out = [];
+        foreach ($value as $entry) {
+            $path = self::normalizeDetailImagePath($entry);
+            if ($path !== null) {
+                $out[] = $path;
+            }
+        }
+
+        return array_values(array_unique($out));
+    }
+
+    private static function normalizeDetailImagePath(mixed $entry): ?string
+    {
+        if ($entry === null || $entry === '') {
+            return null;
+        }
+
+        if (is_string($entry)) {
+            $t = trim($entry);
+
+            return $t !== '' ? $t : null;
+        }
+
+        if (is_array($entry)) {
+            return self::normalizeStoredImage($entry);
+        }
+
+        return null;
+    }
+
+    /**
+     * @return list<string> Public URLs for detail row(s) under the main image on the artwork page.
+     */
+    public function detailImagesPublicUrls(): array
+    {
+        $paths = self::normalizeDetailImagesArray($this->detail_images);
+        if ($paths === []) {
+            return [];
+        }
+
+        $disk = Storage::disk('public');
+        $urls = [];
+        foreach ($paths as $path) {
+            $urls[] = $disk->url($path);
+        }
+
+        return $urls;
     }
 
     /**

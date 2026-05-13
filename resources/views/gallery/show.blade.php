@@ -197,6 +197,25 @@
                         />
                     </div>
 
+                    @php
+                        $detailImageUrls = $item->detailImagesPublicUrls();
+                    @endphp
+                    @if(count($detailImageUrls))
+                        <div class="artwork-detail-gallery" role="list" aria-label="Artwork detail images">
+                            @foreach($detailImageUrls as $detailUrl)
+                                <div class="artwork-detail-gallery__cell" role="listitem">
+                                    <img
+                                        src="{{ $detailUrl }}"
+                                        alt="{{ $mainImageAlt }} — detail"
+                                        class="js-zoomable-image"
+                                        data-zoom-src="{{ $detailUrl }}"
+                                        loading="lazy"
+                                    />
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+
                     @if($showColumns->count())
                         <div class="artwork-show-columns" aria-label="Artwork text columns">
                             @foreach($showColumns->take(3) as $colText)
@@ -212,7 +231,11 @@
             <section class="related" aria-label="Related artworks">
                 <div class="related-head">
                     <h2 class="related-title">
-                        {{ $item->localized('same_line_title') ?: 'FROM THE SAME LINE' }}
+                        {{ match ($locale) {
+                            'am' => 'Նույն գծից',
+                            'ru' => 'С той же линии',
+                            default => 'From the same line',
+                        } }}
                     </h2>
                 </div>
 
@@ -239,8 +262,8 @@
 @push('scripts')
     <script>
         (function () {
-            var img = document.querySelector('.js-zoomable-image');
-            if (!img) return;
+            var imgs = document.querySelectorAll('.js-zoomable-image');
+            if (!imgs.length) return;
 
             function closeModal(modal) {
                 if (!modal) return;
@@ -282,10 +305,12 @@
                 });
             }
 
-            img.style.cursor = 'zoom-in';
-            img.addEventListener('click', function () {
-                var src = img.getAttribute('data-zoom-src') || img.getAttribute('src');
-                openModal(src, img.getAttribute('alt') || '');
+            imgs.forEach(function (img) {
+                img.style.cursor = 'zoom-in';
+                img.addEventListener('click', function () {
+                    var src = img.getAttribute('data-zoom-src') || img.getAttribute('src');
+                    openModal(src, img.getAttribute('alt') || '');
+                });
             });
         })();
     </script>

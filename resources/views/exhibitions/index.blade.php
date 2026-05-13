@@ -30,7 +30,7 @@
     @section('meta_description', strip_tags((string) $heroSubtitle))
 
     @if($heroTitle || $heroSubtitle || $heroBgUrl || $heroMainUrl)
-        <section class="articles-hero-page" aria-label="Exhibitions hero">
+        <section class="articles-hero-page articles-hero-page--exhibitions" aria-label="Exhibitions hero">
             <div class="articles-hero-page__top">
                 <div class="articles-hero-page__inner">
                     <h1 class="articles-hero-page__title">{{ $heroTitle }}</h1>
@@ -195,7 +195,8 @@
 
             .gallery-hero-art{
                 position:relative;
-                min-height:420px;
+                height: var(--gallery-hero-band-h, clamp(260px, min(55.56vw, 800px), 800px));
+                min-height: var(--gallery-hero-band-h, clamp(260px, min(55.56vw, 800px), 800px));
             }
 
             .gallery-hero-art-bg{
@@ -425,6 +426,28 @@
                     gap:24px;
                 }
 
+            }
+
+            /* Full image on phones/tablets (portrait works are not cropped) */
+            @media (max-width:900px){
+                .exhibitions-cards .gallery-section-card-image{
+                    aspect-ratio: auto !important;
+                    height: auto;
+                    min-height: 0;
+                    background: #faf8f3;
+                    overflow: visible;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                .exhibitions-cards .gallery-section-card-image img{
+                    width: 100%;
+                    height: auto;
+                    max-height: none;
+                    object-fit: contain;
+                    object-position: center center;
+                }
             }
 
             /* ---------- 768 ---------- */

@@ -41,7 +41,7 @@
     @endif
 
     <link rel="preconnect" href="https://fonts.bunny.net" />
-    <link href="https://fonts.bunny.net/css?family=cormorant-garamond:300,400,500,600|inter:200,300,400,500" rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=zen-old-mincho:400,500,600,700,900" rel="stylesheet" />
 
     <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}?v={{ filemtime(public_path('assets/css/home.css')) }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/gallery.css') }}?v={{ filemtime(public_path('assets/css/gallery.css')) }}" />

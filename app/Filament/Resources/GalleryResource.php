@@ -206,6 +206,19 @@ class GalleryResource extends Resource
                                 ->openable()
                                 ->downloadable()
                                 ->columnSpanFull(),
+                            Forms\Components\FileUpload::make('detail_images')
+                                ->label('Detail images')
+                                ->helperText('Optional: extra views under the main image — 3 per row on the artwork page. Drag to reorder.')
+                                ->image()
+                                ->multiple()
+                                ->reorderable()
+                                ->disk('public')
+                                ->directory('gallery')
+                                ->visibility('public')
+                                ->imagePreviewHeight('100')
+                                ->openable()
+                                ->downloadable()
+                                ->columnSpanFull(),
                         ])
                         ->columnSpanFull(),
                 ])

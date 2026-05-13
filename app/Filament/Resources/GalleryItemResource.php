@@ -152,6 +152,20 @@ class GalleryItemResource extends Resource
                                     ->downloadable()
                                     ->columnSpanFull(),
 
+                                Forms\Components\FileUpload::make('detail_images')
+                                    ->label('Detail images (below main)')
+                                    ->helperText('Optional — shown in a 3-column grid under the main image. Drag to reorder.')
+                                    ->image()
+                                    ->multiple()
+                                    ->reorderable()
+                                    ->disk('public')
+                                    ->directory('gallery')
+                                    ->visibility('public')
+                                    ->imagePreviewHeight('100')
+                                    ->openable()
+                                    ->downloadable()
+                                    ->columnSpanFull(),
+
                                 Forms\Components\FileUpload::make('secondary_image')
                                     ->label('Secondary image')
                                     ->image()

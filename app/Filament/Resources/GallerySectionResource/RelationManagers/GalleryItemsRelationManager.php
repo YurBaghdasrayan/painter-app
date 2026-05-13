@@ -31,6 +31,19 @@ class GalleryItemsRelationManager extends RelationManager
                 ->openable()
                 ->downloadable()
                 ->columnSpanFull(),
+            Forms\Components\FileUpload::make('detail_images')
+                ->label('Detail images (below main)')
+                ->helperText('Optional — 3 per row on the artwork page.')
+                ->image()
+                ->multiple()
+                ->reorderable()
+                ->disk('public')
+                ->directory('gallery')
+                ->visibility('public')
+                ->imagePreviewHeight('90')
+                ->openable()
+                ->downloadable()
+                ->columnSpanFull(),
             Tabs::make('Translations')
                 ->columnSpanFull()
                 ->tabs([
