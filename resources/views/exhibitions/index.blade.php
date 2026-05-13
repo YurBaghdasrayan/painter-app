@@ -171,17 +171,24 @@
                 text-align:center;
                 position:relative;
                 z-index:3;
+                box-sizing:border-box;
+                width:100%;
+                min-width:0;
+                overflow-wrap:anywhere;
             }
 
             .gallery-hero-title{
                 margin:0;
                 font-family:var(--serif);
                 color:var(--gold);
-                font-size:86px;
+                font-size:clamp(24px, 6.5vw + 0.35rem, 86px);
                 line-height:1;
                 font-weight:500;
                 letter-spacing:.02em;
                 text-transform:uppercase;
+                max-width:100%;
+                overflow-wrap:anywhere;
+                word-break:break-word;
             }
 
             .gallery-hero-subtitle{
@@ -191,6 +198,9 @@
                 line-height:1.7;
                 color:#2a2a2a;
                 font-weight:300;
+                overflow-wrap:anywhere;
+                word-break:break-word;
+                box-sizing:border-box;
             }
 
             .gallery-hero-art{
@@ -261,11 +271,14 @@
             .exhibitions-text__title{
                 font-family:var(--serif);
                 color:var(--gold);
-                font-size:58px;
+                font-size:clamp(26px, 4vw + 0.75rem, 58px);
                 line-height:1;
                 font-weight:500;
                 text-transform:uppercase;
                 text-align:center;
+                max-width:100%;
+                overflow-wrap:anywhere;
+                word-break:break-word;
             }
 
             .exhibitions-text__text{
@@ -277,6 +290,8 @@
                 max-width: 760px;
                 margin-left:auto;
                 margin-right:auto;
+                overflow-wrap:anywhere;
+                word-break:break-word;
             }
 
             .exhibitions-cards{
@@ -325,7 +340,6 @@
 
             @media (max-width:1600px){
 
-                .gallery-hero-title{font-size:78px;}
                 .gallery-hero-featured{width:min(920px, calc(100% - 60px));height:240px;}
                 .exhibitions-text{padding:155px 40px 70px;}
 
@@ -340,15 +354,12 @@
                     padding-right:40px;
                 }
 
-                .gallery-hero-title{font-size:72px;}
-
             }
 
             /* ---------- 1280 ---------- */
 
             @media (max-width:1280px){
 
-                .gallery-hero-title{font-size:64px;}
                 .gallery-hero-featured{
                     width:min(860px, calc(100% - 40px));
                     height:220px;
@@ -369,7 +380,6 @@
                     padding-right:24px;
                 }
 
-                .gallery-hero-title{font-size:58px;}
                 .gallery-hero-subtitle{font-size:13px;}
 
                 .exhibitions-cards{
@@ -391,7 +401,6 @@
 
             @media (max-width:1024px){
 
-                .gallery-hero-title{font-size:52px;}
                 .gallery-hero-featured{
                     width:min(760px, calc(100% - 36px));
                     height:190px;
@@ -401,17 +410,12 @@
                     padding:125px 20px 54px;
                 }
 
-                .exhibitions-text__title{
-                    font-size:42px;
-                }
-
             }
 
             /* ---------- 992 ---------- */
 
             @media (max-width:992px){
 
-                .gallery-hero-title{font-size:46px;}
                 .gallery-hero-featured{
                     height:180px;
                     bottom:-90px;
@@ -458,10 +462,6 @@
                     padding:48px 16px 24px;
                 }
 
-                .gallery-hero-title{
-                    font-size:38px;
-                }
-
                 .gallery-hero-subtitle{
                     font-size:12px;
                     max-width:100%;
@@ -486,10 +486,6 @@
                     padding:110px 16px 44px;
                 }
 
-                .exhibitions-text__title{
-                    font-size:34px;
-                }
-
                 .gallery-index .gallery-inner{
                     padding-left:16px;
                     padding-right:16px;
@@ -506,7 +502,6 @@
 
             @media (max-width:576px){
 
-                .gallery-hero-title{font-size:32px;}
                 .gallery-hero-featured{
                     height:150px;
                     bottom:-74px;
@@ -516,20 +511,14 @@
                     padding:96px 14px 40px;
                 }
 
-                .exhibitions-text__title{
-                    font-size:30px;
-                }
-
             }
 
             /* ---------- 430 ---------- */
 
             @media (max-width:430px){
 
-                .gallery-hero-title{font-size:28px;}
                 .gallery-hero-subtitle{font-size:11px;}
                 .gallery-hero-featured{height:138px;}
-                .exhibitions-text__title{font-size:28px;}
 
             }
 
@@ -537,7 +526,6 @@
 
             @media (max-width:390px){
 
-                .gallery-hero-title{font-size:26px;}
                 .gallery-hero-featured{height:128px;}
                 .exhibitions-text{padding:88px 12px 34px;}
 
@@ -547,9 +535,7 @@
 
             @media (max-width:360px){
 
-                .gallery-hero-title{font-size:24px;}
                 .gallery-hero-featured{height:118px;}
-                .exhibitions-text__title{font-size:24px;}
 
             }
 

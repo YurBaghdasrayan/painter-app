@@ -443,17 +443,7 @@
                 opacity:.92;
             }
 
-            @media (max-width:1700px){
-                .gallery-hero-title{
-                    font-size:82px;
-                }
-            }
-
             @media (max-width:1600px){
-                .gallery-hero-title{
-                    font-size:76px;
-                }
-
                 .gallery-hero-featured{
                     width:min(920px, calc(100% - 60px));
                     height:240px;
@@ -461,10 +451,6 @@
             }
 
             @media (max-width:1440px){
-                .gallery-hero-title{
-                    font-size:68px;
-                }
-
                 .related--exhibitions .related-rail{
                     padding-left:36px;
                     padding-right:36px;
@@ -472,10 +458,6 @@
             }
 
             @media (max-width:1366px){
-                .gallery-hero-title{
-                    font-size:62px;
-                }
-
                 .gallery-hero-featured{
                     width:min(860px, calc(100% - 44px));
                     height:220px;
@@ -483,10 +465,6 @@
             }
 
             @media (max-width:1280px){
-                .gallery-hero-title{
-                    font-size:58px;
-                }
-
                 .gallery-hero-subtitle{
                     max-width:680px;
                 }
@@ -501,10 +479,6 @@
             @media (max-width:1024px){
                 .gallery-hero-inner{
                     padding-top:52px;
-                }
-
-                .gallery-hero-title{
-                    font-size:50px;
                 }
 
                 .gallery-hero-featured{
@@ -523,10 +497,6 @@
             }
 
             @media (max-width:991px){
-                .gallery-hero-title{
-                    font-size:44px;
-                }
-
                 .gallery-hero-subtitle{
                     font-size:12px;
                 }
@@ -561,7 +531,6 @@
                 }
 
                 .gallery-hero-title{
-                    font-size:36px;
                     line-height:1.05;
                 }
 
@@ -621,10 +590,6 @@
                     padding-right:14px;
                 }
 
-                .gallery-hero-title{
-                    font-size:30px;
-                }
-
                 .gallery-hero-featured{
                     height:148px;
                     bottom:-72px;
@@ -662,10 +627,6 @@
                     padding-right:12px;
                 }
 
-                .gallery-hero-title{
-                    font-size:27px;
-                }
-
                 .gallery-hero-subtitle{
                     font-size:11px;
                 }
@@ -690,10 +651,6 @@
             }
 
             @media (max-width:390px){
-                .gallery-hero-title{
-                    font-size:25px;
-                }
-
                 .gallery-hero-featured{
                     height:126px;
                 }
@@ -706,10 +663,6 @@
             }
 
             @media (max-width:360px){
-                .gallery-hero-title{
-                    font-size:23px;
-                }
-
                 .gallery-hero-featured{
                     height:116px;
                 }
