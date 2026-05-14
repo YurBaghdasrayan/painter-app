@@ -843,7 +843,7 @@
 .gallery-index .gallery-section-grid{
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
-    column-gap: 1px;
+    column-gap: 28px;
     row-gap: 36px;
     align-items: stretch;
 }
@@ -931,6 +931,85 @@
     box-shadow: none;
 }
 
+/* Gallery index row 1 (Figma): image frame 887×1115 */
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(1) .gallery-section-card-image,
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(2) .gallery-section-card-image{
+    aspect-ratio: 887 / 1115;
+}
+
+/* Gallery index row 2 (Figma): preview height 529px, image natural width inside cell */
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(3) .gallery-section-card-image,
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(4) .gallery-section-card-image,
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(5) .gallery-section-card-image,
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(6) .gallery-section-card-image{
+    aspect-ratio: auto;
+    width: 100%;
+    max-width: 100%;
+    height: 529px;
+}
+
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(3) .gallery-section-card-image img,
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(4) .gallery-section-card-image img,
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(5) .gallery-section-card-image img,
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(6) .gallery-section-card-image img{
+    width: auto;
+    height: 529px;
+    max-width: 100%;
+    max-height: none;
+    object-fit: contain;
+    margin-left: auto;
+    margin-right: auto;
+    flex-shrink: 0;
+}
+
+/* Gallery index row 3 (Figma): preview height 460px, image natural width inside cell */
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(7) .gallery-section-card-image,
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(8) .gallery-section-card-image,
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(9) .gallery-section-card-image{
+    aspect-ratio: auto;
+    width: 100%;
+    max-width: 100%;
+    height: 460px;
+}
+
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(7) .gallery-section-card-image img,
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(8) .gallery-section-card-image img,
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(9) .gallery-section-card-image img{
+    width: auto;
+    height: 460px;
+    max-width: 100%;
+    max-height: none;
+    object-fit: contain;
+    margin-left: auto;
+    margin-right: auto;
+    flex-shrink: 0;
+}
+
+/* Gallery index row 4 (Figma): preview height 370px, image natural width inside cell */
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(10) .gallery-section-card-image,
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(11) .gallery-section-card-image,
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(12) .gallery-section-card-image,
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(13) .gallery-section-card-image{
+    aspect-ratio: auto;
+    width: 100%;
+    max-width: 100%;
+    height: 370px;
+}
+
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(10) .gallery-section-card-image img,
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(11) .gallery-section-card-image img,
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(12) .gallery-section-card-image img,
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(13) .gallery-section-card-image img{
+    width: auto;
+    height: 370px;
+    max-width: 100%;
+    max-height: none;
+    object-fit: contain;
+    margin-left: auto;
+    margin-right: auto;
+    flex-shrink: 0;
+}
+
 .gallery-index .gallery-section-grid .gallery-section-card .gallery-section-card-meta{
     flex: 1 1 auto;
     display: flex;
@@ -943,10 +1022,55 @@
     align-self: center;
 }
 
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(1) .gallery-section-card-meta,
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(2) .gallery-section-card-meta{
+    text-align: left;
+    align-items: flex-start;
+}
+
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(1) .gallery-more-btn,
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(2) .gallery-more-btn{
+    align-self: flex-start;
+}
+
 @media (max-width: 576px){
-    /* home.css forces 1:1 on .gallery-section-card-image at this breakpoint; keep gallery index 4:3 + contain */
+    /* home.css forces 1:1 on .gallery-section-card-image at this breakpoint; keep gallery index defaults */
     .gallery-index .gallery-section-grid .gallery-section-card .gallery-section-card-image{
         aspect-ratio: 4 / 3 !important;
+    }
+
+    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(1) .gallery-section-card-image,
+    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(2) .gallery-section-card-image{
+        aspect-ratio: 887 / 1115 !important;
+    }
+
+    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(3) .gallery-section-card-image,
+    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(4) .gallery-section-card-image,
+    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(5) .gallery-section-card-image,
+    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(6) .gallery-section-card-image{
+        aspect-ratio: auto !important;
+        height: 529px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(7) .gallery-section-card-image,
+    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(8) .gallery-section-card-image,
+    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(9) .gallery-section-card-image{
+        aspect-ratio: auto !important;
+        height: 460px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(10) .gallery-section-card-image,
+    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(11) .gallery-section-card-image,
+    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(12) .gallery-section-card-image,
+    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(13) .gallery-section-card-image{
+        aspect-ratio: auto !important;
+        height: 370px !important;
+        width: 100% !important;
+        max-width: 100% !important;
     }
 }
 

@@ -203,6 +203,85 @@
             color: inherit !important;
         }
 
+        /* Figma row 1: two large portrait previews (887×1115) */
+        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(1) .gallery-section-card-image,
+        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(2) .gallery-section-card-image{
+            aspect-ratio: 887 / 1115 !important;
+        }
+
+        /* Figma row 2: fixed height 529px, image width auto (contain in cell) */
+        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(3) .gallery-section-card-image,
+        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(4) .gallery-section-card-image,
+        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(5) .gallery-section-card-image,
+        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(6) .gallery-section-card-image{
+            aspect-ratio: auto !important;
+            height: 529px !important;
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+
+        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(3) .gallery-section-card-image img,
+        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(4) .gallery-section-card-image img,
+        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(5) .gallery-section-card-image img,
+        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(6) .gallery-section-card-image img{
+            width: auto !important;
+            height: 529px !important;
+            max-width: 100% !important;
+            max-height: none !important;
+            object-fit: contain !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            flex-shrink: 0 !important;
+        }
+
+        /* Figma row 3: fixed height 460px, image width auto (contain in cell) */
+        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(7) .gallery-section-card-image,
+        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(8) .gallery-section-card-image,
+        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(9) .gallery-section-card-image{
+            aspect-ratio: auto !important;
+            height: 460px !important;
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+
+        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(7) .gallery-section-card-image img,
+        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(8) .gallery-section-card-image img,
+        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(9) .gallery-section-card-image img{
+            width: auto !important;
+            height: 460px !important;
+            max-width: 100% !important;
+            max-height: none !important;
+            object-fit: contain !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            flex-shrink: 0 !important;
+        }
+
+        /* Figma row 4: fixed height 370px, image width auto (contain in cell) */
+        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(10) .gallery-section-card-image,
+        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(11) .gallery-section-card-image,
+        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(12) .gallery-section-card-image,
+        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(13) .gallery-section-card-image{
+            aspect-ratio: auto !important;
+            height: 370px !important;
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+
+        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(10) .gallery-section-card-image img,
+        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(11) .gallery-section-card-image img,
+        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(12) .gallery-section-card-image img,
+        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(13) .gallery-section-card-image img{
+            width: auto !important;
+            height: 370px !important;
+            max-width: 100% !important;
+            max-height: none !important;
+            object-fit: contain !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            flex-shrink: 0 !important;
+        }
+
         .gallery-index .gallery-section-card-image img{
             max-width: 100% !important;
             max-height: 100% !important;
@@ -225,8 +304,19 @@
             text-align: center !important;
         }
 
+        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(1) .gallery-section-card-meta,
+        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(2) .gallery-section-card-meta{
+            text-align: left !important;
+            align-items: flex-start !important;
+        }
+
         .gallery-index .gallery-more-btn{
             align-self: center !important;
+        }
+
+        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(1) .gallery-more-btn,
+        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(2) .gallery-more-btn{
+            align-self: flex-start !important;
         }
 
         @media (max-width: 1024px) {
