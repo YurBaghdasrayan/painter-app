@@ -606,15 +606,7 @@
 
 /* Wider than home .gallery-inner (1700px): lets grid columns grow so contain previews match Figma height */
 .gallery-index .gallery-inner{
-    max-width: none;
-}
-
-/* Home .gallery-section-card-image adds border + tint; strip on gallery index */
-.gallery-index .gallery-section-card-image{
-    border: 0;
-    outline: none;
-    box-shadow: none;
-    background: transparent;
+    max-width: none !important;
 }
 
 .gallery-index-tail .gallery-masonry-image{
@@ -825,73 +817,47 @@
     }
 }
 
-/* =========================================================
-   GALLERY INDEX GRID (12 columns)
-   Row rhythm for first 32 items: 2, 4, 3, 4, 4, 4, 2, 3, 3, 3 (= 32)
-   Item 33+: three per row (span 4)
-   ========================================================= */
-.gallery-index .gallery-section-grid{
-    display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    column-gap: 28px;
-    row-gap: 36px;
-    align-items: stretch;
-}
-
-.gallery-index .gallery-section-grid .gallery-section-card{
-    grid-column: auto;
+/* GALLERY INDEX MATRIX: same image height per row, column width from aspect; JS scales --gallery-row-h (min-width 1025px) */
+.gallery-index-matrix{
     display: flex;
     flex-direction: column;
-    height: 100%;
+    gap: 36px;
+    width: 100%;
     min-width: 0;
 }
 
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(1),
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(2){
-    grid-column: span 6;
-}
-
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(3),
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(4),
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(5),
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(6){
-    grid-column: span 3;
-}
-
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(7),
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(8),
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(9){
-    grid-column: span 4;
-}
-
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(n+10):nth-child(-n+21){
-    grid-column: span 3;
-}
-
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(22),
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(23){
-    grid-column: span 6;
-}
-
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(n+24):nth-child(-n+32){
-    grid-column: span 4;
-}
-
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(n+33){
-    grid-column: span 4;
-}
-
-.gallery-index .gallery-section-grid .gallery-section-card .gallery-section-card-image{
-    flex: 0 0 auto;
-    position: relative;
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    min-height: 0;
-    overflow: hidden;
+.gallery-index-row{
     display: flex;
-    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 28px;
+    align-items: flex-start;
     justify-content: center;
-    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+}
+
+.gallery-index-matrix .gallery-section-card,
+.gallery-index-row .gallery-section-card{
+    flex: 0 1 auto;
+    min-width: 0;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: auto;
+}
+
+.gallery-index-row .gallery-section-card-image{
+    flex: 0 0 auto;
+    width: fit-content;
+    max-width: 100%;
+    height: var(--gallery-row-h, 400px);
+    display: block;
+    line-height: 0;
+    overflow: visible;
+    position: relative;
+    box-sizing: content-box;
     background: transparent;
     border: 0;
     outline: none;
@@ -900,232 +866,79 @@
     color: inherit;
 }
 
-.gallery-index .gallery-section-grid .gallery-section-card .gallery-section-card-image img{
-    max-width: 100%;
-    max-height: 100%;
+.gallery-index-row .gallery-section-card-image img{
+    height: var(--gallery-row-h, 400px);
     width: auto;
-    height: auto;
+    max-width: none;
+    display: block;
     object-fit: contain;
     object-position: center;
-    display: block;
+    margin: 0;
     border: 0;
     outline: none;
     box-shadow: none;
+    vertical-align: top;
 }
 
-/* Gallery index row 1 (Figma): portrait frame 887×1115, img fills frame (contain — no crop) */
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(1) .gallery-section-card-image,
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(2) .gallery-section-card-image{
-    aspect-ratio: 887 / 1115;
-    display: block;
-    position: relative;
-}
-
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(1) .gallery-section-card-image img,
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(2) .gallery-section-card-image img{
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    object-fit: contain;
-    object-position: center;
-}
-
-/* Gallery index row 2 (Figma): preview height 529px, image fills frame (uniform row, contain — no crop) */
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(3) .gallery-section-card-image,
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(4) .gallery-section-card-image,
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(5) .gallery-section-card-image,
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(6) .gallery-section-card-image{
-    aspect-ratio: auto;
-    width: 100%;
-    max-width: 100%;
-    height: 529px;
-    display: block;
-    position: relative;
-}
-
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(3) .gallery-section-card-image img,
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(4) .gallery-section-card-image img,
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(5) .gallery-section-card-image img,
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(6) .gallery-section-card-image img{
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    object-fit: contain;
-    object-position: center;
-}
-
-/* Gallery index row 3 (Figma): preview height 460px, image fills frame (uniform row, contain — no crop) */
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(7) .gallery-section-card-image,
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(8) .gallery-section-card-image,
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(9) .gallery-section-card-image{
-    aspect-ratio: auto;
-    width: 100%;
-    max-width: 100%;
-    height: 460px;
-    display: block;
-    position: relative;
-}
-
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(7) .gallery-section-card-image img,
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(8) .gallery-section-card-image img,
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(9) .gallery-section-card-image img{
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    object-fit: contain;
-    object-position: center;
-}
-
-/* Gallery index row 4 (Figma): preview height 370px, image fills frame (uniform row, contain — no crop) */
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(10) .gallery-section-card-image,
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(11) .gallery-section-card-image,
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(12) .gallery-section-card-image,
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(13) .gallery-section-card-image{
-    aspect-ratio: auto;
-    width: 100%;
-    max-width: 100%;
-    height: 370px;
-    display: block;
-    position: relative;
-}
-
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(10) .gallery-section-card-image img,
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(11) .gallery-section-card-image img,
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(12) .gallery-section-card-image img,
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(13) .gallery-section-card-image img{
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    object-fit: contain;
-    object-position: center;
-}
-
-.gallery-index .gallery-section-grid .gallery-section-card .gallery-section-card-meta{
+.gallery-index-row .gallery-section-card-meta{
     flex: 1 1 auto;
+    margin-top: 12px;
     display: flex;
     flex-direction: column;
-    min-height: 0;
+    min-width: 0;
+    max-width: 100%;
     text-align: center;
 }
 
-.gallery-index .gallery-section-grid .gallery-section-card .gallery-more-btn{
+.gallery-index-row .gallery-more-btn{
     align-self: center;
 }
 
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(1) .gallery-section-card-meta,
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(2) .gallery-section-card-meta{
+.gallery-index-row--duo .gallery-section-card-meta{
     text-align: left;
     align-items: flex-start;
 }
 
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(1) .gallery-more-btn,
-.gallery-index .gallery-section-grid .gallery-section-card:nth-child(2) .gallery-more-btn{
+.gallery-index-row--duo .gallery-more-btn{
     align-self: flex-start;
 }
 
+@media (max-width: 1024px){
+    .gallery-index-matrix{
+        gap: 26px;
+    }
+
+    .gallery-index-row{
+        flex-direction: column;
+        align-items: stretch;
+        gap: 22px;
+    }
+
+    .gallery-index-row .gallery-section-card{
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .gallery-index-row .gallery-section-card-image{
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+    }
+
+    .gallery-index-row .gallery-section-card-image img{
+        height: auto;
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
 @media (max-width: 576px){
-    /* home.css forces 1:1 on .gallery-section-card-image at this breakpoint; keep gallery index defaults */
-    .gallery-index .gallery-section-grid .gallery-section-card .gallery-section-card-image{
-        aspect-ratio: 4 / 3 !important;
+    .gallery-index-matrix{
+        gap: 26px;
     }
 
-    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(1) .gallery-section-card-image,
-    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(2) .gallery-section-card-image{
-        aspect-ratio: 887 / 1115 !important;
-        display: block !important;
-        position: relative !important;
-    }
-
-    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(1) .gallery-section-card-image img,
-    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(2) .gallery-section-card-image img{
-        position: absolute !important;
-        inset: 0 !important;
-        width: 100% !important;
-        height: 100% !important;
-        margin: 0 !important;
-        object-fit: contain !important;
-        object-position: center !important;
-    }
-
-    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(3) .gallery-section-card-image,
-    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(4) .gallery-section-card-image,
-    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(5) .gallery-section-card-image,
-    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(6) .gallery-section-card-image{
-        aspect-ratio: auto !important;
-        height: 529px !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        display: block !important;
-        position: relative !important;
-    }
-
-    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(3) .gallery-section-card-image img,
-    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(4) .gallery-section-card-image img,
-    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(5) .gallery-section-card-image img,
-    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(6) .gallery-section-card-image img{
-        position: absolute !important;
-        inset: 0 !important;
-        width: 100% !important;
-        height: 100% !important;
-        margin: 0 !important;
-        object-fit: contain !important;
-        object-position: center !important;
-    }
-
-    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(7) .gallery-section-card-image,
-    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(8) .gallery-section-card-image,
-    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(9) .gallery-section-card-image{
-        aspect-ratio: auto !important;
-        height: 460px !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        display: block !important;
-        position: relative !important;
-    }
-
-    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(7) .gallery-section-card-image img,
-    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(8) .gallery-section-card-image img,
-    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(9) .gallery-section-card-image img{
-        position: absolute !important;
-        inset: 0 !important;
-        width: 100% !important;
-        height: 100% !important;
-        margin: 0 !important;
-        object-fit: contain !important;
-        object-position: center !important;
-    }
-
-    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(10) .gallery-section-card-image,
-    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(11) .gallery-section-card-image,
-    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(12) .gallery-section-card-image,
-    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(13) .gallery-section-card-image{
-        aspect-ratio: auto !important;
-        height: 370px !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        display: block !important;
-        position: relative !important;
-    }
-
-    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(10) .gallery-section-card-image img,
-    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(11) .gallery-section-card-image img,
-    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(12) .gallery-section-card-image img,
-    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(13) .gallery-section-card-image img{
-        position: absolute !important;
-        inset: 0 !important;
-        width: 100% !important;
-        height: 100% !important;
-        margin: 0 !important;
-        object-fit: contain !important;
-        object-position: center !important;
+    .gallery-index-row{
+        gap: 18px;
     }
 }
 

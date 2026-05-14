@@ -109,43 +109,90 @@
         </div>
     </section>
 
-    @if(($items ?? collect())->count())
+    @php
+        /** Figma: row counts for first 32 items, then rows of 3 */
+        $galleryIndexRowSpec = [
+            ['n' => 2, 'h' => 840],
+            ['n' => 4, 'h' => 529],
+            ['n' => 3, 'h' => 460],
+            ['n' => 4, 'h' => 370],
+            ['n' => 4, 'h' => 370],
+            ['n' => 4, 'h' => 370],
+            ['n' => 2, 'h' => 840],
+            ['n' => 3, 'h' => 460],
+            ['n' => 3, 'h' => 460],
+            ['n' => 3, 'h' => 460],
+        ];
+        $list = (($items ?? collect())
+            ->filter(static function ($item) {
+                return ! empty($item->image) && ! empty($item->slug);
+            })
+            ->values());
+        $galleryRows = [];
+        $offset = 0;
+        foreach ($galleryIndexRowSpec as $spec) {
+            if ($offset >= $list->count()) {
+                break;
+            }
+            $chunk = $list->slice($offset, $spec['n']);
+            if ($chunk->isEmpty()) {
+                break;
+            }
+            $galleryRows[] = ['items' => $chunk, 'h' => (int) $spec['h']];
+            $offset += $chunk->count();
+        }
+        while ($offset < $list->count()) {
+            $chunk = $list->slice($offset, 3);
+            if ($chunk->isEmpty()) {
+                break;
+            }
+            $galleryRows[] = ['items' => $chunk, 'h' => 460];
+            $offset += $chunk->count();
+        }
+    @endphp
+
+    @if(count($galleryRows))
         <section class="gallery-index" aria-label="Gallery index">
             <div class="gallery-inner">
-                <div class="gallery-section-grid" role="list">
-                    @foreach(($items ?? collect()) as $item)
-                        @php
-                            $img = !empty($item->image) ? $item->listImagePublicUrl() : null;
-                            $title = $item->localized('title') ?? 'Gallery';
-                            $desc = trim((string) ($item->localized('short_description') ?? ''));
-                        @endphp
+                <div class="gallery-index-matrix">
+                    @foreach($galleryRows as $row)
+                        <div
+                            class="gallery-index-row{{ $row['items']->count() === 2 ? ' gallery-index-row--duo' : '' }}"
+                            data-target-h="{{ $row['h'] }}"
+                            style="--gallery-row-h: {{ $row['h'] }}px"
+                        >
+                            @foreach($row['items'] as $item)
+                                @php
+                                    $img = !empty($item->image) ? $item->listImagePublicUrl() : null;
+                                    $title = $item->localized('title') ?? 'Gallery';
+                                    $desc = trim((string) ($item->localized('short_description') ?? ''));
+                                @endphp
+                                    <article class="gallery-section-card" role="article">
+                                        <a class="gallery-section-card-image" href="{{ route('gallery.show', $item->slug) }}" aria-label="{{ $title }}">
+                                            <img src="{{ $img }}" alt="{{ $title }}" loading="lazy" />
+                                        </a>
 
-                        @if($img && !empty($item->slug))
-                            <article class="gallery-section-card" role="listitem">
-                                <a class="gallery-section-card-image" href="{{ route('gallery.show', $item->slug) }}" aria-label="{{ $title }}">
-                                    <img src="{{ $img }}" alt="{{ $title }}" loading="lazy" />
-                                </a>
+                                        <div class="gallery-section-card-meta">
+                                            <a class="gallery-section-card-title" href="{{ route('gallery.show', $item->slug) }}">
+                                                “{{ strtoupper((string) $title) }}”
+                                            </a>
 
-                                <div class="gallery-section-card-meta">
-                                    <a class="gallery-section-card-title" href="{{ route('gallery.show', $item->slug) }}">
-                                        “{{ strtoupper((string) $title) }}”
-                                    </a>
+                                            @if($desc !== '' && trim((string) strip_tags((string) $desc)) !== '')
+                                                <div class="gallery-section-card-desc js-gallery-desc">{!! (string) $desc !!}</div>
 
-                                    @if($desc !== '' && trim((string) strip_tags((string) $desc)) !== '')
-                                        <div class="gallery-section-card-desc js-gallery-desc">{!! (string) $desc !!}</div>
-
-                                        <button
-                                            type="button"
-                                            class="gallery-more-btn js-gallery-more"
-                                            data-more="{{ $moreText }}"
-                                            data-less="{{ $lessText }}"
-                                        >
-                                            {{ $moreText }}
-                                        </button>
-                                    @endif
-                                </div>
-                            </article>
-                        @endif
+                                                <button
+                                                    type="button"
+                                                    class="gallery-more-btn js-gallery-more"
+                                                    data-more="{{ $moreText }}"
+                                                    data-less="{{ $lessText }}"
+                                                >
+                                                    {{ $moreText }}
+                                                </button>
+                                            @endif
+                                        </div>
+                                    </article>
+                            @endforeach
+                        </div>
                     @endforeach
                 </div>
             </div>
@@ -172,174 +219,75 @@
                         : button.dataset.more;
                 });
             });
+
+            (function () {
+                const GAP = 28;
+                const mq = window.matchMedia('(min-width: 1025px)');
+
+                function debounce(fn, ms) {
+                    let t;
+                    return function () {
+                        clearTimeout(t);
+                        t = setTimeout(fn, ms);
+                    };
+                }
+
+                function rowWidthAtHeight(imgs, h) {
+                    let sum = 0;
+                    for (let i = 0; i < imgs.length; i++) {
+                        const img = imgs[i];
+                        const nw = img.naturalWidth;
+                        const nh = img.naturalHeight;
+                        if (!nw || !nh) {
+                            return null;
+                        }
+                        sum += nw * (h / nh);
+                    }
+                    return sum + GAP * Math.max(0, imgs.length - 1);
+                }
+
+                function fitRow(row) {
+                    if (!mq.matches) {
+                        row.style.removeProperty('--gallery-row-h');
+                        return;
+                    }
+                    const imgs = Array.prototype.slice.call(row.querySelectorAll('.gallery-section-card-image img'));
+                    if (!imgs.length) return;
+                    const tgt = parseFloat(row.getAttribute('data-target-h'), 10);
+                    if (!tgt || tgt <= 0) return;
+                    const cw = row.clientWidth;
+                    if (cw <= 0) return;
+
+                    let sumw = rowWidthAtHeight(imgs, tgt);
+                    if (sumw == null) return;
+                    if (sumw <= 0) return;
+
+                    const h = tgt * (cw / sumw);
+                    row.style.setProperty('--gallery-row-h', h.toFixed(2) + 'px');
+                }
+
+                function fitAll() {
+                    document.querySelectorAll('.gallery-index-row').forEach(fitRow);
+                }
+
+                fitAll();
+                window.addEventListener('resize', debounce(fitAll, 120));
+                if (mq.addEventListener) {
+                    mq.addEventListener('change', fitAll);
+                } else if (mq.addListener) {
+                    mq.addListener(fitAll);
+                }
+
+                document.querySelectorAll('.gallery-index-row img').forEach(function (img) {
+                    if (!img.complete) {
+                        img.addEventListener('load', fitAll, { once: true });
+                    }
+                });
+            })();
         });
     </script>
 
     <style>
-        /* Full width: home .gallery-inner is max 1700px; index grid needs wider columns for Figma heights */
-        .gallery-index .gallery-inner{
-            max-width: none !important;
-        }
-
-        /* Gallery index: одинаковая «витрина» 4:3, картинка целиком (contain), без crop */
-        .gallery-index .gallery-section-card{
-            display: flex !important;
-            flex-direction: column !important;
-            height: 100% !important;
-            min-width: 0 !important;
-        }
-
-        .gallery-index .gallery-section-card-image{
-            position: relative !important;
-            flex: 0 0 auto !important;
-            aspect-ratio: 4 / 3 !important;
-            width: 100% !important;
-            min-height: 0 !important;
-            overflow: hidden !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            box-sizing: border-box !important;
-            background: transparent !important;
-            border: 0 !important;
-            outline: none !important;
-            box-shadow: none !important;
-            text-decoration: none !important;
-            color: inherit !important;
-        }
-
-        /* Figma row 1: two large portrait frames (887×1115), img fills frame (contain — no crop) */
-        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(1) .gallery-section-card-image,
-        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(2) .gallery-section-card-image{
-            aspect-ratio: 887 / 1115 !important;
-            display: block !important;
-            position: relative !important;
-        }
-
-        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(1) .gallery-section-card-image img,
-        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(2) .gallery-section-card-image img{
-            position: absolute !important;
-            inset: 0 !important;
-            width: 100% !important;
-            height: 100% !important;
-            margin: 0 !important;
-            object-fit: contain !important;
-            object-position: center !important;
-        }
-
-        /* Figma row 2: fixed frame 529px, contain (no crop; Figma row height, letterbox if needed) */
-        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(3) .gallery-section-card-image,
-        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(4) .gallery-section-card-image,
-        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(5) .gallery-section-card-image,
-        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(6) .gallery-section-card-image{
-            aspect-ratio: auto !important;
-            height: 529px !important;
-            width: 100% !important;
-            max-width: 100% !important;
-            display: block !important;
-            position: relative !important;
-        }
-
-        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(3) .gallery-section-card-image img,
-        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(4) .gallery-section-card-image img,
-        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(5) .gallery-section-card-image img,
-        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(6) .gallery-section-card-image img{
-            position: absolute !important;
-            inset: 0 !important;
-            width: 100% !important;
-            height: 100% !important;
-            margin: 0 !important;
-            object-fit: contain !important;
-            object-position: center !important;
-        }
-
-        /* Figma row 3: fixed frame 460px, contain (no crop) */
-        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(7) .gallery-section-card-image,
-        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(8) .gallery-section-card-image,
-        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(9) .gallery-section-card-image{
-            aspect-ratio: auto !important;
-            height: 460px !important;
-            width: 100% !important;
-            max-width: 100% !important;
-            display: block !important;
-            position: relative !important;
-        }
-
-        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(7) .gallery-section-card-image img,
-        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(8) .gallery-section-card-image img,
-        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(9) .gallery-section-card-image img{
-            position: absolute !important;
-            inset: 0 !important;
-            width: 100% !important;
-            height: 100% !important;
-            margin: 0 !important;
-            object-fit: contain !important;
-            object-position: center !important;
-        }
-
-        /* Figma row 4: fixed frame 370px, contain (no crop) */
-        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(10) .gallery-section-card-image,
-        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(11) .gallery-section-card-image,
-        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(12) .gallery-section-card-image,
-        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(13) .gallery-section-card-image{
-            aspect-ratio: auto !important;
-            height: 370px !important;
-            width: 100% !important;
-            max-width: 100% !important;
-            display: block !important;
-            position: relative !important;
-        }
-
-        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(10) .gallery-section-card-image img,
-        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(11) .gallery-section-card-image img,
-        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(12) .gallery-section-card-image img,
-        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(13) .gallery-section-card-image img{
-            position: absolute !important;
-            inset: 0 !important;
-            width: 100% !important;
-            height: 100% !important;
-            margin: 0 !important;
-            object-fit: contain !important;
-            object-position: center !important;
-        }
-
-        .gallery-index .gallery-section-card-image img{
-            max-width: 100% !important;
-            max-height: 100% !important;
-            width: auto !important;
-            height: auto !important;
-            object-fit: contain !important;
-            object-position: center !important;
-            margin: 0 auto !important;
-            display: block !important;
-            border: 0 !important;
-            outline: none !important;
-            box-shadow: none !important;
-        }
-
-        .gallery-index .gallery-section-card-meta{
-            flex: 1 1 auto !important;
-            display: flex !important;
-            flex-direction: column !important;
-            min-height: 0 !important;
-            text-align: center !important;
-        }
-
-        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(1) .gallery-section-card-meta,
-        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(2) .gallery-section-card-meta{
-            text-align: left !important;
-            align-items: flex-start !important;
-        }
-
-        .gallery-index .gallery-more-btn{
-            align-self: center !important;
-        }
-
-        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(1) .gallery-more-btn,
-        .gallery-index .gallery-section-grid .gallery-section-card:nth-child(2) .gallery-more-btn{
-            align-self: flex-start !important;
-        }
-
         @media (max-width: 1024px) {
             .gallery-inner,
             .gallery-hero-inner {
@@ -350,42 +298,38 @@
                 box-sizing: border-box !important;
             }
 
-            .gallery-section-grid {
-                display: flex !important;
-                flex-direction: column !important;
-                width: 100% !important;
+            .gallery-index-matrix{
                 gap: 26px !important;
             }
 
-            .gallery-section-card {
-                display: block !important;
+            .gallery-index-row{
+                flex-direction: column !important;
+                align-items: stretch !important;
+                gap: 22px !important;
+            }
+
+            .gallery-index-row .gallery-section-card{
                 width: 100% !important;
                 max-width: 100% !important;
-                box-sizing: border-box !important;
-                float: none !important;
-                clear: both !important;
             }
 
-            .gallery-index .gallery-section-card{
-                display: flex !important;
-                flex-direction: column !important;
+            .gallery-index-row .gallery-section-card-image{
+                width: 100% !important;
+                height: auto !important;
+                max-width: 100% !important;
             }
 
-            .gallery-section-card-link,
+            .gallery-index-row .gallery-section-card-image img{
+                height: auto !important;
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+
             .gallery-section-card-meta {
                 display: block !important;
                 width: 100% !important;
                 max-width: 100% !important;
                 box-sizing: border-box !important;
-            }
-
-            .gallery-index .gallery-section-card-image{
-                display: flex !important;
-                margin-bottom: 14px !important;
-            }
-
-            .gallery-section-card-link {
-                text-decoration: none !important;
             }
 
             .gallery-section-card-title {
@@ -438,15 +382,8 @@
                 padding-right: 18px !important;
             }
 
-            .gallery-section-grid {
-                display: flex !important;
-                flex-direction: column !important;
+            .gallery-index-matrix{
                 gap: 22px !important;
-            }
-
-            .gallery-section-card {
-                width: 100% !important;
-                max-width: 100% !important;
             }
 
             .gallery-section-card-title {
@@ -466,18 +403,8 @@
                 padding-right: 14px !important;
             }
 
-            .gallery-section-grid {
-                display: flex !important;
-                flex-direction: column !important;
+            .gallery-index-matrix{
                 gap: 20px !important;
-            }
-
-            .gallery-section-card,
-            .gallery-section-card-link,
-            .gallery-section-card-image,
-            .gallery-section-card-meta {
-                width: 100% !important;
-                max-width: 100% !important;
             }
 
             .gallery-section-card-title {
@@ -499,9 +426,7 @@
                 padding-right: 12px !important;
             }
 
-            .gallery-section-grid {
-                display: flex !important;
-                flex-direction: column !important;
+            .gallery-index-matrix{
                 gap: 18px !important;
             }
 
@@ -514,5 +439,5 @@
                 max-height: 76px !important;
             }
         }
-        </style>
+    </style>
 @endsection
