@@ -176,29 +176,54 @@
     </script>
 
     <style>
-        /* Десктоп: сетка как есть, картинка целиком (contain), без crop */
+        /* Gallery index: одинаковая «витрина» 4:3, картинка целиком (contain), без crop */
+        .gallery-index .gallery-section-card{
+            display: flex !important;
+            flex-direction: column !important;
+            height: 100% !important;
+            min-width: 0 !important;
+        }
+
         .gallery-index .gallery-section-card-image{
-            position: relative;
-            aspect-ratio: auto !important;
+            position: relative !important;
+            flex: 0 0 auto !important;
+            aspect-ratio: 4 / 3 !important;
             width: 100% !important;
-            min-height: 0;
-            overflow: visible !important;
+            min-height: 0 !important;
+            overflow: hidden !important;
             display: flex !important;
             align-items: center !important;
             justify-content: center !important;
-            box-sizing: border-box !important;
-            background: #f7f5ef;
+    box-sizing: border-box !important;
+    background: #f7f5ef !important;
+    border: 0 !important;
+    text-decoration: none !important;
+            color: inherit !important;
         }
 
         .gallery-index .gallery-section-card-image img{
-            width: auto !important;
             max-width: 100% !important;
+            max-height: 100% !important;
+            width: auto !important;
             height: auto !important;
-            max-height: none !important;
             object-fit: contain !important;
             object-position: center !important;
             margin: 0 auto !important;
             display: block !important;
+            border: 0 !important;
+            outline: none !important;
+        }
+
+        .gallery-index .gallery-section-card-meta{
+            flex: 1 1 auto !important;
+            display: flex !important;
+            flex-direction: column !important;
+            min-height: 0 !important;
+            text-align: center !important;
+        }
+
+        .gallery-index .gallery-more-btn{
+            align-self: center !important;
         }
 
         @media (max-width: 1024px) {
@@ -227,8 +252,12 @@
                 clear: both !important;
             }
 
+            .gallery-index .gallery-section-card{
+                display: flex !important;
+                flex-direction: column !important;
+            }
+
             .gallery-section-card-link,
-            .gallery-section-card-image,
             .gallery-section-card-meta {
                 display: block !important;
                 width: 100% !important;
@@ -236,26 +265,13 @@
                 box-sizing: border-box !important;
             }
 
+            .gallery-index .gallery-section-card-image{
+                display: flex !important;
+                margin-bottom: 14px !important;
+            }
+
             .gallery-section-card-link {
                 text-decoration: none !important;
-            }
-
-            .gallery-index .gallery-section-card-image {
-                margin-bottom: 14px !important;
-                aspect-ratio: auto !important;
-                overflow: hidden !important;
-                background: #f7f5ef;
-            }
-
-            .gallery-index .gallery-section-card-image img {
-                display: block !important;
-                width: 100% !important;
-                max-width: 100% !important;
-                height: auto !important;
-                max-height: none !important;
-                object-fit: contain !important;
-                object-position: center !important;
-                margin: 0 !important;
             }
 
             .gallery-section-card-title {

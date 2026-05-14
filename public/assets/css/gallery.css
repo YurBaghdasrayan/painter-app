@@ -811,11 +811,15 @@
     grid-template-columns: repeat(12, minmax(0, 1fr));
     column-gap: 60px;
     row-gap: 64px;
-    align-items: start;
+    align-items: stretch;
 }
 
 .gallery-index .gallery-section-grid .gallery-section-card{
     grid-column: auto;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-width: 0;
 }
 
 /* Row 1: 2 */
@@ -862,24 +866,51 @@
 
 /* Gallery index: natural image size inside cell (grid column spans unchanged) */
 .gallery-index .gallery-section-grid .gallery-section-card .gallery-section-card-image{
-    aspect-ratio: auto;
-    height: auto;
+    flex: 0 0 auto;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
     min-height: 0;
-    overflow: visible;
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-sizing: border-box;
+    background: #f7f5ef;
+    border: 0;
+    text-decoration: none;
+    color: inherit;
 }
 
 .gallery-index .gallery-section-grid .gallery-section-card .gallery-section-card-image img{
-    width: auto;
     max-width: 100%;
+    max-height: 100%;
+    width: auto;
     height: auto;
-    max-height: none;
     object-fit: contain;
     object-position: center;
     display: block;
-    margin-inline: auto;
+    border: 0;
+    outline: none;
+}
+
+.gallery-index .gallery-section-grid .gallery-section-card .gallery-section-card-meta{
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    text-align: center;
+}
+
+.gallery-index .gallery-section-grid .gallery-section-card .gallery-more-btn{
+    align-self: center;
+}
+
+@media (max-width: 576px){
+    /* home.css forces 1:1 on .gallery-section-card-image at this breakpoint; keep gallery index 4:3 + contain */
+    .gallery-index .gallery-section-grid .gallery-section-card .gallery-section-card-image{
+        aspect-ratio: 4 / 3 !important;
+    }
 }
 
 /* GALLERY INDEX: extra sections after slider (masonry-ish, like figma "GALLERY" grid) */
