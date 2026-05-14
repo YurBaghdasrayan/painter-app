@@ -259,13 +259,13 @@
             </header>
 
             @if($relatedItems->isNotEmpty())
-                <section class="related" aria-label="Related artworks">
+                <section class="related related--same-line" aria-label="Related artworks">
                     <div class="related-head">
                         <h2 class="related-title">
                             {{ match ($locale) {
-                                'am' => 'Նույն գծից',
-                                'ru' => 'С той же линии',
-                                default => 'From the same line',
+                                'am', 'hy' => 'Նույն շարքից',
+                                'ru' => 'Из той же линии',
+                                default => 'From the similar line',
                             } }}
                         </h2>
                     </div>

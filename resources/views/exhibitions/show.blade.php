@@ -24,6 +24,12 @@
         $heroMainUrl = $heroMain ? \Illuminate\Support\Facades\Storage::disk($staticDisk)->url($heroMain) : null;
 
         $items = collect($exhibition->items ?? []);
+
+        $sameLineSectionTitle = match (app()->getLocale()) {
+            'hy', 'am' => 'Նույն շարքից',
+            'ru' => 'Из той же линии',
+            default => 'From the similar line',
+        };
     @endphp
 
     @if($heroTitle || $heroSubtitle || $heroBgUrl || $heroMainUrl)
@@ -148,9 +154,9 @@
     </section>
 
     @if(($relatedExhibitions ?? collect())->count())
-        <section class="related related--exhibitions" aria-label="Related exhibitions">
+        <section class="related related--exhibitions related--same-line" aria-label="Related exhibitions">
             <div class="related-head">
-                <h2 class="related-title">FROM THE SAME LINE</h2>
+                <h2 class="related-title">{{ $sameLineSectionTitle }}</h2>
             </div>
 
             <div class="related-rail">
@@ -380,42 +386,6 @@
                 width:320px;
                 min-width:320px;
                 scroll-snap-align:start;
-            }
-
-            .related--exhibitions .related-link{
-                display:block;
-                height:100%;
-            }
-
-            .related--exhibitions .related-image{
-                width:100%;
-                aspect-ratio:360 / 520;
-                overflow:hidden;
-                background:#eee7d7;
-            }
-
-            .related--exhibitions .related-image img{
-                width:100%;
-                height:100%;
-                display:block;
-                object-fit:cover;
-                object-position:center;
-            }
-
-            @media (max-width:900px){
-                .related--exhibitions .related-image{
-                    aspect-ratio:auto;
-                    min-height:0;
-                    display:flex;
-                    align-items:center;
-                    justify-content:center;
-                }
-
-                .related--exhibitions .related-image img{
-                    height:auto;
-                    max-height:none;
-                    object-fit:contain;
-                }
             }
 
             .related--exhibitions .related-next{
