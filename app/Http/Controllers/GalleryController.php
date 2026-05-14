@@ -13,6 +13,10 @@ class GalleryController extends Controller
     {
         $items = GalleryItem::query()
             ->where('is_active', true)
+            ->whereNotNull('image')
+            ->where('image', '!=', '')
+            ->whereNotNull('slug')
+            ->where('slug', '!=', '')
             ->orderBy('sort_order')
             ->orderByDesc('id')
             ->get();

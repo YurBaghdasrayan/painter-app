@@ -77,7 +77,7 @@
     width: 100%;
     height: 100%;
     display: block;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center center;
     filter: brightness(1.04);
 }
@@ -122,7 +122,7 @@
     width: 100%;
     height: 100%;
     display: block;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center center;
     box-shadow: 0 16px 30px rgba(0,0,0,.08);
 }
@@ -222,7 +222,7 @@
     width: 100%;
     height: 100%;
     display: block;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center;
 }
 
@@ -438,7 +438,7 @@
     width: 100%;
     height: 100%;
     display: block;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center;
     opacity: .35;
     filter: brightness(1.03);
@@ -604,6 +604,24 @@
     padding: clamp(170px, 12vw + 90px, 280px) 0 40px 0;
 }
 
+/* Wider than home .gallery-inner (1700px): lets grid columns grow so contain previews match Figma height */
+.gallery-index .gallery-inner{
+    max-width: none;
+}
+
+/* Home .gallery-section-card-image adds border + tint; strip on gallery index */
+.gallery-index .gallery-section-card-image{
+    border: 0;
+    outline: none;
+    box-shadow: none;
+    background: transparent;
+}
+
+.gallery-index-tail .gallery-masonry-image{
+    border: 0;
+    background: transparent;
+}
+
 .gallery-index-slider{
     position: relative;
     z-index: 1;
@@ -612,7 +630,7 @@
 }
 
 .gallery-index-slider-inner{
-    max-width: 1700px;
+    max-width: none;
     margin: 0 auto;
     padding: 18px 110px 0;
 }
@@ -895,13 +913,26 @@
     box-shadow: none;
 }
 
-/* Gallery index row 1 (Figma): image frame 887×1115 */
+/* Gallery index row 1 (Figma): portrait frame 887×1115, img fills frame (contain — no crop) */
 .gallery-index .gallery-section-grid .gallery-section-card:nth-child(1) .gallery-section-card-image,
 .gallery-index .gallery-section-grid .gallery-section-card:nth-child(2) .gallery-section-card-image{
     aspect-ratio: 887 / 1115;
+    display: block;
+    position: relative;
 }
 
-/* Gallery index row 2 (Figma): preview height 529px, image natural width inside cell */
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(1) .gallery-section-card-image img,
+.gallery-index .gallery-section-grid .gallery-section-card:nth-child(2) .gallery-section-card-image img{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    object-fit: contain;
+    object-position: center;
+}
+
+/* Gallery index row 2 (Figma): preview height 529px, image fills frame (uniform row, contain — no crop) */
 .gallery-index .gallery-section-grid .gallery-section-card:nth-child(3) .gallery-section-card-image,
 .gallery-index .gallery-section-grid .gallery-section-card:nth-child(4) .gallery-section-card-image,
 .gallery-index .gallery-section-grid .gallery-section-card:nth-child(5) .gallery-section-card-image,
@@ -910,23 +941,24 @@
     width: 100%;
     max-width: 100%;
     height: 529px;
+    display: block;
+    position: relative;
 }
 
 .gallery-index .gallery-section-grid .gallery-section-card:nth-child(3) .gallery-section-card-image img,
 .gallery-index .gallery-section-grid .gallery-section-card:nth-child(4) .gallery-section-card-image img,
 .gallery-index .gallery-section-grid .gallery-section-card:nth-child(5) .gallery-section-card-image img,
 .gallery-index .gallery-section-grid .gallery-section-card:nth-child(6) .gallery-section-card-image img{
-    width: auto;
-    height: 529px;
-    max-width: 100%;
-    max-height: none;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
     object-fit: contain;
-    margin-left: auto;
-    margin-right: auto;
-    flex-shrink: 0;
+    object-position: center;
 }
 
-/* Gallery index row 3 (Figma): preview height 460px, image natural width inside cell */
+/* Gallery index row 3 (Figma): preview height 460px, image fills frame (uniform row, contain — no crop) */
 .gallery-index .gallery-section-grid .gallery-section-card:nth-child(7) .gallery-section-card-image,
 .gallery-index .gallery-section-grid .gallery-section-card:nth-child(8) .gallery-section-card-image,
 .gallery-index .gallery-section-grid .gallery-section-card:nth-child(9) .gallery-section-card-image{
@@ -934,22 +966,23 @@
     width: 100%;
     max-width: 100%;
     height: 460px;
+    display: block;
+    position: relative;
 }
 
 .gallery-index .gallery-section-grid .gallery-section-card:nth-child(7) .gallery-section-card-image img,
 .gallery-index .gallery-section-grid .gallery-section-card:nth-child(8) .gallery-section-card-image img,
 .gallery-index .gallery-section-grid .gallery-section-card:nth-child(9) .gallery-section-card-image img{
-    width: auto;
-    height: 460px;
-    max-width: 100%;
-    max-height: none;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
     object-fit: contain;
-    margin-left: auto;
-    margin-right: auto;
-    flex-shrink: 0;
+    object-position: center;
 }
 
-/* Gallery index row 4 (Figma): preview height 370px, image natural width inside cell */
+/* Gallery index row 4 (Figma): preview height 370px, image fills frame (uniform row, contain — no crop) */
 .gallery-index .gallery-section-grid .gallery-section-card:nth-child(10) .gallery-section-card-image,
 .gallery-index .gallery-section-grid .gallery-section-card:nth-child(11) .gallery-section-card-image,
 .gallery-index .gallery-section-grid .gallery-section-card:nth-child(12) .gallery-section-card-image,
@@ -958,20 +991,21 @@
     width: 100%;
     max-width: 100%;
     height: 370px;
+    display: block;
+    position: relative;
 }
 
 .gallery-index .gallery-section-grid .gallery-section-card:nth-child(10) .gallery-section-card-image img,
 .gallery-index .gallery-section-grid .gallery-section-card:nth-child(11) .gallery-section-card-image img,
 .gallery-index .gallery-section-grid .gallery-section-card:nth-child(12) .gallery-section-card-image img,
 .gallery-index .gallery-section-grid .gallery-section-card:nth-child(13) .gallery-section-card-image img{
-    width: auto;
-    height: 370px;
-    max-width: 100%;
-    max-height: none;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
     object-fit: contain;
-    margin-left: auto;
-    margin-right: auto;
-    flex-shrink: 0;
+    object-position: center;
 }
 
 .gallery-index .gallery-section-grid .gallery-section-card .gallery-section-card-meta{
@@ -1006,6 +1040,19 @@
     .gallery-index .gallery-section-grid .gallery-section-card:nth-child(1) .gallery-section-card-image,
     .gallery-index .gallery-section-grid .gallery-section-card:nth-child(2) .gallery-section-card-image{
         aspect-ratio: 887 / 1115 !important;
+        display: block !important;
+        position: relative !important;
+    }
+
+    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(1) .gallery-section-card-image img,
+    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(2) .gallery-section-card-image img{
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        margin: 0 !important;
+        object-fit: contain !important;
+        object-position: center !important;
     }
 
     .gallery-index .gallery-section-grid .gallery-section-card:nth-child(3) .gallery-section-card-image,
@@ -1016,6 +1063,21 @@
         height: 529px !important;
         width: 100% !important;
         max-width: 100% !important;
+        display: block !important;
+        position: relative !important;
+    }
+
+    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(3) .gallery-section-card-image img,
+    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(4) .gallery-section-card-image img,
+    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(5) .gallery-section-card-image img,
+    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(6) .gallery-section-card-image img{
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        margin: 0 !important;
+        object-fit: contain !important;
+        object-position: center !important;
     }
 
     .gallery-index .gallery-section-grid .gallery-section-card:nth-child(7) .gallery-section-card-image,
@@ -1025,6 +1087,20 @@
         height: 460px !important;
         width: 100% !important;
         max-width: 100% !important;
+        display: block !important;
+        position: relative !important;
+    }
+
+    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(7) .gallery-section-card-image img,
+    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(8) .gallery-section-card-image img,
+    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(9) .gallery-section-card-image img{
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        margin: 0 !important;
+        object-fit: contain !important;
+        object-position: center !important;
     }
 
     .gallery-index .gallery-section-grid .gallery-section-card:nth-child(10) .gallery-section-card-image,
@@ -1035,6 +1111,21 @@
         height: 370px !important;
         width: 100% !important;
         max-width: 100% !important;
+        display: block !important;
+        position: relative !important;
+    }
+
+    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(10) .gallery-section-card-image img,
+    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(11) .gallery-section-card-image img,
+    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(12) .gallery-section-card-image img,
+    .gallery-index .gallery-section-grid .gallery-section-card:nth-child(13) .gallery-section-card-image img{
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        margin: 0 !important;
+        object-fit: contain !important;
+        object-position: center !important;
     }
 }
 
@@ -1047,7 +1138,7 @@
 }
 
 .gallery-index-tail-inner{
-    max-width: 1700px;
+    max-width: none;
     margin: 0 auto;
     padding: 0 110px 0;
 }
@@ -1088,7 +1179,7 @@
     width: 100%;
     height: 100%;
     display: block;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center;
 }
 
@@ -1481,7 +1572,7 @@
     width: 100%;
     height: 100%;
     display: block;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center;
 }
 
