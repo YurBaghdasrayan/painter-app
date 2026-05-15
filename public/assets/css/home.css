@@ -1488,7 +1488,39 @@ a{color:inherit;text-decoration:none}
     background: #f7f5ef;
     z-index: 1;
     margin-top: -8px; /* wave sits closer to hero text (Figma) */
+    width: 100%;
+    max-width: none;
 }
+
+/* Full-bleed photo/video band (desktop + tablet stacked) */
+#about.about .about-media{
+    position: absolute;
+    top: 120px;
+    bottom: 0;
+    left: 50%;
+    right: auto;
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: -50vw;
+    overflow: hidden;
+    line-height: 0;
+    z-index: 0;
+}
+
+#about.about .line{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    right: auto;
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: -50vw;
+    transform: rotate(-1deg);
+    z-index: 9;
+    display: block;
+    pointer-events: none;
+}
+
 .line{
     position: absolute;
     top: 0;
@@ -1499,14 +1531,17 @@ a{color:inherit;text-decoration:none}
     display: block;
     pointer-events: none;
 }
+
 .about-bg{
     position: absolute;
+    inset: 0;
     left: 0;
     right: 0;
+    top: 0;
     bottom: 0;
-    top: 120px; /* ֆոնը իջեցնում ենք ներքև՝ տեքստի վերևի հատվածը մաքուր թողնելու համար */
     width: 100%;
-    height: calc(100% - 120px);
+    min-width: 100%;
+    height: 100%;
     object-fit: cover;
     object-position: 62% top;
 }
@@ -2967,20 +3002,27 @@ img, svg, video, iframe{
         padding: 0 0 56px;
     }
 
-    .line{
-        top: -3%;
-        width: 125%;
-        left: -12%;
-    }
-
     #about.about .about-media{
+        position: relative;
+        top: auto;
+        bottom: auto;
+        left: 50%;
+        right: auto;
         width: 100vw;
         max-width: 100vw;
-        margin-left: calc(50% - 50vw);
-        margin-right: calc(50% - 50vw);
+        margin-left: -50vw;
+        margin-right: 0;
         padding: 0;
         overflow: hidden;
         line-height: 0;
+    }
+
+    #about.about .line{
+        left: 50%;
+        width: 100vw;
+        max-width: 100vw;
+        margin-left: -50vw;
+        top: -3%;
     }
 
     .about-bg{
@@ -3356,9 +3398,11 @@ img, svg, video, iframe{
         object-position: center top;
     }
 
-    .line{
-        width: 150%;
-        left: -24%;
+    #about.about .line{
+        width: 100vw;
+        max-width: 100vw;
+        left: 50%;
+        margin-left: -50vw;
     }
 
     .about-card{
