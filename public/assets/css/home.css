@@ -1899,36 +1899,31 @@ a{color:inherit;text-decoration:none}
     width:100%;
     min-width:0;
     overflow:hidden;
-    border:1px solid rgba(20,20,20,.08);
-    background:rgba(255,255,255,.35);
-    /* never force a fake box ratio for uploads */
+    border:0;
+    outline:none;
+    box-shadow:none;
+    background:transparent;
     aspect-ratio: auto !important;
     height: auto !important;
+    line-height:0;
 }
 
 .gallery-section-card-image img{
-    width: auto !important;      /* don't upscale */
-    max-width: 100% !important;  /* but fit container */
+    width:100% !important;
+    max-width:100% !important;
     height:auto !important;
     display:block;
-    object-fit: contain;
+    object-fit:contain;
     object-position:center;
-    margin-left: auto;
-    margin-right: auto;
+    margin:0;
 }
 
-.gallery-section-card:nth-child(1) .gallery-section-card-image{ aspect-ratio: 723 / 604; }
-.gallery-section-card:nth-child(2) .gallery-section-card-image{ aspect-ratio: 1026 / 746; }
-.gallery-section-card:nth-child(3) .gallery-section-card-image{ aspect-ratio: 723 / 903; }
-.gallery-section-card:nth-child(4) .gallery-section-card-image{ aspect-ratio: 1026 / 1217; }
-.gallery-section-card:nth-child(5) .gallery-section-card-image{ aspect-ratio: 724 / 623; }
-
-/* Home masonry after interleaved DOM (see home gallery script): keep slot sizes like the old grid */
-#gallery.gallery .gallery-section-card:nth-child(1) .gallery-section-card-image{ aspect-ratio: 723 / 604; }
-#gallery.gallery .gallery-section-card:nth-child(2) .gallery-section-card-image{ aspect-ratio: 1026 / 746; }
-#gallery.gallery .gallery-section-card:nth-child(3) .gallery-section-card-image{ aspect-ratio: 723 / 903; }
-#gallery.gallery .gallery-section-card:nth-child(4) .gallery-section-card-image{ aspect-ratio: 1026 / 1217; }
-#gallery.gallery .gallery-section-card:nth-child(5) .gallery-section-card-image{ aspect-ratio: 724 / 623; }
+/* Home gallery: natural image height, no fixed slot boxes */
+#gallery.gallery .gallery-section-card-image,
+#gallery.gallery .gallery-section-card:nth-child(n) .gallery-section-card-image{
+    aspect-ratio:auto !important;
+    height:auto !important;
+}
 
 /* Home collection: 1 big card + 1 small card (Figma-like) */
 #collection.gallery .gallery-section-grid{
@@ -2025,28 +2020,24 @@ a{color:inherit;text-decoration:none}
 .gallery-image{
     width:100%;
     overflow:hidden;
-    border:1px solid rgba(20,20,20,.08);
-    background:rgba(255,255,255,.35);
+    border:0;
+    outline:none;
+    box-shadow:none;
+    background:transparent;
     aspect-ratio: auto !important;
     height: auto !important;
+    line-height:0;
 }
 
 .gallery-image img{
-    width: auto !important;
-    max-width: 100% !important;
+    width:100% !important;
+    max-width:100% !important;
     height:auto !important;
     display:block;
-    object-fit: contain;
+    object-fit:contain;
     object-position:center;
-    margin-left: auto;
-    margin-right: auto;
+    margin:0;
 }
-
-.gallery-card:nth-child(1) .gallery-image{ aspect-ratio: 723 / 604; }
-.gallery-card:nth-child(2) .gallery-image{ aspect-ratio: 1026 / 746; }
-.gallery-card:nth-child(3) .gallery-image{ aspect-ratio: 723 / 903; }
-.gallery-card:nth-child(4) .gallery-image{ aspect-ratio: 1026 / 1217; }
-.gallery-card:nth-child(5) .gallery-image{ aspect-ratio: 724 / 623; }
 
 .gallery-meta{
     margin-top:12px;
@@ -2136,17 +2127,20 @@ a{color:inherit;text-decoration:none}
     }
     .gallery-card{grid-column:auto}
     .gallery-section-card{grid-column:auto}
-    .gallery-image{
+    .gallery-image,
+    .gallery-section-card-image,
+    #gallery.gallery .gallery-section-card-image{
         width:100% !important;
         height:auto !important;
-        aspect-ratio: 4 / 3;
+        aspect-ratio:auto !important;
     }
-    .gallery-section-card-image{
+
+    .gallery-image img,
+    .gallery-section-card-image img{
         width:100% !important;
         height:auto !important;
-        aspect-ratio: 4 / 3 !important;
+        object-fit:contain !important;
     }
-    .gallery-image img{height:100%}
 
     /* Single column: natural sort order (script restores DOM below 1201px) */
     #gallery.gallery .gallery-section-grid{
