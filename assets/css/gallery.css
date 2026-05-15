@@ -14,7 +14,8 @@
     position: relative;
     z-index: 2;
     background: var(--gallery-bg);
-    overflow: visible;
+    overflow-x: hidden;
+    overflow-y: visible;
 }
 
 .gallery-hero-inner{
@@ -72,21 +73,24 @@
 .gallery-hero-art-bg{
     position: absolute;
     inset: 0;
-    width: 100%;
+    left: 50%;
+    right: auto;
+    width: 100vw;
+    max-width: 100vw;
     height: 100%;
+    margin-left: -50vw;
     opacity: .28;
     z-index: 1;
-    overflow: visible;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    overflow: hidden;
+    display: block;
 }
 
 .gallery-hero-art-bg img{
     width: 100%;
+    min-width: 100%;
     height: 100%;
     display: block;
-    object-fit: contain;
+    object-fit: cover;
     object-position: center center;
     filter: brightness(1.04);
 }
@@ -97,6 +101,7 @@
 }
 
 .gallery-hero--exhibitions .gallery-hero-art-bg img{
+    object-fit: cover;
     object-position: top center;
 }
 
@@ -628,9 +633,11 @@
     .gallery-hero:not(.gallery-hero--exhibitions) .gallery-hero-art-bg{
         position: absolute;
         top: 0;
-        left: 0;
-        right: 0;
-        width: 100%;
+        left: 50%;
+        right: auto;
+        width: 100vw;
+        max-width: 100vw;
+        margin-left: -50vw;
         height: var(--gallery-hero-band-h);
         min-height: var(--gallery-hero-band-h);
         inset: auto;

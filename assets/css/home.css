@@ -2000,8 +2000,23 @@ a{color:inherit;text-decoration:none}
     .about{
         height:auto;
         min-height:860px;
-        padding:80px 0 90px 0;
+        padding:0 0 90px 0;
     }
+
+    #about.about .about-media{
+        width: 100vw;
+        max-width: 100vw;
+        margin-left: calc(50% - 50vw);
+        margin-right: calc(50% - 50vw);
+    }
+
+    .about-bg{
+        width: 100%;
+        min-width: 100%;
+        object-fit: cover;
+        object-position: center top;
+    }
+
     .about-card{
         width:min(430px, calc(100% - 36px));
         margin-left:18px;
@@ -2726,7 +2741,7 @@ img, svg, video, iframe{
     .about{
         height: auto;
         min-height: 720px;
-        padding: 90px 0 100px;
+        padding: 0 0 56px;
     }
 
     .line{
@@ -2735,15 +2750,38 @@ img, svg, video, iframe{
         left: -12%;
     }
 
+    #about.about .about-media{
+        width: 100vw;
+        max-width: 100vw;
+        margin-left: calc(50% - 50vw);
+        margin-right: calc(50% - 50vw);
+        padding: 0;
+        overflow: hidden;
+        line-height: 0;
+    }
+
     .about-bg{
+        position: relative;
+        inset: auto;
+        display: block;
+        width: 100%;
+        min-width: 100%;
+        height: 520px;
+        object-fit: cover;
         object-position: center top;
     }
 
+    img.about-bg:not(.about-bg--video),
+    .about-bg--video{
+        object-fit: cover;
+        background: transparent;
+    }
+
     .about-content{
+        position: relative;
         height: auto;
-        min-height: inherit;
-        display: flex;
-        align-items: center;
+        min-height: 0;
+        display: block;
     }
 
     .about-card{
@@ -2876,8 +2914,21 @@ img, svg, video, iframe{
 
     .about{
         min-height: 680px;
-        padding-top: 76px;
+        padding-top: 0;
         padding-bottom: 84px;
+    }
+
+    #about.about .about-media{
+        width: 100vw;
+        max-width: 100vw;
+        margin-left: calc(50% - 50vw);
+        margin-right: calc(50% - 50vw);
+    }
+
+    .about-bg{
+        height: 380px;
+        object-fit: cover;
+        object-position: center top;
     }
 
     .about-card{
@@ -3037,7 +3088,7 @@ img, svg, video, iframe{
 
     .about{
         min-height: 620px;
-        padding-top: 64px;
+        padding-top: 0;
         padding-bottom: 72px;
     }
 
@@ -3047,7 +3098,9 @@ img, svg, video, iframe{
     }
 
     .about-bg{
-        object-position: 56% top;
+        height: 320px;
+        object-fit: cover;
+        object-position: center top;
     }
 
     .about-card{
