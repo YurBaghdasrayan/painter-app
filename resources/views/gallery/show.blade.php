@@ -192,9 +192,14 @@
                         }
                     @endphp
 
-                    @if($size !== '' || $material !== '')
-                        <div class="artwork-lead">
-                            {{ trim(implode(' • ', array_values(array_filter([$size, $material])))) }}
+                    @if(trim(strip_tags($size)) !== '' || trim(strip_tags($material)) !== '')
+                        <div class="artwork-meta artwork-lead">
+                            @if(trim(strip_tags($size)) !== '')
+                                <div class="artwork-meta__row">{!! $size !!}</div>
+                            @endif
+                            @if(trim(strip_tags($material)) !== '')
+                                <div class="artwork-meta__row">{!! $material !!}</div>
+                            @endif
                         </div>
                     @endif
 

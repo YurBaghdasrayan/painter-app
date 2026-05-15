@@ -446,15 +446,17 @@ a{color:inherit;text-decoration:none}
 /* Hero */
 .hero{
     background:#f7f5ef;
-    height:520px;
+    height:auto;
+    min-height:0;
     position:relative;
     overflow:hidden;
 }
 .hero-inner{
     max-width:1700px;
     margin:0 auto;
-    padding-top:55px;
+    padding:55px 24px 32px;
     text-align:center;
+    box-sizing:border-box;
 }
 .hero-title{
     margin:0;
@@ -1485,14 +1487,17 @@ a{color:inherit;text-decoration:none}
     overflow: hidden;
     background: #f7f5ef;
     z-index: 1;
+    margin-top: -8px; /* wave sits closer to hero text (Figma) */
 }
 .line{
     position: absolute;
-    /*top: -7%;*/
-    transform: rotate(-1deg);
+    top: 0;
     left: -1%;
+    transform: rotate(-1deg);
     z-index: 9;
     width: 100%;
+    display: block;
+    pointer-events: none;
 }
 .about-bg{
     position: absolute;
@@ -2102,7 +2107,8 @@ a{color:inherit;text-decoration:none}
     .nav-list{gap:34px}
     .nav-link{letter-spacing:.18em}
 
-    .hero{height:460px}
+    .hero{height:auto; min-height:0}
+    .hero-inner{padding-bottom:28px}
     .hero-title{font-size:72px}
     .hero-subtitle{max-width:560px}
 
@@ -2195,8 +2201,8 @@ a{color:inherit;text-decoration:none}
         letter-spacing:.18em;
     }
 
-    .hero{height:380px}
-    .hero-inner{padding-top:38px; padding-left:16px; padding-right:16px}
+    .hero{height:auto; min-height:0}
+    .hero-inner{padding:38px 16px 24px}
     .hero-title{font-size:46px}
     .hero-subtitle{font-size:13px; max-width:92%}
 
@@ -2762,7 +2768,8 @@ img, svg, video, iframe{
 
 @media (max-width: 1366px){
     .hero{
-        height: 500px;
+        height: auto;
+        min-height: 0;
     }
 
     .hero-title{
@@ -2928,14 +2935,12 @@ img, svg, video, iframe{
 
     .hero{
         height: auto;
-        min-height: 420px;
-        display: flex;
-        align-items: center;
+        min-height: 0;
     }
 
     .hero-inner{
         width: 100%;
-        padding: 46px 22px 72px;
+        padding: 46px 22px 28px;
     }
 
     .hero-title{
@@ -3103,12 +3108,11 @@ img, svg, video, iframe{
     }
 
     .hero{
-        min-height: 360px;
+        min-height: 0;
     }
 
     .hero-inner{
-        padding-top: 38px;
-        padding-bottom: 58px;
+        padding: 38px 18px 24px;
     }
 
     .hero-title{
@@ -3418,7 +3422,7 @@ img, svg, video, iframe{
 
 @media (max-width: 430px){
     .hero{
-        min-height: 310px;
+        min-height: 0;
     }
 
     .hero-title{

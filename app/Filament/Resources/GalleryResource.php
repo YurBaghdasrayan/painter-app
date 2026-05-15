@@ -79,12 +79,16 @@ class GalleryResource extends Resource
                                         ->label('Same line group (AM)')
                                         ->helperText('Optional: same value = shown together in "From the same line"')
                                         ->maxLength(255),
-                                    Forms\Components\TextInput::make('size_am')
-                                        ->label('Size (AM)')
-                                        ->maxLength(255),
-                                    Forms\Components\TextInput::make('material_am')
-                                        ->label('Material (AM)')
-                                        ->maxLength(255),
+                                    AdminRichEditorDefaults::configure(
+                                        RichEditor::make('size_am')
+                                            ->label('Size (AM)')
+                                    )
+                                        ->columnSpanFull(),
+                                    AdminRichEditorDefaults::configure(
+                                        RichEditor::make('material_am')
+                                            ->label('Material (AM)')
+                                    )
+                                        ->columnSpanFull(),
                                     AdminRichEditorDefaults::configure(
                                         RichEditor::make('short_description_am')
                                             ->label('Short description (AM)')
@@ -127,12 +131,16 @@ class GalleryResource extends Resource
                                         ->label('Same line group (RU)')
                                         ->helperText('Optional: same value = shown together in "From the same line"')
                                         ->maxLength(255),
-                                    Forms\Components\TextInput::make('size_ru')
-                                        ->label('Size (RU)')
-                                        ->maxLength(255),
-                                    Forms\Components\TextInput::make('material_ru')
-                                        ->label('Material (RU)')
-                                        ->maxLength(255),
+                                    AdminRichEditorDefaults::configure(
+                                        RichEditor::make('size_ru')
+                                            ->label('Size (RU)')
+                                    )
+                                        ->columnSpanFull(),
+                                    AdminRichEditorDefaults::configure(
+                                        RichEditor::make('material_ru')
+                                            ->label('Material (RU)')
+                                    )
+                                        ->columnSpanFull(),
                                     AdminRichEditorDefaults::configure(
                                         RichEditor::make('short_description_ru')
                                             ->label('Short description (RU)')
@@ -176,12 +184,16 @@ class GalleryResource extends Resource
                                         ->label('Same line group (EN)')
                                         ->helperText('Optional: same value = shown together in "From the same line"')
                                         ->maxLength(255),
-                                    Forms\Components\TextInput::make('size_en')
-                                        ->label('Size (EN)')
-                                        ->maxLength(255),
-                                    Forms\Components\TextInput::make('material_en')
-                                        ->label('Material (EN)')
-                                        ->maxLength(255),
+                                    AdminRichEditorDefaults::configure(
+                                        RichEditor::make('size_en')
+                                            ->label('Size (EN)')
+                                    )
+                                        ->columnSpanFull(),
+                                    AdminRichEditorDefaults::configure(
+                                        RichEditor::make('material_en')
+                                            ->label('Material (EN)')
+                                    )
+                                        ->columnSpanFull(),
                                     AdminRichEditorDefaults::configure(
                                         RichEditor::make('short_description_en')
                                             ->label('Short description (EN)')

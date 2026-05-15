@@ -281,7 +281,7 @@
                 <div class="hero-videos__grid">
                     @foreach($heroVideos->take(3) as $videoUrl)
                         <div class="hero-video">
-                            <video controls playsinline preload="metadata">
+                            <video controls autoplay muted loop playsinline preload="metadata">
                                 <source src="{{ $videoUrl }}">
                             </video>
                         </div>
@@ -330,9 +330,14 @@
                                         <div class="gallery-section-card-title">
                                             “{{ strtoupper((string) $title) }}”
                                         </div>
-                                            @if($size !== '' || $material !== '')
+                                            @if(trim(strip_tags($size)) !== '' || trim(strip_tags($material)) !== '')
                                                 <div class="gallery-section-card-desc">
-                                                    {{ trim(implode(' • ', array_values(array_filter([$size, $material])))) }}
+                                                    @if(trim(strip_tags($size)) !== '')
+                                                        <div>{!! $size !!}</div>
+                                                    @endif
+                                                    @if(trim(strip_tags($material)) !== '')
+                                                        <div>{!! $material !!}</div>
+                                                    @endif
                                                 </div>
                                             @endif
                                     </div>
