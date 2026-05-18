@@ -91,16 +91,22 @@
             @if($heroMainUrl || ($heroItem && !empty($heroItem->image)))
                 <article class="gallery-hero-featured">
                     @php
+                        $featuredUsesItemImage = ! $heroMainUrl && $heroItem && ! empty($heroItem->image);
                         $featuredImgUrl = $heroMainUrl ?: $heroItem->listImagePublicUrl();
-                        $featuredAlt = $heroTitle ?: ($heroItem?->localized('title') ?? 'Gallery');
+                        $featuredAlt = $featuredUsesItemImage
+                            ? ($heroItem->localized('title') ?? $heroTitle)
+                            : $heroTitle;
+                        $featuredHref = $featuredUsesItemImage && ! empty($heroItem->slug)
+                            ? route('gallery.show', $heroItem->slug)
+                            : null;
                     @endphp
 
-                    @if($heroItem && !empty($heroItem->slug))
-                        <a href="{{ route('gallery.show', $heroItem->slug) }}" class="gallery-hero-featured-link">
+                    @if($featuredHref)
+                        <a href="{{ $featuredHref }}" class="gallery-hero-featured-link" aria-label="{{ $featuredAlt }}">
                             <img src="{{ $featuredImgUrl }}" alt="{{ $featuredAlt }}">
                         </a>
                     @else
-                        <div class="gallery-hero-featured-link">
+                        <div class="gallery-hero-featured-link" aria-hidden="true">
                             <img src="{{ $featuredImgUrl }}" alt="{{ $featuredAlt }}">
                         </div>
                     @endif
