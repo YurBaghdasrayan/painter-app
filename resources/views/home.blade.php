@@ -5,90 +5,14 @@
 @section('content')
     @push('styles')
         <style>
-            /* Home About section: enforce figma-like spacing (override cached CSS) */
-            #about.about{
-                height: auto !important;
-                min-height: 1200px !important;
-            }
-            #about.about .about-card{
-                padding-top: 450px !important;
-            }
-            @media (max-width: 1366px){
+            @media (min-width: 993px){
                 #about.about .about-card{
-                    padding-top: 400px !important;
-                }
-            }
-            @media (max-width: 1200px){
-                #about.about .about-card{
-                    padding-top: 160px !important;
+                    color: #fff !important;
                 }
             }
             @media (max-width: 992px){
-                #about.about{
-                    min-height: 0 !important;
-                    padding-left: 0 !important;
-                    padding-right: 0 !important;
-                }
-                #about.about .about-media{
-                    position: relative !important;
-                    top: auto !important;
-                    bottom: auto !important;
-                    left: 0 !important;
-                    right: 0 !important;
-                    width: 100% !important;
-                    max-width: none !important;
-                    margin: 0 !important;
-                    transform: none !important;
-                }
-                #about.about .about-bg{
-                    position: relative !important;
-                    inset: auto !important;
-                    display: block !important;
-                    width: 100% !important;
-                    min-width: 100% !important;
-                    height: clamp(260px, 72vw, 420px) !important;
-                    object-fit: cover !important;
-                    object-position: center center !important;
-                }
-                #about.about .line{
-                    left: 0 !important;
-                    width: 100% !important;
-                    max-width: none !important;
-                    margin-left: 0 !important;
-                }
                 #about.about .about-card{
-                    padding-top: 0 !important;
-                }
-            }
-            @media (max-width: 576px){
-                #about.about .about-bg{
-                    height: clamp(220px, 68vw, 340px) !important;
-                }
-            }
-
-            /* Ультраширокие экраны: cover режет низ кадра — выше секция и центрируем кроп по вертикали */
-            @media (min-width: 1600px){
-                #about.about{
-                    min-height: clamp(1200px, 26vw + 880px, 2000px) !important;
-                }
-                #about.about .about-bg{
-                    object-position: 58% center !important;
-                }
-            }
-            @media (min-width: 2000px){
-                #about.about{
-                    min-height: clamp(1280px, 30vw + 920px, 2200px) !important;
-                }
-                #about.about .about-bg{
-                    object-position: 55% 42% !important;
-                }
-            }
-            @media (min-width: 2400px){
-                #about.about{
-                    min-height: clamp(1360px, 34vw + 960px, 2400px) !important;
-                }
-                #about.about .about-bg{
-                    object-position: 52% 48% !important;
+                    color: #2a2a2a !important;
                 }
             }
         </style>
