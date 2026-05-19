@@ -171,7 +171,8 @@
                                 @php
                                     $img = !empty($item->image) ? $item->listImagePublicUrl() : null;
                                     $title = $item->localized('title') ?? 'Gallery';
-                                    $desc = trim((string) ($item->localized('short_description') ?? ''));
+                                    $size = trim((string) ($item->localized('size') ?? ''));
+                                    $material = trim((string) ($item->localized('material') ?? ''));
                                 @endphp
                                     <article class="gallery-section-card" role="article">
                                         <a class="gallery-section-card-image" href="{{ route('gallery.show', $item->slug) }}" aria-label="{{ $title }}">
@@ -183,8 +184,15 @@
                                                 “{{ strtoupper((string) $title) }}”
                                             </a>
 
-                                            @if($desc !== '' && trim((string) strip_tags((string) $desc)) !== '')
-                                                <div class="gallery-section-card-desc js-gallery-desc">{!! (string) $desc !!}</div>
+                                            @if(trim(strip_tags($size)) !== '' || trim(strip_tags($material)) !== '')
+                                                <div class="gallery-section-card-desc js-gallery-desc">
+                                                    @if(trim(strip_tags($size)) !== '')
+                                                        <div>{!! $size !!}</div>
+                                                    @endif
+                                                    @if(trim(strip_tags($material)) !== '')
+                                                        <div>{!! $material !!}</div>
+                                                    @endif
+                                                </div>
 
                                                 <button
                                                     type="button"
@@ -397,7 +405,7 @@
             }
 
             .gallery-section-card-desc {
-                font-size: 13.5px !important;
+                font-size: 16.5px !important;
                 max-height: 84px !important;
             }
         }
@@ -419,7 +427,7 @@
             }
 
             .gallery-section-card-desc {
-                font-size: 13px !important;
+                font-size: 16px !important;
                 line-height: 1.55 !important;
                 max-height: 80px !important;
             }
@@ -441,7 +449,7 @@
             }
 
             .gallery-section-card-desc {
-                font-size: 12.5px !important;
+                font-size: 15.5px !important;
                 max-height: 76px !important;
             }
         }

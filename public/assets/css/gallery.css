@@ -296,7 +296,7 @@
 
 .gallery-page-item-desc{
     margin-top: 6px;
-    font-size: 11px;
+    font-size: 14px;
     line-height: 1.7;
     font-weight: 300;
     color: var(--gallery-text);
@@ -1364,6 +1364,10 @@
     color: var(--gallery-text);
     max-width: 560px;
     overflow-wrap: anywhere;
+}
+
+.artwork-meta.artwork-lead{
+    font-size: 15px;
 }
 
 .artwork-meta__row + .artwork-meta__row{
