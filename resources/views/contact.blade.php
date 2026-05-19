@@ -69,7 +69,24 @@
                 font-weight: 600 !important;
             }
 
-            /* keep existing focus styles from CSS */
+            .contact-form__alert{
+                margin: 0 0 18px;
+                padding: 12px 16px;
+                border-radius: 8px;
+                font-weight: 600;
+                font-size: 14px;
+                list-style: none;
+            }
+            .contact-form__alert--success{
+                background: rgba(34, 120, 60, .18);
+                color: rgba(10, 50, 25, .95);
+                border: 1px solid rgba(34, 120, 60, .35);
+            }
+            .contact-form__alert--error{
+                background: rgba(180, 40, 40, .12);
+                color: rgba(80, 10, 10, .95);
+                border: 1px solid rgba(180, 40, 40, .35);
+            }
         </style>
         @if($bgUrl)
             <img class="contact-page__bg" src="{{ $bgUrl }}" alt="" aria-hidden="true">
@@ -91,33 +108,53 @@
         @endif
 
         <div class="contact-page__inner">
-            <form class="contact-form" method="post" action="#">
+            @if(session('contact_success'))
+                <p class="contact-form__alert contact-form__alert--success" role="status">
+                    {{ __('contact.send_success') }}
+                </p>
+            @endif
+
+            @if($errors->has('form'))
+                <p class="contact-form__alert contact-form__alert--error" role="alert">
+                    {{ $errors->first('form') }}
+                </p>
+            @endif
+
+            @if($errors->any() && ! $errors->has('form'))
+                <ul class="contact-form__alert contact-form__alert--error" role="alert">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            @endif
+
+            <form class="contact-form" method="post" action="{{ route('contact.store') }}">
                 @csrf
 
                 <div class="contact-form__grid">
                     <label class="contact-field">
                         <span class="contact-field__label">{{ $t['first_name'] }}</span>
-                        <input class="contact-field__input" type="text" name="first_name" autocomplete="given-name">
+                        <input class="contact-field__input" type="text" name="first_name" value="{{ old('first_name') }}" autocomplete="given-name" required>
                     </label>
 
                     <label class="contact-field">
                         <span class="contact-field__label">{{ $t['last_name'] }}</span>
-                        <input class="contact-field__input" type="text" name="last_name" autocomplete="family-name">
+                        <input class="contact-field__input" type="text" name="last_name" value="{{ old('last_name') }}" autocomplete="family-name" required>
                     </label>
 
                     <label class="contact-field">
                         <span class="contact-field__label">{{ $t['email'] }}</span>
-                        <input class="contact-field__input" type="email" name="email" autocomplete="email">
+                        <input class="contact-field__input" type="email" name="email" value="{{ old('email') }}" autocomplete="email" required>
                     </label>
 
                     <label class="contact-field">
                         <span class="contact-field__label">{{ $t['phone'] }}</span>
-                        <input class="contact-field__input" type="tel" name="phone" autocomplete="tel">
+                        <input class="contact-field__input" type="tel" name="phone" value="{{ old('phone') }}" autocomplete="tel" required>
                     </label>
 
                     <label class="contact-field contact-field--message">
                         <span class="contact-field__label">{{ $t['message'] }}</span>
-                        <textarea class="contact-field__textarea" name="message" rows="3" placeholder="{{ $t['message_placeholder'] }}"></textarea>
+                        <textarea class="contact-field__textarea" name="message" rows="3" placeholder="{{ $t['message_placeholder'] }}" required>{{ old('message') }}</textarea>
                     </label>
                 </div>
 
