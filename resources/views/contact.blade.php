@@ -22,6 +22,7 @@
             'message' => 'Հաղորդագրություն',
             'message_placeholder' => 'Գրեք ձեր հաղորդագրությունը',
             'send' => 'Ուղարկել',
+            'sending' => 'Ուղարկվում է…',
         ],
         'ru' => [
             'first_name' => 'Имя',
@@ -31,6 +32,7 @@
             'message' => 'Сообщение',
             'message_placeholder' => 'Напишите ваше сообщение',
             'send' => 'Отправить',
+            'sending' => 'Отправка…',
         ],
         'en' => [
             'first_name' => 'First Name',
@@ -40,6 +42,7 @@
             'message' => 'Message',
             'message_placeholder' => 'Write your message',
             'send' => 'Send Message',
+            'sending' => 'Sending…',
         ],
     ];
     $t = $i18n[$locale] ?? $i18n['en'];
@@ -68,25 +71,6 @@
                 color: rgba(20,20,20,.65) !important;
                 font-weight: 600 !important;
             }
-
-            .contact-form__alert{
-                margin: 0 0 18px;
-                padding: 12px 16px;
-                border-radius: 8px;
-                font-weight: 600;
-                font-size: 14px;
-                list-style: none;
-            }
-            .contact-form__alert--success{
-                background: rgba(34, 120, 60, .18);
-                color: rgba(10, 50, 25, .95);
-                border: 1px solid rgba(34, 120, 60, .35);
-            }
-            .contact-form__alert--error{
-                background: rgba(180, 40, 40, .12);
-                color: rgba(80, 10, 10, .95);
-                border: 1px solid rgba(180, 40, 40, .35);
-            }
         </style>
         @if($bgUrl)
             <img class="contact-page__bg" src="{{ $bgUrl }}" alt="" aria-hidden="true">
@@ -108,28 +92,28 @@
         @endif
 
         <div class="contact-page__inner">
-            @if(session('contact_success'))
-                <p class="contact-form__alert contact-form__alert--success" role="status">
-                    {{ __('contact.send_success') }}
-                </p>
-            @endif
-
-            @if($errors->has('form'))
-                <p class="contact-form__alert contact-form__alert--error" role="alert">
-                    {{ $errors->first('form') }}
-                </p>
-            @endif
-
-            @if($errors->any() && ! $errors->has('form'))
-                <ul class="contact-form__alert contact-form__alert--error" role="alert">
-                    @foreach($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            @endif
-
             <form class="contact-form" method="post" action="{{ route('contact.store') }}">
                 @csrf
+
+                @if(session('contact_success'))
+                    <p class="contact-form__notice contact-form__notice--success" role="status">
+                        {{ __('contact.send_success') }}
+                    </p>
+                @endif
+
+                @if($errors->has('form'))
+                    <p class="contact-form__notice contact-form__notice--error" role="alert">
+                        {{ $errors->first('form') }}
+                    </p>
+                @endif
+
+                @if($errors->any() && ! $errors->has('form'))
+                    <ul class="contact-form__notice contact-form__notice--error" role="alert">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                @endif
 
                 <div class="contact-form__grid">
                     <label class="contact-field">
@@ -149,7 +133,7 @@
 
                     <label class="contact-field">
                         <span class="contact-field__label">{{ $t['phone'] }}</span>
-                        <input class="contact-field__input" type="tel" name="phone" value="{{ old('phone') }}" autocomplete="tel" required>
+                        <input class="contact-field__input" type="tel" name="phone" value="{{ old('phone') }}" autocomplete="tel" inputmode="tel" maxlength="25" pattern="^[\+]?[0-9\s\-\(\)\.]{7,25}$" title="{{ __('contact.phone_invalid') }}" required>
                     </label>
 
                     <label class="contact-field contact-field--message">
@@ -159,10 +143,42 @@
                 </div>
 
                 <div class="contact-form__actions">
-                    <button class="contact-form__submit" type="submit">{{ $t['send'] }}</button>
+                    <button
+                        class="contact-form__submit"
+                        type="submit"
+                        data-label="{{ $t['send'] }}"
+                        data-sending="{{ $t['sending'] }}"
+                    >{{ $t['send'] }}</button>
                 </div>
             </form>
         </div>
     </section>
 @endsection
 
+@push('scripts')
+<script>
+(function () {
+    const form = document.querySelector('.contact-page .contact-form');
+    if (!form) return;
+
+    const btn = form.querySelector('.contact-form__submit');
+    if (!btn) return;
+
+    form.addEventListener('submit', function () {
+        if (!form.reportValidity()) return;
+        if (btn.disabled) return;
+
+        btn.disabled = true;
+        btn.setAttribute('aria-busy', 'true');
+        btn.textContent = btn.dataset.sending || btn.textContent;
+    });
+
+    window.addEventListener('pageshow', function (event) {
+        if (!event.persisted) return;
+        btn.disabled = false;
+        btn.removeAttribute('aria-busy');
+        btn.textContent = btn.dataset.label || btn.textContent;
+    });
+})();
+</script>
+@endpush
