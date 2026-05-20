@@ -1124,14 +1124,6 @@
     margin-top: 8px;
 }
 
-.gallery-index-row--duo .gallery-section-card-meta{
-    text-align: left;
-}
-
-.gallery-index-row--duo .gallery-more-btn{
-    margin-top: 8px;
-}
-
 @media (max-width: 1024px){
     .gallery-index-matrix{
         gap: 26px;
