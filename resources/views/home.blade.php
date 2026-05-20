@@ -291,10 +291,10 @@
                                             @if(trim(strip_tags($size)) !== '' || trim(strip_tags($material)) !== '')
                                                 <div class="gallery-section-card-desc">
                                                     @if(trim(strip_tags($size)) !== '')
-                                                        <div>{!! $size !!}</div>
+                                                        <div class="gallery-section-card-desc-line">{!! $size !!}</div>
                                                     @endif
                                                     @if(trim(strip_tags($material)) !== '')
-                                                        <div>{!! $material !!}</div>
+                                                        <div class="gallery-section-card-desc-line">{!! $material !!}</div>
                                                     @endif
                                                 </div>
                                             @endif

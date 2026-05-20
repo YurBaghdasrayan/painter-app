@@ -2100,7 +2100,6 @@ img.about-bg.about-bg--photo,
     margin-top:6px;
     font-size:14px;
     line-height:1.7;
-    font-weight:300;
     color:#2a2a2a;
     max-width:100%;
     min-width:0;
@@ -2108,9 +2107,9 @@ img.about-bg.about-bg--photo,
     word-break:break-word;
 }
 
-.gallery-section-card-desc strong,
-.gallery-section-card-desc b{
-    font-weight:600;
+.gallery-section-card-desc-line,
+.gallery-section-card-desc-line *{
+    font-weight:800;
 }
 
 .gallery-card{
