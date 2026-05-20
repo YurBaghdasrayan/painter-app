@@ -1034,27 +1034,30 @@
     flex-wrap: nowrap;
     gap: 28px;
     align-items: flex-start;
-    justify-content: center;
+    justify-content: space-between;
     width: 100%;
     min-width: 0;
 }
 
 .gallery-index-matrix .gallery-section-card,
 .gallery-index-row .gallery-section-card{
-    flex: 0 1 auto;
+    flex: 0 0 auto !important;
     min-width: 0;
     max-width: 100%;
-    display: flex;
-    flex-direction: column;
+    display: table !important;
+    width: auto !important;
     height: auto;
-    width: auto;
+    margin: 0 !important;
+    border-collapse: separate;
+    border-spacing: 0;
 }
 
 .gallery-index-row .gallery-section-card-image{
     flex: 0 0 auto;
-    width: fit-content;
+    width: fit-content !important;
     max-width: 100%;
-    height: var(--gallery-row-h, 400px);
+    height: var(--gallery-row-h, 400px) !important;
+    aspect-ratio: auto !important;
     display: block;
     line-height: 0;
     overflow: hidden;
@@ -1069,9 +1072,9 @@
 }
 
 .gallery-index-row .gallery-section-card-image img{
-    height: var(--gallery-row-h, 400px);
-    width: auto;
-    max-width: none;
+    height: var(--gallery-row-h, 400px) !important;
+    width: auto !important;
+    max-width: none !important;
     display: block;
     object-fit: contain;
     object-position: center;
@@ -1105,26 +1108,28 @@
 }
 
 .gallery-index-row .gallery-section-card-meta{
-    flex: 1 1 auto;
+    display: table-caption;
+    caption-side: bottom;
     margin-top: 12px;
-    display: flex;
-    flex-direction: column;
+    flex: none;
     min-width: 0;
     max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
     text-align: center;
 }
 
 .gallery-index-row .gallery-more-btn{
-    align-self: center;
+    display: inline-block;
+    margin-top: 8px;
 }
 
 .gallery-index-row--duo .gallery-section-card-meta{
     text-align: left;
-    align-items: flex-start;
 }
 
 .gallery-index-row--duo .gallery-more-btn{
-    align-self: flex-start;
+    margin-top: 8px;
 }
 
 @media (max-width: 1024px){
@@ -1139,20 +1144,30 @@
     }
 
     .gallery-index-row .gallery-section-card{
+        display: flex;
+        flex-direction: column;
+        flex: 0 1 auto;
         width: 100%;
         max-width: 100%;
     }
 
-    .gallery-index-row .gallery-section-card-image{
+    .gallery-index-row .gallery-section-card-meta{
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
         width: 100%;
-        height: auto;
+    }
+
+    .gallery-index-row .gallery-section-card-image{
+        width: 100% !important;
+        height: auto !important;
         max-width: 100%;
     }
 
     .gallery-index-row .gallery-section-card-image img{
-        height: auto;
-        width: 100%;
-        max-width: 100%;
+        height: auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
     }
 
     @media (hover: hover) and (pointer: fine){
