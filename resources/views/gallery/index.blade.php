@@ -246,7 +246,12 @@
                     };
                 }
 
-                function rowWidthAtHeight(imgs, h) {
+                function rowGap(row) {
+                    const g = parseFloat(getComputedStyle(row).columnGap || getComputedStyle(row).gap, 10);
+                    return Number.isFinite(g) && g >= 0 ? g : GAP;
+                }
+
+                function rowWidthAtHeight(imgs, h, gap) {
                     let sum = 0;
                     for (let i = 0; i < imgs.length; i++) {
                         const img = imgs[i];
@@ -257,7 +262,7 @@
                         }
                         sum += nw * (h / nh);
                     }
-                    return sum + GAP * Math.max(0, imgs.length - 1);
+                    return sum + gap * Math.max(0, imgs.length - 1);
                 }
 
                 function fitRow(row) {
@@ -272,11 +277,19 @@
                     const cw = row.clientWidth;
                     if (cw <= 0) return;
 
-                    let sumw = rowWidthAtHeight(imgs, tgt);
+                    const gap = rowGap(row);
+                    let sumw = rowWidthAtHeight(imgs, tgt, gap);
                     if (sumw == null) return;
                     if (sumw <= 0) return;
 
-                    const h = tgt * (cw / sumw);
+                    const isDuo = row.classList.contains('gallery-index-row--duo');
+                    let h;
+                    if (isDuo) {
+                        /* Figma rows 1 & 7: target height, centered — do not stretch to fill row width */
+                        h = sumw > cw ? tgt * (cw / sumw) : tgt;
+                    } else {
+                        h = tgt * (cw / sumw);
+                    }
                     row.style.setProperty('--gallery-row-h', h.toFixed(2) + 'px');
                 }
 
@@ -302,6 +315,20 @@
     </script>
 
     <style>
+        @media (min-width: 1025px) {
+            .gallery-index-row--duo {
+                box-sizing: border-box !important;
+                width: 100% !important;
+                max-width: min(1180px, 78%) !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+                justify-content: center !important;
+                gap: clamp(32px, 3vw, 52px) !important;
+            }
+        }
+
         @media (max-width: 1024px) {
             .gallery-inner,
             .gallery-hero-inner {
@@ -320,6 +347,12 @@
                 flex-direction: column !important;
                 align-items: stretch !important;
                 gap: 22px !important;
+            }
+
+            .gallery-index-row--duo{
+                max-width: none !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
             }
 
             .gallery-index-row .gallery-section-card{

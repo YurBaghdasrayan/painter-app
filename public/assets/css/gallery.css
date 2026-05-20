@@ -1040,6 +1040,19 @@
     min-width: 0;
 }
 
+/* Figma rows 1 & 7 (2-up): narrower band, images centered (height from JS, no width stretch) */
+@media (min-width: 1025px){
+    .gallery-index-row--duo{
+        box-sizing: border-box;
+        width: 100%;
+        max-width: min(1180px, 78%);
+        margin-left: auto;
+        margin-right: auto;
+        justify-content: center;
+        gap: clamp(32px, 3vw, 52px);
+    }
+}
+
 .gallery-index-matrix .gallery-section-card,
 .gallery-index-row .gallery-section-card{
     flex: 0 0 auto !important;
@@ -1165,6 +1178,13 @@
         flex-direction: column;
         align-items: stretch;
         gap: 22px;
+    }
+
+    .gallery-index-row--duo{
+        max-width: none;
+        margin-left: 0;
+        margin-right: 0;
+        justify-content: flex-start;
     }
 
     .gallery-index-row .gallery-section-card{
