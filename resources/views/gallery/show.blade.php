@@ -297,18 +297,56 @@
 @endsection
 
 @push('scripts')
+    @php
+        $zoomPrevLabel = match ($locale) {
+            'am', 'hy' => 'Նախորդ նկար',
+            'ru' => 'Предыдущее изображение',
+            default => 'Previous image',
+        };
+        $zoomNextLabel = match ($locale) {
+            'am', 'hy' => 'Հաջորդ նկար',
+            'ru' => 'Следующее изображение',
+            default => 'Next image',
+        };
+        $zoomCloseLabel = match ($locale) {
+            'am', 'hy' => 'Փակել',
+            'ru' => 'Закрыть',
+            default => 'Close',
+        };
+    @endphp
     <script>
         (function () {
             var imgs = document.querySelectorAll('.js-zoomable-image');
             if (!imgs.length) return;
 
-            function closeModal(modal) {
+            var slides = [];
+            imgs.forEach(function (img) {
+                slides.push({
+                    src: img.getAttribute('data-zoom-src') || img.getAttribute('src'),
+                    alt: img.getAttribute('alt') || '',
+                });
+            });
+
+            var prevLabel = @json($zoomPrevLabel);
+            var nextLabel = @json($zoomNextLabel);
+            var closeLabel = @json($zoomCloseLabel);
+            var hasMany = slides.length > 1;
+
+            function escAttr(value) {
+                return String(value || '').replace(/"/g, '&quot;');
+            }
+
+            function closeModal(modal, onKeyDown) {
                 if (!modal) return;
                 modal.remove();
                 document.documentElement.classList.remove('is-zoom-open');
+                if (onKeyDown) {
+                    document.removeEventListener('keydown', onKeyDown);
+                }
             }
 
-            function openModal(src, alt) {
+            function openModal(startIndex) {
+                var current = Math.max(0, Math.min(startIndex, slides.length - 1));
                 document.documentElement.classList.add('is-zoom-open');
 
                 var modal = document.createElement('div');
@@ -316,37 +354,86 @@
                 modal.setAttribute('role', 'dialog');
                 modal.setAttribute('aria-modal', 'true');
 
+                var navHtml = hasMany
+                    ? '<button class="zoom-modal__nav zoom-modal__nav--prev" type="button" aria-label="' + escAttr(prevLabel) + '" data-zoom-prev>&#8249;</button>' +
+                      '<button class="zoom-modal__nav zoom-modal__nav--next" type="button" aria-label="' + escAttr(nextLabel) + '" data-zoom-next>&#8250;</button>'
+                    : '';
+
                 modal.innerHTML =
                     '<div class="zoom-modal__backdrop" data-zoom-close></div>' +
                     '<div class="zoom-modal__panel" role="document">' +
-                        '<button class="zoom-modal__close" type="button" aria-label="Close" data-zoom-close>×</button>' +
-                        '<img class="zoom-modal__img" src="' + String(src).replace(/"/g, '&quot;') + '" alt="' + String(alt || '').replace(/"/g, '&quot;') + '">' +
+                        '<button class="zoom-modal__close" type="button" aria-label="' + escAttr(closeLabel) + '" data-zoom-close>&times;</button>' +
+                        navHtml +
+                        '<img class="zoom-modal__img" src="' + escAttr(slides[current].src) + '" alt="' + escAttr(slides[current].alt) + '">' +
                     '</div>';
 
                 document.body.appendChild(modal);
 
+                var imgEl = modal.querySelector('.zoom-modal__img');
+
+                function showSlide(index) {
+                    current = (index + slides.length) % slides.length;
+                    var slide = slides[current];
+                    imgEl.src = slide.src;
+                    imgEl.alt = slide.alt;
+                }
+
+                function goPrev() {
+                    showSlide(current - 1);
+                }
+
+                function goNext() {
+                    showSlide(current + 1);
+                }
+
                 function onKeyDown(e) {
                     if (e.key === 'Escape') {
-                        closeModal(modal);
-                        document.removeEventListener('keydown', onKeyDown);
+                        closeModal(modal, onKeyDown);
+                        return;
+                    }
+                    if (!hasMany) return;
+                    if (e.key === 'ArrowLeft') {
+                        e.preventDefault();
+                        goPrev();
+                    }
+                    if (e.key === 'ArrowRight') {
+                        e.preventDefault();
+                        goNext();
                     }
                 }
+
                 document.addEventListener('keydown', onKeyDown);
 
                 modal.addEventListener('click', function (e) {
                     var t = e.target;
-                    if (t && t.closest && t.closest('[data-zoom-close]')) {
-                        closeModal(modal);
-                        document.removeEventListener('keydown', onKeyDown);
+                    if (!t || !t.closest) return;
+                    if (t.closest('[data-zoom-close]')) {
+                        closeModal(modal, onKeyDown);
+                        return;
+                    }
+                    if (hasMany && t.closest('[data-zoom-prev]')) {
+                        e.preventDefault();
+                        goPrev();
+                        return;
+                    }
+                    if (hasMany && t.closest('[data-zoom-next]')) {
+                        e.preventDefault();
+                        goNext();
                     }
                 });
+
+                if (hasMany) {
+                    var prevBtn = modal.querySelector('[data-zoom-prev]');
+                    var nextBtn = modal.querySelector('[data-zoom-next]');
+                    if (prevBtn) prevBtn.addEventListener('click', function (e) { e.stopPropagation(); goPrev(); });
+                    if (nextBtn) nextBtn.addEventListener('click', function (e) { e.stopPropagation(); goNext(); });
+                }
             }
 
-            imgs.forEach(function (img) {
+            imgs.forEach(function (img, index) {
                 img.style.cursor = 'zoom-in';
                 img.addEventListener('click', function () {
-                    var src = img.getAttribute('data-zoom-src') || img.getAttribute('src');
-                    openModal(src, img.getAttribute('alt') || '');
+                    openModal(index);
                 });
             });
         })();
