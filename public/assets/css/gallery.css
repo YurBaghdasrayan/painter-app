@@ -1124,6 +1124,37 @@
     margin-top: 8px;
 }
 
+/* Card text under images: table-caption can collapse line-height in some browsers; RichEditor wraps <p> */
+.gallery-index .gallery-section-card-meta{
+    line-height: 1.65;
+}
+
+.gallery-index .gallery-section-card-title{
+    display: block;
+    line-height: 1.35;
+}
+
+.gallery-index .gallery-section-card-desc{
+    margin-top: 6px;
+    font-size: 14px;
+    line-height: 1.75;
+    font-weight: 300;
+    color: #2a2a2a;
+}
+
+.gallery-index .gallery-section-card-desc > div,
+.gallery-index .gallery-section-card-desc-line,
+.gallery-index .gallery-section-card-desc :is(p, li){
+    line-height: 1.75;
+    margin: 0 0 0.4em;
+}
+
+.gallery-index .gallery-section-card-desc > div:last-child,
+.gallery-index .gallery-section-card-desc-line:last-child,
+.gallery-index .gallery-section-card-desc :is(p, li):last-child{
+    margin-bottom: 0;
+}
+
 @media (max-width: 1024px){
     .gallery-index-matrix{
         gap: 26px;
