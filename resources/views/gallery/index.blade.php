@@ -361,7 +361,7 @@
                 display: block !important;
                 width: 100% !important;
                 max-width: 100% !important;
-                font-size: 14px !important;
+                font-size: 16px !important;
                 line-height: 1.6 !important;
                 max-height: 90px !important;
                 overflow: hidden !important;
@@ -381,7 +381,7 @@
                 border: 0 !important;
                 background: transparent !important;
                 color: #b77b2b !important;
-                font-size: 14px !important;
+                font-size: 16px !important;
                 font-weight: 600 !important;
                 line-height: 1.2 !important;
                 cursor: pointer !important;
@@ -405,7 +405,7 @@
             }
 
             .gallery-section-card-desc {
-                font-size: 16.5px !important;
+                font-size: 16px !important;
                 max-height: 84px !important;
             }
         }
@@ -449,7 +449,7 @@
             }
 
             .gallery-section-card-desc {
-                font-size: 15.5px !important;
+                font-size: 16px !important;
                 max-height: 76px !important;
             }
         }

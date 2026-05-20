@@ -55,7 +55,7 @@
             .contact-page .contact-field__label{
                 color: rgba(10,10,10,.92) !important;
                 font-weight: 700 !important;
-                font-size: 13px !important;
+                font-size: 16px !important;
                 text-shadow: 0 1px 0 rgba(255,255,255,.55) !important;
             }
 
@@ -63,7 +63,7 @@
             .contact-page .contact-field__textarea{
                 color: rgba(5,5,5,.95) !important;
                 font-weight: 700 !important;
-                font-size: 14px !important;
+                font-size: 16px !important;
             }
 
             .contact-page .contact-field__input::placeholder,

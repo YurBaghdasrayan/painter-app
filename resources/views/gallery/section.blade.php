@@ -283,7 +283,7 @@
             margin:16px auto 0;
             max-width:760px;
             color:#2b241c;
-            font-size:14px;
+            font-size: 16px;
             line-height:1.6;
         }
 
@@ -410,7 +410,7 @@
 
         .gallery-page-toptext{
             color:#2b241c;
-            font-size:14px;
+            font-size: 16px;
             line-height:1.7;
         }
 
@@ -469,7 +469,7 @@
 
         .gallery-page-item-desc{
             color:#2b241c;
-            font-size:13px;
+            font-size: 16px;
             line-height:1.65;
         }
 
@@ -565,7 +565,7 @@
             }
 
             .gallery-page-item-desc{
-                font-size:12px;
+                font-size: 16px;
             }
         }
     </style>

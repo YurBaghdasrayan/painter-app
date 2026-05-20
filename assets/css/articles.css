@@ -75,7 +75,7 @@
     text-align: center;
     color: var(--articles-text);
     font-family: 'Zen Old Mincho', serif;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.45;
     overflow-wrap: anywhere;
     word-break: break-word;
@@ -204,7 +204,7 @@
 .articles-intro-section__text{
     color: var(--articles-text);
     font-family: 'Zen Old Mincho', serif;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.7;
 }
 
@@ -279,7 +279,7 @@
 .articles-card__description{
     color:#2c241b;
     font-family:'Zen Old Mincho', serif;
-    font-size:14px;
+    font-size: 16px;
     line-height:1.55;
 }
 
@@ -358,7 +358,7 @@
 .article-show-hero__subtitle {
     margin: 16px auto 0;
     max-width: 760px;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.6;
     color: #2b241c;
 }
@@ -489,7 +489,7 @@
 }
 
 .article-show-text-block__text {
-    font-size: 15px;
+    font-size: 16px;
     line-height: 2;
     color: #2a2a2a;
 }
@@ -671,7 +671,7 @@
 }
 
 .article-show-text-block__text {
-    font-size: 15px;
+    font-size: 16px;
     line-height: 2;
     color: #2a2a2a;
 }
@@ -806,7 +806,7 @@
 .article-related-card__description{
     color:#2b241c;
     font-family:"Zen Old Mincho", serif;
-    font-size:13px;
+    font-size: 16px;
     line-height:1.6;
 }
 
@@ -947,7 +947,7 @@
     }
 
     .articles-card__description{
-        font-size:13px;
+        font-size: 16px;
     }
 }
 @media (max-width: 1200px){

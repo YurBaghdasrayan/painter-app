@@ -455,7 +455,7 @@
         .collection-hero-fixed__subtitle {
             margin: 20px auto 0;
             max-width: 560px;
-            font-size: 15px;
+            font-size: 16px;
             line-height: 1.7;
             color: #5c5c5c;
             font-weight: 400;
@@ -552,7 +552,7 @@
         }
 
         .collection-hero-fixed__card-copy {
-            font-size: 14px;
+            font-size: 16px;
             line-height: 1.9;
             color: #2f2f2f;
             font-weight: 400;
@@ -631,7 +631,7 @@
             }
 
             .collection-hero-fixed__subtitle {
-                font-size: 13px;
+                font-size: 16px;
                 line-height: 1.6;
             }
 
@@ -662,7 +662,7 @@
             }
 
             .collection-hero-fixed__card-copy {
-                font-size: 13px;
+                font-size: 16px;
                 line-height: 1.75;
             }
         }
@@ -692,7 +692,7 @@
         .collection-last__subtitle{
             margin:14px 0 0;
             max-width:640px;
-            font-size:12px;
+            font-size: 16px;
             line-height:1.7;
             font-weight:300;
             color:#2a2a2a;
@@ -744,7 +744,7 @@
         }
 
         .collection-last__text{
-            font-size:11px;
+            font-size: 16px;
             line-height:1.7;
             font-weight:300;
             color:#2a2a2a;
@@ -792,7 +792,7 @@
 
         .collection-gallery-text__text{
             margin-top:14px;
-            font-size:12px;
+            font-size: 16px;
             line-height:1.9;
             color:#2f2f2f;
             font-weight:400;
@@ -835,7 +835,7 @@
         .collection-videos__subtitle{
             margin:14px 0 0;
             max-width:640px;
-            font-size:12px;
+            font-size: 16px;
             line-height:1.7;
             font-weight:300;
             color:#2a2a2a;
@@ -920,7 +920,7 @@
         }
 
         .collection-videos__text{
-            font-size:11px;
+            font-size: 16px;
             line-height:1.7;
             font-weight:300;
             color:#2a2a2a;

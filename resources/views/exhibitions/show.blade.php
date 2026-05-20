@@ -268,7 +268,7 @@
 
             .exhibition-item__desc{
                 margin-top:14px;
-                font-size:12px;
+                font-size: 16px;
                 line-height:1.9;
                 color:#2f2f2f;
                 font-weight:300;
@@ -468,7 +468,7 @@
 
             @media (max-width:991px){
                 .gallery-hero-subtitle{
-                    font-size:12px;
+                    font-size: 16px;
                 }
 
                 .gallery-hero-featured{
@@ -506,7 +506,7 @@
 
                 .gallery-hero-subtitle{
                     max-width:100%;
-                    font-size:12px;
+                    font-size: 16px;
                     line-height:1.65;
                 }
 
@@ -580,7 +580,7 @@
                 }
 
                 .exhibition-item__desc{
-                    font-size:12px;
+                    font-size: 16px;
                     line-height:1.8;
                 }
 
@@ -598,7 +598,7 @@
                 }
 
                 .gallery-hero-subtitle{
-                    font-size:11px;
+                    font-size: 16px;
                 }
 
                 .gallery-hero-featured{

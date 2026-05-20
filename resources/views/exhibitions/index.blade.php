@@ -201,7 +201,7 @@
             .gallery-hero-subtitle{
                 margin:18px auto 0;
                 max-width:760px;
-                font-size:14px;
+                font-size: 16px;
                 line-height:1.7;
                 color:#2a2a2a;
                 font-weight:300;
@@ -290,7 +290,7 @@
 
             .exhibitions-text__text{
                 margin-top:14px;
-                font-size:12px;
+                font-size: 16px;
                 line-height:1.9;
                 color:#2f2f2f;
                 text-align:center;
@@ -387,7 +387,7 @@
                     padding-right:24px;
                 }
 
-                .gallery-hero-subtitle{font-size:13px;}
+                .gallery-hero-subtitle{font-size: 16px;}
 
                 .exhibitions-cards{
                     grid-template-columns:repeat(2,minmax(0,1fr));
@@ -470,7 +470,7 @@
                 }
 
                 .gallery-hero-subtitle{
-                    font-size:12px;
+                    font-size: 16px;
                     max-width:100%;
                 }
 
@@ -524,7 +524,7 @@
 
             @media (max-width:430px){
 
-                .gallery-hero-subtitle{font-size:11px;}
+                .gallery-hero-subtitle{font-size: 16px;}
                 .gallery-hero-featured{height:138px;}
 
             }

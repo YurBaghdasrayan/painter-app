@@ -110,7 +110,7 @@
             }
             .pv-show-desc{
                 margin-top:24px;
-                font-size:12px;
+                font-size: 16px;
                 line-height:1.9;
                 color:var(--gallery-text, #2a2a2a);
                 font-weight:300;

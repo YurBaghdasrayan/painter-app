@@ -247,7 +247,7 @@
         .collection-hero-fixed__subtitle {
             margin: 20px auto 0;
             max-width: 560px;
-            font-size: 15px;
+            font-size: 16px;
             line-height: 1.7;
             color: #5c5c5c;
             font-weight: 400;
@@ -340,7 +340,7 @@
         }
 
         .collection-hero-fixed__card-copy {
-            font-size: 14px;
+            font-size: 16px;
             line-height: 1.9;
             color: #2f2f2f;
             font-weight: 400;
@@ -366,14 +366,14 @@
 
         @media (max-width: 640px) {
             .collection-hero-fixed__title { font-size: 54px; }
-            .collection-hero-fixed__subtitle { font-size: 13px; line-height: 1.6; }
+            .collection-hero-fixed__subtitle { font-size: 16px; line-height: 1.6; }
             .collection-hero-fixed__bg { height: 180px; }
             .collection-hero-fixed__wave-top { height: 130px; }
             .collection-hero-fixed__stroke { top: 52px; height: 120px; }
             .collection-hero-fixed__content-wrap { margin-top: -24px; padding: 0 16px 36px; }
             .collection-hero-fixed__image { aspect-ratio: 16 / 9; }
             .collection-hero-fixed__card-title { font-size: 34px; }
-            .collection-hero-fixed__card-copy { font-size: 13px; line-height: 1.75; }
+            .collection-hero-fixed__card-copy { font-size: 16px; line-height: 1.75; }
         }
 
         .collection-section-hero-fixed {
@@ -409,7 +409,7 @@
             margin: 18px auto 0;
             max-width: 620px;
             color: #48433d;
-            font-size: 14px;
+            font-size: 16px;
             line-height: 1.7;
             text-align: center;
         }
@@ -501,7 +501,7 @@
         .collection-section-hero-fixed__floating-text {
             margin-top: 12px;
             color: #3e3a35;
-            font-size: 12px;
+            font-size: 16px;
             line-height: 1.9;
             font-weight: 300;
         }
@@ -537,7 +537,7 @@
 
         .collection-section-intro-fixed__text {
             color: #48433d;
-            font-size: 15px;
+            font-size: 16px;
             line-height: 1.8;
             max-width: 100%;
         }
@@ -613,7 +613,7 @@
         .collection-section-cards-fixed .gallery-section-card-desc {
             margin-top: 12px;
             color: #48433d;
-            font-size: 14px;
+            font-size: 16px;
             line-height: 1.8;
         }
 
@@ -669,7 +669,7 @@
             }
 
             .collection-section-hero-fixed__subtitle {
-                font-size: 13px;
+                font-size: 16px;
                 line-height: 1.6;
                 margin-top: 14px;
             }
@@ -706,7 +706,7 @@
             }
 
             .collection-section-hero-fixed__floating-text {
-                font-size: 11px;
+                font-size: 16px;
                 line-height: 1.75;
             }
 
@@ -723,7 +723,7 @@
             }
 
             .collection-section-intro-fixed__text {
-                font-size: 14px;
+                font-size: 16px;
                 line-height: 1.7;
             }
 
@@ -736,7 +736,7 @@
             }
 
             .collection-section-cards-fixed .gallery-section-card-desc {
-                font-size: 13px;
+                font-size: 16px;
                 line-height: 1.7;
             }
         }

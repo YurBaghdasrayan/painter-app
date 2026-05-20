@@ -1,4 +1,5 @@
 :root{
+    --text-base: 16px;
     --gallery-bg:#f7f5ef;
     --gallery-gold:#c88b2a;
     --gallery-text:#2a2a2a;
@@ -55,7 +56,7 @@
 .gallery-hero-subtitle{
     max-width: 620px;
     margin: 18px auto 0;
-    font-size: 13px;
+    font-size: 16px;
     line-height: 1.7;
     font-weight: 300;
     color: var(--gallery-text);
@@ -213,7 +214,7 @@
 }
 
 .gallery-page-toptext{
-    font-size: 12px;
+    font-size: 16px;
     line-height: 1.75;
     font-weight: 300;
     color: var(--gallery-text);
@@ -286,7 +287,7 @@
 
 .gallery-page-item-desc{
     margin-top: 6px;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.7;
     font-weight: 300;
     color: var(--gallery-text);
@@ -375,7 +376,7 @@
 
 .gallery-bottom-feature-list li{
     margin:0 0 18px;
-    font-size:13px;
+    font-size: 16px;
     line-height:1.95;
     font-weight:300;
     color:#2a2a2a;
@@ -456,7 +457,7 @@
 
 .artwork-show-hero__subtitle{
     margin-top: 14px;
-    font-size: 12px;
+    font-size: 16px;
     line-height: 1.75;
     font-weight: 300;
     color: var(--gallery-text);
@@ -582,7 +583,7 @@
     }
 
     .gallery-bottom-feature-list li{
-        font-size:12px;
+        font-size: 16px;
         line-height:1.8;
     }
 
@@ -624,7 +625,7 @@
     }
 
     .gallery-hero:not(.gallery-hero--exhibitions) .gallery-hero-subtitle{
-        font-size: 12px;
+        font-size: 16px;
         max-width: 92%;
     }
 
@@ -909,7 +910,7 @@
 
 .gallery-index-slider-section-desc{
     margin-top: 8px;
-    font-size: 11px;
+    font-size: 16px;
     line-height: 1.7;
     font-weight: 300;
     color: var(--gallery-text);
@@ -1087,7 +1088,7 @@
 
 .gallery-index .gallery-section-card-desc{
     margin-top: 6px;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.75;
     font-weight: 300;
     color: #2a2a2a;
@@ -1225,7 +1226,7 @@
 
 .gallery-masonry-desc{
     margin-top: 6px;
-    font-size: 11px;
+    font-size: 16px;
     line-height: 1.7;
     font-weight: 300;
     color: var(--gallery-text);
@@ -1326,7 +1327,7 @@
 
 .artwork-lead{
     margin-top: 18px;
-    font-size: 12px;
+    font-size: 16px;
     line-height: 1.8;
     font-weight: 300;
     color: var(--gallery-text);
@@ -1335,7 +1336,7 @@
 }
 
 .artwork-meta.artwork-lead{
-    font-size: 15px;
+    font-size: 16px;
 }
 
 .artwork-hero-image{
@@ -1424,7 +1425,7 @@
 
 .artwork-show-column{
     padding: 0 18px;
-    font-size: 12px;
+    font-size: 16px;
     line-height: 1.8;
     font-weight: 300;
     color: var(--gallery-text);
@@ -1481,7 +1482,7 @@
 }
 
 .artwork-body-text{
-    font-size: 12px;
+    font-size: 16px;
     line-height: 1.8;
     font-weight: 300;
     color: var(--gallery-text);
@@ -1613,7 +1614,7 @@
 .related-item-title{
     font-family: var(--gallery-serif);
     color: var(--gallery-gold);
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
     letter-spacing: .06em;
     text-transform: uppercase;

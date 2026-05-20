@@ -5,6 +5,8 @@
     --ink:#141414;
     --serif:"Zen Old Mincho", ui-serif, Georgia, "Times New Roman", Times, serif;
     --sans:"Zen Old Mincho", ui-serif, Georgia, "Times New Roman", Times, serif;
+    --text-base: 16px;
+    --text-ui: 14px;
 }
 
 *{box-sizing:border-box}
@@ -14,6 +16,8 @@ body{
     background:#fff;
     color:var(--ink);
     font-family:var(--sans);
+    font-size: var(--text-base);
+    line-height: 1.65;
 }
 a{color:inherit;text-decoration:none}
 
@@ -61,7 +65,7 @@ a{color:inherit;text-decoration:none}
     padding:0;
 }
 .nav-link{
-    font-size:14px;
+    font-size: 16px;
     text-transform:uppercase;
     letter-spacing:0.22em;
     font-weight:300;
@@ -81,7 +85,7 @@ a{color:inherit;text-decoration:none}
     display:inline-flex;
     align-items:center;
     justify-content:center;
-    font-size:12px;
+    font-size: var(--text-ui);
     font-weight:500;
     letter-spacing:.08em;
     margin-left:20px;
@@ -115,7 +119,7 @@ a{color:inherit;text-decoration:none}
     justify-content:center;
     height:34px;
     border-radius:10px;
-    font-size:12px;
+    font-size: 16px;
     letter-spacing:.08em;
     text-transform:uppercase;
     color:#1c1c1c;
@@ -254,7 +258,7 @@ a{color:inherit;text-decoration:none}
 .contact-field__label{
     display:block;
     font-family: var(--serif);
-    font-size: 12px;
+    font-size: 16px;
     letter-spacing: .02em;
     color: rgba(20,20,20,.68);
     margin-bottom: 8px;
@@ -266,7 +270,7 @@ a{color:inherit;text-decoration:none}
     border-bottom: 1px solid rgba(20,20,20,.28);
     background: transparent;
     padding: 10px 0 8px;
-    font-size: 13px;
+    font-size: 16px;
     letter-spacing: .02em;
     color: rgba(20,20,20,.92);
     outline: none;
@@ -295,7 +299,7 @@ a{color:inherit;text-decoration:none}
     border: 0;
     background: #8e1e2c;
     color: #fff;
-    font-size: 12px;
+    font-size: 16px;
     letter-spacing: .06em;
     text-transform: capitalize;
     cursor: pointer;
@@ -314,7 +318,7 @@ a{color:inherit;text-decoration:none}
     padding: 14px 20px;
     border-radius: 10px;
     font-family: var(--serif);
-    font-size: 15px;
+    font-size: 16px;
     line-height: 1.5;
     font-weight: 500;
     text-align: center;
@@ -435,7 +439,7 @@ a{color:inherit;text-decoration:none}
 .home-contact__subtitle{
     margin: 14px auto 0;
     max-width: 620px;
-    font-size: 12px;
+    font-size: 16px;
     line-height: 1.65;
     font-weight: 300;
     color: #2a2a2a;
@@ -549,7 +553,7 @@ a{color:inherit;text-decoration:none}
 
 .about-page-hero__subtitle{
     margin-top: 14px;
-    font-size: 12px;
+    font-size: 16px;
     line-height: 1.75;
     font-weight: 300;
     color: #2a2a2a;
@@ -703,7 +707,7 @@ a{color:inherit;text-decoration:none}
 
 .about-page-profile__text{
     margin-top: 14px;
-    font-size: 12px;
+    font-size: 16px;
     line-height: 1.8;
     font-weight: 300;
     color: #2a2a2a;
@@ -818,7 +822,7 @@ a{color:inherit;text-decoration:none}
 }
 
 .about-page-video__col{
-    font-size: 12px;
+    font-size: 16px;
     line-height: 1.85;
     font-weight: 300;
     color: #2a2a2a;
@@ -924,7 +928,7 @@ a{color:inherit;text-decoration:none}
 }
 
 .about-page-feature__text{
-    font-size: 12px;
+    font-size: 16px;
     line-height: 1.85;
     font-weight: 300;
     color: #2a2a2a;
@@ -1078,7 +1082,7 @@ a{color:inherit;text-decoration:none}
 }
 
 .about-page-duo__text{
-    font-size: 12px;
+    font-size: 16px;
     line-height: 1.85;
     font-weight: 300;
     color: #2a2a2a;
@@ -1170,7 +1174,7 @@ a{color:inherit;text-decoration:none}
 }
 
 .about-page-quad__text{
-    font-size: 12px;
+    font-size: 16px;
     line-height: 1.85;
     font-weight: 300;
     color: #2a2a2a;
@@ -1348,7 +1352,7 @@ a{color:inherit;text-decoration:none}
 }
 
 .about-page-final__text{
-    font-size: 12px;
+    font-size: 16px;
     line-height: 1.85;
     font-weight: 300;
     color: #2a2a2a;
@@ -1518,7 +1522,7 @@ a{color:inherit;text-decoration:none}
 
 .about-lower{
     margin-top:20px;
-    font-size:15px;
+    font-size: 16px;
     line-height:1.8;
     font-weight:300;
     max-width:360px;
@@ -1535,7 +1539,7 @@ a{color:inherit;text-decoration:none}
     background:var(--burgundy);
     color:#fff;
     border-radius:6px;
-    font-size:14px;
+    font-size: 16px;
     font-weight:500;
     letter-spacing:.08em;
     text-transform:none;
@@ -1626,7 +1630,7 @@ a{color:inherit;text-decoration:none}
 .home-exhibitions__bullets{
     margin:18px 0 0;
     padding:0 0 0 18px;
-    font-size:12px;
+    font-size: 16px;
     line-height:1.75;
     color:#1f1f1f;
 }
@@ -1634,7 +1638,7 @@ a{color:inherit;text-decoration:none}
 
 .home-exhibitions__copy{
     margin-top:18px;
-    font-size:12px;
+    font-size: 16px;
     line-height:1.75;
     color:#1f1f1f;
     max-width:520px;
@@ -1654,7 +1658,7 @@ a{color:inherit;text-decoration:none}
     background:var(--burgundy);
     color:#fff;
     border-radius:6px;
-    font-size:12px;
+    font-size: 16px;
     text-decoration:none;
 }
 
@@ -1705,7 +1709,7 @@ a{color:inherit;text-decoration:none}
     padding-top:0;
 }
 .gallery-toptext{
-    font-size:12px;
+    font-size: 16px;
     line-height:1.7;
     font-weight:300;
     letter-spacing:.02em;
@@ -1858,7 +1862,7 @@ a{color:inherit;text-decoration:none}
 
 .gallery-section-card-desc{
     margin-top:6px;
-    font-size:14px;
+    font-size: 16px;
     line-height:1.7;
     font-weight:300;
     color:#2a2a2a;
@@ -1923,7 +1927,7 @@ a{color:inherit;text-decoration:none}
 }
 .gallery-item-desc{
     margin-top:6px;
-    font-size:14px;
+    font-size: 16px;
     line-height:1.7;
     font-weight:300;
     color:#2a2a2a;
@@ -1944,7 +1948,7 @@ a{color:inherit;text-decoration:none}
     align-items:center;
     gap:12px;
     color:#6a5a3d;
-    font-size:14px;
+    font-size: 16px;
     letter-spacing:.02em;
     font-weight:300;
     user-select:none;
@@ -2060,14 +2064,14 @@ a{color:inherit;text-decoration:none}
         padding:0 18px;
     }
     .nav-open .nav-link{
-        font-size:13px;
+        font-size: 16px;
         letter-spacing:.18em;
     }
 
     .hero{height:auto; min-height:0}
     .hero-inner{padding:38px 16px 24px}
     .hero-title{font-size:46px}
-    .hero-subtitle{font-size:13px; max-width:92%}
+    .hero-subtitle{font-size: 16px; max-width:92%}
 
     .wave-wrap{height:110px}
     .wave{height:96px}
@@ -2146,7 +2150,7 @@ a{color:inherit;text-decoration:none}
     .header-inner{height:78px; padding:0 14px}
     .brand{width:86px}
     .nav-toggle{width:42px; height:42px; padding:9px}
-    .lang-pill{width:28px; height:28px; font-size:11px; margin-left:12px}
+    .lang-pill{width:28px; height:28px; font-size: var(--text-ui); margin-left:12px}
 
     .nav-open .primary-nav{top:78px; max-height:calc(100vh - 78px)}
 }
@@ -2192,7 +2196,7 @@ a{color:inherit;text-decoration:none}
 }
 
 .site-footer__top-text{
-    font-size:14px;
+    font-size: 16px;
     line-height:1.6;
     color:#9b928d;
     text-align:right;
@@ -2220,7 +2224,7 @@ a{color:inherit;text-decoration:none}
 .site-footer__nav-link{
     text-decoration:none;
     color:#8e8a85;
-    font-size:14px;
+    font-size: 16px;
     line-height:1.4;
     text-transform:uppercase;
     transition:.2s ease;
@@ -2244,7 +2248,7 @@ a{color:inherit;text-decoration:none}
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:13px;
+    font-size: 16px;
     line-height:1;
     text-transform:uppercase;
 }
@@ -2348,7 +2352,7 @@ a{color:inherit;text-decoration:none}
 
 .home-articles-toptext{
     color: #2f2418;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.55;
     max-width: 100%;
 }
@@ -2449,7 +2453,7 @@ a{color:inherit;text-decoration:none}
 
 .home-articles-card-text{
     color: #2f2418;
-    font-size: 13px;
+    font-size: 16px;
     line-height: 1.55;
 }
 
@@ -2561,11 +2565,11 @@ a{color:inherit;text-decoration:none}
     }
 
     .site-footer__nav-link{
-        font-size:12px;
+        font-size: 16px;
     }
 
     .site-footer__top-text{
-        font-size:12px;
+        font-size: 16px;
     }
 
     .site-footer__pattern{
@@ -2694,7 +2698,7 @@ img, svg, video, iframe{
     }
 
     .nav-link{
-        font-size: 13px;
+        font-size: 16px;
         letter-spacing: .16em;
     }
 
@@ -2747,7 +2751,7 @@ img, svg, video, iframe{
     }
 
     .nav-link{
-        font-size: 12px;
+        font-size: 16px;
         letter-spacing: .13em;
     }
 
@@ -2804,7 +2808,7 @@ img, svg, video, iframe{
     }
 
     .nav-open .nav-link{
-        font-size: 13px;
+        font-size: 16px;
         letter-spacing: .18em;
     }
 
@@ -2903,7 +2907,7 @@ img, svg, video, iframe{
     }
 
     .about-lower{
-        font-size: 14px;
+        font-size: 16px;
     }
 
     .gallery{
@@ -3007,7 +3011,7 @@ img, svg, video, iframe{
     }
 
     .hero-subtitle{
-        font-size: 13px;
+        font-size: 16px;
         max-width: 92%;
     }
 
@@ -3039,7 +3043,7 @@ img, svg, video, iframe{
     }
 
     .about-kicker{
-        font-size: 14px;
+        font-size: 16px;
     }
 
     .about-title{
@@ -3052,7 +3056,7 @@ img, svg, video, iframe{
 
     .about-list{
         margin-top: 20px;
-        font-size: 15px;
+        font-size: 16px;
     }
 
     .about-btn{
@@ -3160,7 +3164,7 @@ img, svg, video, iframe{
     .lang-pill{
         width: 28px;
         height: 28px;
-        font-size: 10px;
+        font-size: 14px;
         margin-left: 8px;
     }
 
@@ -3184,7 +3188,7 @@ img, svg, video, iframe{
 
     .hero-subtitle{
         margin-top: 16px;
-        font-size: 12px;
+        font-size: 16px;
         line-height: 1.6;
     }
 
@@ -3225,7 +3229,7 @@ img, svg, video, iframe{
 
     .about-list,
     .about-lower{
-        font-size: 13px;
+        font-size: 16px;
     }
 
     .gallery-title,
@@ -3239,7 +3243,7 @@ img, svg, video, iframe{
     .home-exhibitions__bullets,
     .home-articles-toptext,
     .home-articles-card-text{
-        font-size: 12px;
+        font-size: 16px;
     }
 
     .gallery-section-card-image,
@@ -3297,7 +3301,7 @@ img, svg, video, iframe{
     .about-btn{
         width: 124px;
         height: 42px;
-        font-size: 12px;
+        font-size: 16px;
     }
 
     .gallery,
@@ -3324,7 +3328,7 @@ img, svg, video, iframe{
 
     .contact-field__input,
     .contact-field__textarea{
-        font-size: 12px;
+        font-size: 16px;
     }
 }
 
@@ -3347,7 +3351,7 @@ img, svg, video, iframe{
     }
 
     .about-lead{
-        font-size: 15px;
+        font-size: 16px;
     }
 
     .gallery-inner,
@@ -3372,11 +3376,11 @@ img, svg, video, iframe{
     .home-exhibitions__copy,
     .home-articles-toptext,
     .home-articles-card-text{
-        font-size: 11px;
+        font-size: 16px;
     }
 
     .about-kicker{
-        font-size: 12px;
+        font-size: 16px;
     }
 
     .about-title{
