@@ -1710,8 +1710,8 @@ img.about-bg.about-bg--photo,
 .home-exhibitions{
     position:relative;
     background:#f7f5ef;
-    overflow:hidden;
-    padding: 72px 0 86px;
+    overflow:visible;
+    padding: 22px 0 86px;
 }
 
 .home-exhibitions__bg{
@@ -1735,7 +1735,24 @@ img.about-bg.about-bg--photo,
     box-sizing:border-box;
     width:100%;
     min-width:0;
+    overflow:visible;
     overflow-wrap:anywhere;
+}
+
+.home-exhibitions__head{
+    margin:0;
+    overflow:visible;
+}
+
+.home-exhibitions__line{
+    display:block;
+    width:auto;
+    max-width:min(1020px, calc(100% + 55px));
+    height:auto;
+    margin:0 0 82px -55px;
+    pointer-events:none;
+    object-fit:contain;
+    object-position:left top;
 }
 
 .home-exhibitions__grid{
@@ -1747,21 +1764,6 @@ img.about-bg.about-bg--photo,
 
 .home-exhibitions__col{
     min-width:0;
-}
-
-.home-exhibitions__head{
-    margin:0 0 0;
-}
-
-.home-exhibitions__line{
-    display:block;
-    width:min(92%, 980px);
-    max-width:100%;
-    height:auto;
-    margin:0 0 14px;
-    pointer-events:none;
-    object-fit:contain;
-    object-position:left center;
 }
 
 .home-exhibitions__title{
@@ -1905,12 +1907,20 @@ img.about-bg.about-bg--photo,
 
 @media (max-width:1200px){
     .home-exhibitions__inner{ padding:0 40px; }
+    .home-exhibitions__line{
+        max-width:min(920px, calc(100% + 36px));
+        margin:0 0 82px -36px;
+    }
     .home-exhibitions__grid{ gap: 52px; }
     .home-exhibitions__cards{ gap: 34px; }
 }
 
 @media (max-width:992px){
     .home-exhibitions__inner{ padding:0 18px; }
+    .home-exhibitions__line{
+        max-width:min(720px, calc(100% + 20px));
+        margin:0 0 82px -20px;
+    }
     .home-exhibitions__grid{
         grid-template-columns:1fr;
         gap:26px;
@@ -3263,8 +3273,13 @@ img, svg, video, iframe{
     }
 
     .home-exhibitions{
-        padding-top: 62px;
+        padding-top: 18px;
         padding-bottom: 72px;
+    }
+
+    .home-exhibitions__line{
+        max-width:min(640px, 100%);
+        margin:0 0 82px 0;
     }
 
     .home-exhibitions__inner{
@@ -3433,6 +3448,11 @@ img, svg, video, iframe{
     .home-exhibitions__inner{
         padding-left: 18px;
         padding-right: 18px;
+    }
+
+    .home-exhibitions__line{
+        max-width:min(520px, 100%);
+        margin:0 0 82px 0;
     }
 
     .home-exhibitions__heading{
@@ -3656,10 +3676,19 @@ img, svg, video, iframe{
     }
 
     .gallery,
-    .home-exhibitions,
     .home-articles{
         padding-top: 46px;
         padding-bottom: 48px;
+    }
+
+    .home-exhibitions{
+        padding-top: 14px;
+        padding-bottom: 48px;
+    }
+
+    .home-exhibitions__line{
+        max-width:min(420px, 100%);
+        margin:0 0 62px 0;
     }
 
     .gallery-title,
