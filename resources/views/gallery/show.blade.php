@@ -450,16 +450,29 @@
                 modal.setAttribute('role', 'dialog');
                 modal.setAttribute('aria-modal', 'true');
 
+                var iconClose =
+                    '<svg class="zoom-modal__icon zoom-modal__icon--close" viewBox="0 0 24 24" aria-hidden="true">' +
+                        '<path d="M7 7l10 10M17 7L7 17" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>' +
+                    '</svg>';
+                var iconPrev =
+                    '<svg class="zoom-modal__icon zoom-modal__icon--arrow" viewBox="0 0 24 24" aria-hidden="true">' +
+                        '<path d="M14 6L8 12l6 6" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"/>' +
+                    '</svg>';
+                var iconNext =
+                    '<svg class="zoom-modal__icon zoom-modal__icon--arrow" viewBox="0 0 24 24" aria-hidden="true">' +
+                        '<path d="M10 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"/>' +
+                    '</svg>';
+
                 var navHtml = hasMany
-                    ? '<button class="zoom-modal__nav zoom-modal__nav--prev" type="button" aria-label="' + escAttr(prevLabel) + '" data-zoom-prev>&#8249;</button>' +
-                      '<button class="zoom-modal__nav zoom-modal__nav--next" type="button" aria-label="' + escAttr(nextLabel) + '" data-zoom-next>&#8250;</button>'
+                    ? '<button class="zoom-modal__nav zoom-modal__nav--prev" type="button" aria-label="' + escAttr(prevLabel) + '" data-zoom-prev>' + iconPrev + '</button>' +
+                      '<button class="zoom-modal__nav zoom-modal__nav--next" type="button" aria-label="' + escAttr(nextLabel) + '" data-zoom-next>' + iconNext + '</button>'
                     : '';
 
                 modal.innerHTML =
                     '<div class="zoom-modal__backdrop" data-zoom-close></div>' +
+                    '<button class="zoom-modal__close" type="button" aria-label="' + escAttr(closeLabel) + '" data-zoom-close>' + iconClose + '</button>' +
+                    navHtml +
                     '<div class="zoom-modal__panel" role="document">' +
-                        '<button class="zoom-modal__close" type="button" aria-label="' + escAttr(closeLabel) + '" data-zoom-close>&times;</button>' +
-                        navHtml +
                         '<img class="zoom-modal__img" src="' + escAttr(slides[current].src) + '" alt="' + escAttr(slides[current].alt) + '">' +
                     '</div>';
 
