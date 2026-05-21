@@ -53,11 +53,56 @@
 
         .artwork-hero-image {
             margin-top: 0 !important;
+            margin-bottom: 0 !important;
             aspect-ratio: auto !important;
             max-height: none !important;
             min-width: 0;
             max-width: 100%;
             box-sizing: border-box;
+            line-height: 0;
+        }
+
+        .artwork-hero-image + .artwork-detail-gallery {
+            margin-top: 60px !important;
+            padding-top: 0 !important;
+        }
+
+        .artwork-detail-gallery {
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        .artwork-detail-gallery__viewport {
+            flex: 1 1 auto;
+            min-width: 0;
+            max-width: 100%;
+        }
+
+        @media (max-width: 900px) {
+            .artwork-detail-gallery__viewport {
+                --detail-gallery-per-page: 2;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .artwork-detail-gallery__viewport {
+                --detail-gallery-per-page: 1;
+            }
+        }
+
+        .artwork-detail-gallery__cell {
+            overflow: hidden !important;
+        }
+
+        .artwork-detail-gallery__frame img,
+        .artwork-detail-gallery__cell .js-zoomable-image {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+            object-position: center center !important;
         }
 
         .artwork-hero-image img {
@@ -236,18 +281,69 @@
                         $detailImageUrls = $item->detailImagesPublicUrls();
                     @endphp
                     @if(count($detailImageUrls))
-                        <div class="artwork-detail-gallery" role="list" aria-label="Artwork detail images">
-                            @foreach($detailImageUrls as $detailUrl)
-                                <div class="artwork-detail-gallery__cell" role="listitem">
-                                    <img
-                                        src="{{ $detailUrl }}"
-                                        alt="{{ $mainImageAlt }} — detail"
-                                        class="js-zoomable-image"
-                                        data-zoom-src="{{ $detailUrl }}"
-                                        loading="lazy"
-                                    />
+                        @php
+                            $detailGalleryPrevLabel = match ($locale) {
+                                'am', 'hy' => 'Նախորդ մանրամասների նկարներ',
+                                'ru' => 'Предыдущие детальные изображения',
+                                default => 'Previous detail images',
+                            };
+                            $detailGalleryNextLabel = match ($locale) {
+                                'am', 'hy' => 'Հաջորդ մանրամասների նկարներ',
+                                'ru' => 'Следующие детальные изображения',
+                                default => 'Next detail images',
+                            };
+                            $detailGalleryHasSlider = count($detailImageUrls) > 1;
+                        @endphp
+                        <div
+                            class="artwork-detail-gallery"
+                            data-artwork-detail-gallery
+                            aria-label="Artwork detail images"
+                        >
+                            <button
+                                type="button"
+                                class="artwork-detail-gallery__prev"
+                                data-artwork-detail-gallery-prev
+                                aria-label="{{ $detailGalleryPrevLabel }}"
+                                @if(!$detailGalleryHasSlider) hidden @endif
+                            >
+                                <img
+                                    src="{{ asset('assets/images/arrow-left.png') }}"
+                                    alt=""
+                                    height="17"
+                                    decoding="async"
+                                />
+                            </button>
+                            <div class="artwork-detail-gallery__viewport">
+                                <div class="artwork-detail-gallery__track" role="list">
+                                    @foreach($detailImageUrls as $detailUrl)
+                                        <div class="artwork-detail-gallery__cell" role="listitem">
+                                            <div class="artwork-detail-gallery__frame">
+                                                <img
+                                                    src="{{ $detailUrl }}"
+                                                    alt="{{ $mainImageAlt }} — detail"
+                                                    class="js-zoomable-image"
+                                                    data-zoom-src="{{ $detailUrl }}"
+                                                    loading="lazy"
+                                                />
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
-                            @endforeach
+                            </div>
+                            <button
+                                type="button"
+                                class="artwork-detail-gallery__next"
+                                data-artwork-detail-gallery-next
+                                aria-label="{{ $detailGalleryNextLabel }}"
+                                @if(!$detailGalleryHasSlider) hidden @endif
+                            >
+                                <img
+                                    src="{{ asset('assets/images/arrow-right.png') }}"
+                                    alt=""
+                                    height="17"
+                                    decoding="async"
+                                />
+                            </button>
                         </div>
                     @endif
 
@@ -436,6 +532,162 @@
                     openModal(index);
                 });
             });
+        })();
+    </script>
+    <script>
+        (function () {
+            var root = document.querySelector('[data-artwork-detail-gallery]');
+            if (!root) return;
+
+            var viewport = root.querySelector('.artwork-detail-gallery__viewport');
+            var track = root.querySelector('.artwork-detail-gallery__track');
+            var prevBtn = root.querySelector('[data-artwork-detail-gallery-prev]');
+            var nextBtn = root.querySelector('[data-artwork-detail-gallery-next]');
+            var cells = track ? Array.prototype.slice.call(track.querySelectorAll('.artwork-detail-gallery__cell')) : [];
+            if (!viewport || !track || !cells.length) return;
+
+            var page = 0;
+
+            function readPx(value, fallback) {
+                var n = parseFloat(String(value || '').replace('px', ''));
+                return isFinite(n) && n > 0 ? n : fallback;
+            }
+
+            function perPage() {
+                var fromCss = readPx(getComputedStyle(root).getPropertyValue('--detail-gallery-per-page'), 3);
+                return Math.max(1, Math.round(fromCss));
+            }
+
+            function thumbGap() {
+                return readPx(getComputedStyle(track).gap, 17);
+            }
+
+            function thumbHeight() {
+                return readPx(getComputedStyle(root).getPropertyValue('--detail-gallery-thumb-h'), 130);
+            }
+
+            function maxCellWidth() {
+                return readPx(getComputedStyle(root).getPropertyValue('--detail-gallery-cell-width'), 200);
+            }
+
+            function viewportWidth() {
+                return Math.round(viewport.getBoundingClientRect().width);
+            }
+
+            function syncThumbSizes() {
+                var pp = perPage();
+                var gap = thumbGap();
+                var vw = viewportWidth();
+                var cap = maxCellWidth();
+                var h = thumbHeight() + 'px';
+                if (vw <= 0) return;
+
+                var gapsTotal = Math.round(gap * (pp - 1));
+                var available = Math.max(0, vw - gapsTotal);
+                var w = Math.min(cap, Math.max(1, Math.floor(available / pp)));
+
+                cells.forEach(function (cell) {
+                    var ws = w + 'px';
+                    cell.style.flex = '0 0 ' + ws;
+                    cell.style.width = ws;
+                    cell.style.minWidth = ws;
+                    cell.style.maxWidth = ws;
+                    cell.style.height = h;
+                });
+            }
+
+            function offsetForPage(targetPage) {
+                var start = targetPage * perPage();
+                if (start <= 0) return 0;
+
+                var gap = thumbGap();
+                var offset = 0;
+                var i;
+
+                for (i = 0; i < start && i < cells.length; i++) {
+                    offset += Math.round(cells[i].getBoundingClientRect().width);
+                    if (i < start - 1) {
+                        offset += gap;
+                    }
+                }
+
+                return offset;
+            }
+
+            function maxPage() {
+                return Math.max(0, Math.ceil(cells.length / perPage()) - 1);
+            }
+
+            function updateNav() {
+                var last = maxPage();
+                var show = cells.length > perPage();
+
+                if (prevBtn) {
+                    prevBtn.hidden = !show;
+                    prevBtn.disabled = page <= 0;
+                }
+                if (nextBtn) {
+                    nextBtn.hidden = !show;
+                    nextBtn.disabled = page >= last;
+                }
+            }
+
+            function apply() {
+                var last = maxPage();
+                if (page > last) page = last;
+                if (page < 0) page = 0;
+
+                syncThumbSizes();
+
+                requestAnimationFrame(function () {
+                    requestAnimationFrame(function () {
+                        track.style.transform = 'translate3d(-' + offsetForPage(page) + 'px, 0, 0)';
+                        updateNav();
+                    });
+                });
+            }
+
+            if (prevBtn) {
+                prevBtn.addEventListener('click', function () {
+                    if (page > 0) {
+                        page -= 1;
+                        apply();
+                    }
+                });
+            }
+
+            if (nextBtn) {
+                nextBtn.addEventListener('click', function () {
+                    if (page < maxPage()) {
+                        page += 1;
+                        apply();
+                    }
+                });
+            }
+
+            var resizeTimer;
+            window.addEventListener('resize', function () {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(apply, 100);
+            });
+
+            if (typeof ResizeObserver !== 'undefined') {
+                var ro = new ResizeObserver(function () {
+                    clearTimeout(resizeTimer);
+                    resizeTimer = setTimeout(apply, 100);
+                });
+                ro.observe(viewport);
+                ro.observe(root);
+            }
+
+            cells.forEach(function (cell) {
+                var img = cell.querySelector('img');
+                if (!img) return;
+                if (img.complete) return;
+                img.addEventListener('load', apply, { once: true });
+            });
+
+            apply();
         })();
     </script>
 @endpush
