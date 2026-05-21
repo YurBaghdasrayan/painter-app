@@ -1415,7 +1415,7 @@ a{color:inherit;text-decoration:none}
 .about{
     position: relative;
     height: auto;
-    min-height: 1200px;
+    min-height: 0;
     overflow: hidden;
     background: #f7f5ef;
     z-index: 1;
@@ -1425,17 +1425,17 @@ a{color:inherit;text-decoration:none}
 }
 
 #about.about .about-media{
-    position: absolute;
-    top: 120px;
-    bottom: 0;
+    position: relative;
     left: 50%;
     right: auto;
     width: 100vw;
     max-width: 100vw;
-    margin-left: -50vw;
-    overflow: hidden;
+    margin: 110px 0 0;
+    transform: translateX(-50%);
+    overflow: visible;
     line-height: 0;
     z-index: 0;
+    height: auto;
 }
 
 #about.about .line{
@@ -1445,8 +1445,8 @@ a{color:inherit;text-decoration:none}
     right: auto;
     width: 100vw;
     max-width: 100vw;
-    margin-left: -50vw;
-    transform: rotate(-1deg);
+    margin: 0;
+    transform: translateX(-50%) rotate(-1deg);
     z-index: 9;
     display: block;
     pointer-events: none;
@@ -1454,39 +1454,101 @@ a{color:inherit;text-decoration:none}
 
 .line{
     position: absolute;
-    top: -7%;
-    transform: rotate(-1deg);
+    top: 0;
     left: -1%;
+    transform: rotate(-1deg);
     z-index: 9;
     width: 100%;
+    display: block;
+    pointer-events: none;
 }
 
 .about-bg{
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+img.about-bg.about-bg--photo,
+.about-bg.about-bg--photo{
+    position: relative;
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    vertical-align: top;
+}
+
+.about-bg--video{
     position: absolute;
-    inset: 0;
-    left: 0;
+    top: 120px;
     right: 0;
-    top: 0;
     bottom: 0;
+    left: 0;
     width: 100%;
     min-width: 100%;
-    height: 100%;
+    height: auto;
+    min-height: calc(100% - 120px);
+    display: block;
     object-fit: cover;
-    object-position: 62% top;
+    object-position: center center;
 }
-.about-bg--video{
-    display:block;
+
+#about.about:has(.about-bg--video){
+    min-height: 1200px;
 }
+
 .about-content{
-    position:relative;
-    z-index:2;
-    height:100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 110px;
+    bottom: 0;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: minmax(0, 46%) 1fr;
+    grid-template-rows: 1fr;
+    align-items: center;
+    pointer-events: none;
+    box-sizing: border-box;
 }
+
 .about-card{
-    width:430px;
-    margin-left:110px;
-    padding-top:265px;
-    color:#fff;
+    grid-column: 1;
+    grid-row: 1;
+    align-self: center;
+    justify-self: start;
+    width: min(430px, 100%);
+    max-width: min(430px, calc(46vw - 48px));
+    margin: 0 0 0 clamp(24px, 6vw, 110px);
+    padding: 0;
+    color: #fff;
+    pointer-events: auto;
+    box-sizing: border-box;
+}
+
+@media (min-width: 993px) and (max-width: 1400px){
+    .about-title{
+        font-size: clamp(48px, 4.8vw, 64px);
+    }
+
+    .about-lead{
+        font-size: clamp(20px, 2vw, 24px);
+        max-width: 100%;
+    }
+
+    .about-lower,
+    .about-list,
+    .about-lead{
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 1200px){
+    .about-card{
+        margin-left: clamp(24px, 5vw, 70px);
+    }
 }
 .about-kicker{
     font-size:18px;
@@ -2002,8 +2064,9 @@ a{color:inherit;text-decoration:none}
     .hero-title{font-size:72px}
     .hero-subtitle{max-width:560px}
 
-    .about{height:820px}
-    .about-card{margin-left:70px; padding-top:130px; width:420px}
+    .about-card{
+        width:min(420px, calc(100% - 48px));
+    }
     .about-title{font-size:60px}
     .about-lead{font-size:22px}
 
@@ -2685,12 +2748,7 @@ img, svg, video, iframe{
         font-size: 76px;
     }
 
-    .about{
-        height: 840px;
-    }
-
     .about-card{
-        padding-top: 210px;
         margin-left: 68px;
     }
 
@@ -2910,12 +2968,19 @@ img, svg, video, iframe{
         height: auto;
         min-height: 0;
         display: block;
+        grid-template-columns: none;
+        grid-template-rows: none;
     }
 
     .about-card{
-        width: min(430px, calc(100% - 44px));
-        margin-left: 22px;
+        grid-column: auto;
+        grid-row: auto;
+        align-self: auto;
+        width: auto;
+        max-width: none;
+        margin: 0 14px !important;
         padding-top: 0;
+        color: #2a2a2a;
     }
 
     .about-title{

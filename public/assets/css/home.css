@@ -1615,22 +1615,43 @@ img.about-bg.about-bg--photo,
     top: 110px;
     bottom: 0;
     z-index: 2;
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-start;
+    display: grid;
+    grid-template-columns: minmax(0, 46%) 1fr;
+    grid-template-rows: 1fr;
+    align-items: center;
     pointer-events: none;
-    height: auto;
-    min-height: 0;
+    box-sizing: border-box;
 }
 
 .about-card{
-    width: 430px;
-    max-width: calc(100% - 48px);
-    margin: 0 0 clamp(52px, 7vw, 96px) 110px;
-    padding-top: 0;
+    grid-column: 1;
+    grid-row: 1;
+    align-self: center;
+    justify-self: start;
+    width: min(430px, 100%);
+    max-width: min(430px, calc(46vw - 48px));
+    margin: 0 0 0 clamp(24px, 6vw, 110px);
+    padding: 0;
     color: #fff;
     pointer-events: auto;
     box-sizing: border-box;
+}
+
+@media (min-width: 993px) and (max-width: 1400px){
+    .about-title{
+        font-size: clamp(48px, 4.8vw, 64px);
+    }
+
+    .about-lead{
+        font-size: clamp(20px, 2vw, 24px);
+        max-width: 100%;
+    }
+
+    .about-lower,
+    .about-list,
+    .about-lead{
+        max-width: 100%;
+    }
 }
 
 @media (max-width: 1200px){
@@ -2239,8 +2260,9 @@ img.about-bg.about-bg--photo,
     .hero-title{font-size:72px}
     .hero-subtitle{max-width:560px}
 
-    .about{height:820px}
-    .about-card{margin-left:70px; padding-top:160px; width:420px}
+    .about-card{
+        width: min(420px, calc(100% - 48px));
+    }
     .about-title{font-size:60px}
     .about-lead{font-size:22px}
 
@@ -2388,7 +2410,11 @@ img.about-bg.about-bg--photo,
     }
 
     .about-card{
+        grid-column: auto;
+        grid-row: auto;
+        align-self: auto;
         width:min(430px, calc(100% - 36px));
+        max-width: none;
         margin: 0 18px !important;
         padding-top:0;
         color: #2a2a2a;
@@ -2950,12 +2976,7 @@ img, svg, video, iframe{
         font-size: 76px;
     }
 
-    .about{
-        height: 840px;
-    }
-
     .about-card{
-        padding-top: 250px;
         margin-left: 68px;
     }
 
@@ -3193,10 +3214,16 @@ img, svg, video, iframe{
         height: auto;
         min-height: 0;
         display: block;
+        grid-template-columns: none;
+        grid-template-rows: none;
     }
 
     .about-card{
+        grid-column: auto;
+        grid-row: auto;
+        align-self: auto;
         width: auto;
+        max-width: none;
         margin: 0 14px !important;
         padding-top: 0;
         color: #2a2a2a;
@@ -3384,6 +3411,11 @@ img, svg, video, iframe{
         max-width: none;
     }
 
+    .about-btn{
+        width: 132px;
+        height: 44px;
+    }
+
     .about-kicker{
         font-size: 16px;
     }
@@ -3399,11 +3431,6 @@ img, svg, video, iframe{
     .about-list{
         margin-top: 20px;
         font-size: 16px;
-    }
-
-    .about-btn{
-        width: 132px;
-        height: 44px;
     }
 
     .gallery{
