@@ -1749,10 +1749,23 @@ img.about-bg.about-bg--photo,
     min-width:0;
 }
 
-.home-exhibitions__head{ }
+.home-exhibitions__head{
+    margin:0 0 0;
+}
+
+.home-exhibitions__line{
+    display:block;
+    width:min(92%, 980px);
+    max-width:100%;
+    height:auto;
+    margin:0 0 14px;
+    pointer-events:none;
+    object-fit:contain;
+    object-position:left center;
+}
 
 .home-exhibitions__title{
-    margin:0 0 18px;
+    margin:0;
     font-family:var(--serif);
     color:var(--gold);
     font-size:clamp(24px, 3.2vw + 0.65rem, 44px);

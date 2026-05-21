@@ -420,6 +420,14 @@
         <section id="exhibitions" class="home-exhibitions" aria-label="Exhibitions">
             <div class="home-exhibitions__inner">
                 <header class="home-exhibitions__head">
+                    <img
+                        src="{{ asset('assets/images/exebution-line.png') }}"
+                        alt=""
+                        class="home-exhibitions__line"
+                        loading="lazy"
+                        decoding="async"
+                        aria-hidden="true"
+                    />
                     <h2 class="home-exhibitions__title">{{ $exhibitionsTitle }}</h2>
                 </header>
 
