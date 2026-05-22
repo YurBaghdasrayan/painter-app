@@ -1136,6 +1136,18 @@
 .gallery-index-row .gallery-more-btn{
     display: inline-block;
     margin-top: 8px;
+    width: auto;
+    height: auto;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: #b77b2b;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.2;
+    font-family: inherit;
 }
 
 /* Card text under images: table-caption can collapse line-height in some browsers; RichEditor wraps <p> */
@@ -1146,6 +1158,14 @@
 .gallery-index .gallery-section-card-title{
     display: block;
     line-height: 1.35;
+    overflow-wrap: break-word;
+    word-break: normal;
+}
+
+.gallery-index .gallery-more-btn{
+    white-space: nowrap;
+    overflow-wrap: normal;
+    word-break: keep-all;
 }
 
 .gallery-index .gallery-section-card-desc{
@@ -1154,6 +1174,8 @@
     line-height: 1.75;
     font-weight: 300;
     color: #2a2a2a;
+    overflow-wrap: break-word;
+    word-break: normal;
 }
 
 .gallery-index .gallery-section-card-desc > div,
@@ -1188,18 +1210,57 @@
     }
 
     .gallery-index-row .gallery-section-card{
-        display: flex;
-        flex-direction: column;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
         flex: 0 1 auto;
-        width: 100%;
-        max-width: 100%;
+        width: 100% !important;
+        max-width: 100% !important;
     }
 
-    .gallery-index-row .gallery-section-card-meta{
-        display: flex;
-        flex-direction: column;
-        flex: 1 1 auto;
-        width: 100%;
+    .gallery-index-row .gallery-section-card-meta,
+    .gallery-index .gallery-section-card-meta{
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        flex: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        margin-top: 12px !important;
+        padding: 0 10px !important;
+        box-sizing: border-box !important;
+        text-align: center !important;
+        overflow: visible !important;
+    }
+
+    .gallery-index .gallery-section-card-title,
+    .gallery-index-row .gallery-section-card-title{
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-wrap: break-word !important;
+        word-break: normal !important;
+        hyphens: auto;
+    }
+
+    .gallery-index .gallery-section-card-desc,
+    .gallery-index-row .gallery-section-card-desc{
+        width: 100% !important;
+        max-width: 100% !important;
+        max-height: none !important;
+        overflow: visible !important;
+        overflow-wrap: break-word !important;
+        word-break: normal !important;
+    }
+
+    .gallery-index-row .gallery-more-btn,
+    .gallery-index .gallery-more-btn{
+        display: inline-block !important;
+        white-space: nowrap !important;
+        overflow-wrap: normal !important;
+        word-break: keep-all !important;
+        max-width: 100% !important;
     }
 
     .gallery-index-row .gallery-section-card-image{

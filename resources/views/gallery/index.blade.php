@@ -372,11 +372,23 @@
                 max-width: 100% !important;
             }
 
+            .gallery-index-row .gallery-section-card{
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: stretch !important;
+            }
+
             .gallery-section-card-meta {
-                display: block !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
                 width: 100% !important;
                 max-width: 100% !important;
+                min-width: 0 !important;
+                padding: 0 8px !important;
                 box-sizing: border-box !important;
+                text-align: center !important;
+                overflow: visible !important;
             }
 
             .gallery-section-card-title {
@@ -396,15 +408,10 @@
                 max-width: 100% !important;
                 font-size: 16px !important;
                 line-height: 1.6 !important;
-                max-height: 90px !important;
-                overflow: hidden !important;
+                max-height: none !important;
+                overflow: visible !important;
                 overflow-wrap: break-word !important;
                 word-break: normal !important;
-                transition: max-height .25s ease !important;
-            }
-
-            .gallery-section-card-desc.is-expanded {
-                max-height: 2000px !important;
             }
 
             .gallery-more-btn {
@@ -417,6 +424,9 @@
                 font-size: 16px !important;
                 font-weight: 600 !important;
                 line-height: 1.2 !important;
+                white-space: nowrap !important;
+                overflow-wrap: normal !important;
+                word-break: keep-all !important;
                 cursor: pointer !important;
                 font-family: inherit !important;
             }
@@ -439,7 +449,6 @@
 
             .gallery-section-card-desc {
                 font-size: 16px !important;
-                max-height: 84px !important;
             }
         }
 
@@ -462,7 +471,6 @@
             .gallery-section-card-desc {
                 font-size: 16px !important;
                 line-height: 1.55 !important;
-                max-height: 80px !important;
             }
         }
 
@@ -483,7 +491,6 @@
 
             .gallery-section-card-desc {
                 font-size: 16px !important;
-                max-height: 76px !important;
             }
         }
     </style>
