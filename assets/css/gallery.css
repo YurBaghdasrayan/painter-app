@@ -1567,7 +1567,35 @@
     .artwork-detail-gallery{
         --detail-gallery-per-page: 1;
         --detail-gallery-cell-width: 9999px;
-        --detail-gallery-thumb-h: 200px;
+    }
+}
+
+/* Mobile: full thumbnails without crop (desktop keeps equal-height cover row) */
+@media (max-width: 768px){
+    .artwork-detail-gallery__track{
+        align-items: flex-start;
+    }
+
+    .artwork-detail-gallery__cell{
+        height: auto;
+        overflow: visible;
+        line-height: normal;
+    }
+
+    .artwork-detail-gallery__frame{
+        position: relative;
+        inset: auto;
+        height: auto;
+        overflow: visible;
+    }
+
+    .artwork-detail-gallery__frame img,
+    .artwork-detail-gallery__cell .js-zoomable-image{
+        width: 100%;
+        height: auto;
+        max-height: none;
+        object-fit: contain;
+        object-position: center center;
     }
 }
 

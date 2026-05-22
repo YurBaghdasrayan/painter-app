@@ -93,16 +93,41 @@
             }
         }
 
-        .artwork-detail-gallery__cell {
-            overflow: hidden !important;
+        @media (min-width: 769px) {
+            .artwork-detail-gallery__cell {
+                overflow: hidden !important;
+            }
+
+            .artwork-detail-gallery__frame img,
+            .artwork-detail-gallery__cell .js-zoomable-image {
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: cover !important;
+                object-position: center center !important;
+            }
         }
 
-        .artwork-detail-gallery__frame img,
-        .artwork-detail-gallery__cell .js-zoomable-image {
-            width: 100% !important;
-            height: 100% !important;
-            object-fit: cover !important;
-            object-position: center center !important;
+        @media (max-width: 768px) {
+            .artwork-detail-gallery__cell {
+                height: auto !important;
+                overflow: visible !important;
+            }
+
+            .artwork-detail-gallery__frame {
+                position: relative !important;
+                inset: auto !important;
+                height: auto !important;
+                overflow: visible !important;
+            }
+
+            .artwork-detail-gallery__frame img,
+            .artwork-detail-gallery__cell .js-zoomable-image {
+                width: 100% !important;
+                height: auto !important;
+                max-height: none !important;
+                object-fit: contain !important;
+                object-position: center center !important;
+            }
         }
 
         .artwork-hero-image img {
@@ -587,11 +612,14 @@
                 return Math.round(viewport.getBoundingClientRect().width);
             }
 
+            var mobileNaturalMq = window.matchMedia('(max-width: 768px)');
+
             function syncThumbSizes() {
                 var pp = perPage();
                 var gap = thumbGap();
                 var vw = viewportWidth();
                 var cap = maxCellWidth();
+                var natural = mobileNaturalMq.matches;
                 var h = thumbHeight() + 'px';
                 if (vw <= 0) return;
 
@@ -601,11 +629,30 @@
 
                 cells.forEach(function (cell) {
                     var ws = w + 'px';
+                    var img = cell.querySelector('.artwork-detail-gallery__frame img, .js-zoomable-image');
+
                     cell.style.flex = '0 0 ' + ws;
                     cell.style.width = ws;
                     cell.style.minWidth = ws;
                     cell.style.maxWidth = ws;
-                    cell.style.height = h;
+
+                    if (natural) {
+                        cell.style.height = 'auto';
+                        if (img) {
+                            img.style.width = '100%';
+                            img.style.height = 'auto';
+                            img.style.maxHeight = '';
+                            img.style.objectFit = 'contain';
+                        }
+                    } else {
+                        cell.style.height = h;
+                        if (img) {
+                            img.style.width = '';
+                            img.style.height = '';
+                            img.style.maxHeight = '';
+                            img.style.objectFit = '';
+                        }
+                    }
                 });
             }
 
