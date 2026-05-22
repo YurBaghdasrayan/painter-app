@@ -729,11 +729,23 @@ a{color:inherit;text-decoration:none}
 
 @media (max-width:768px){
     .about-page-profile__image{
-        margin-top: -110px;
+        width: min(68vw, 240px);
+        max-width: 240px;
+        margin-top: -72px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .about-page-profile__card{
         padding: 20px 16px 14px;
+    }
+}
+
+@media (max-width:480px){
+    .about-page-profile__image{
+        width: min(62vw, 200px);
+        max-width: 200px;
+        margin-top: -56px;
     }
 }
 
