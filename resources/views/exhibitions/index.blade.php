@@ -123,6 +123,14 @@
                                 @endif
 
                                 <div class="gallery-section-card-meta">
+                                    <img
+                                        src="{{ asset('assets/images/gray_line.png') }}"
+                                        alt=""
+                                        class="exhibitions-card__line"
+                                        loading="lazy"
+                                        decoding="async"
+                                        aria-hidden="true"
+                                    />
                                     <div class="gallery-section-card-title">
                                         “{{ strtoupper((string) ($ex->localized('title') ?? 'Exhibitions')) }}”
                                     </div>
@@ -303,44 +311,81 @@
 
             .exhibitions-cards{
                 margin-top:54px;
+                display:flex;
+                flex-direction:column;
+                gap:clamp(48px, 5vw, 72px);
+            }
+
+            .exhibitions-cards .gallery-section-card{
+                width:100%;
+                max-width:100%;
+            }
+
+            .exhibitions-cards .gallery-section-card-link{
                 display:grid;
-                grid-template-columns:repeat(4,minmax(0,1fr));
-                gap:44px 34px;
-                grid-auto-flow:dense;
+                grid-template-columns:minmax(260px, 42%) minmax(0, 1fr);
+                gap:0;
+                align-items:start;
             }
 
-            /* Figma: first row is 2 cards */
-            .exhibitions-cards .gallery-section-card:nth-child(1){ grid-column: 1 / span 2; }
-            .exhibitions-cards .gallery-section-card:nth-child(2){ grid-column: 3 / span 2; }
-
-            .exhibitions-cards .gallery-section-card:nth-child(1) .gallery-section-card-image,
-            .exhibitions-cards .gallery-section-card:nth-child(2) .gallery-section-card-image{
-                aspect-ratio: 520 / 720;
+            .exhibitions-cards .gallery-section-card-image{
+                width:100%;
+                min-width:0;
+                aspect-ratio:520 / 720;
+                overflow:hidden;
+                border:1px solid rgba(20,20,20,.08);
+                background:rgba(255,255,255,.35);
             }
 
-            /* Rest: return old layout (2 narrow + 1 wide) */
-            .exhibitions-cards .gallery-section-card:nth-child(3n+3){ grid-column: 1; }
-            .exhibitions-cards .gallery-section-card:nth-child(3n+4){ grid-column: 2; }
-            .exhibitions-cards .gallery-section-card:nth-child(3n+5){ grid-column: 3 / span 2; }
-
-            .exhibitions-cards .gallery-section-card:nth-child(3n+3) .gallery-section-card-image,
-            .exhibitions-cards .gallery-section-card:nth-child(3n+4) .gallery-section-card-image{
-                aspect-ratio:360/520;
+            .exhibitions-cards .gallery-section-card-meta{
+                display:block !important;
+                align-items:flex-start !important;
+                width:auto;
+                min-width:0;
+                margin-top:0;
+                padding:175px 0 0;
+                text-align:left !important;
             }
 
-            .exhibitions-cards .gallery-section-card:nth-child(3n+5) .gallery-section-card-image{
-                aspect-ratio:780/520;
+            .exhibitions-card__line{
+                display:block;
+                width:100%;
+                max-width:100%;
+                height:auto;
+                margin:0 0 18px;
             }
 
-            .gallery-section-card-image img{
+            .exhibitions-cards .gallery-section-card-title{
+                font-size:clamp(22px, 2.4vw, 34px);
+                line-height:1.15;
+                text-align:left !important;
+                padding-left:35px;
+            }
+
+            .exhibitions-cards .gallery-section-card-desc{
+                margin-top:12px;
+                font-size:16px;
+                line-height:1.75;
+                text-align:left !important;
+                max-width:none;
+                padding-left:35px;
+            }
+
+            .exhibitions-cards .gallery-section-card-desc :is(p, li, div){
+                text-align:left !important;
+            }
+
+            .exhibitions-cards .gallery-section-card-image img{
                 width:100%;
                 height:100%;
                 object-fit:cover;
+                object-position:center;
             }
 
-            .gallery-section-card-title,
-            .gallery-section-card-desc{
+            .exhibitions-cards .gallery-section-card-title,
+            .exhibitions-cards .gallery-section-card-desc{
                 overflow-wrap:anywhere;
+                word-break:normal;
             }
 
             /* ---------- 1600 ---------- */
@@ -389,17 +434,10 @@
 
                 .gallery-hero-subtitle{font-size: 16px;}
 
-                .exhibitions-cards{
-                    grid-template-columns:repeat(2,minmax(0,1fr));
-                    gap:28px 22px;
-                }
-
-                .exhibitions-cards .gallery-section-card{
-                    grid-column:auto !important;
-                }
-
-                .exhibitions-cards .gallery-section-card-image{
-                    aspect-ratio:4/3 !important;
+                .exhibitions-cards .gallery-section-card-link{
+                    grid-template-columns:minmax(220px, 44%) minmax(0, 1fr);
+                    gap:0;
+                    align-items:start;
                 }
 
             }
@@ -439,25 +477,29 @@
 
             }
 
-            /* Full image on phones/tablets (portrait works are not cropped) */
             @media (max-width:900px){
-                .exhibitions-cards .gallery-section-card-image{
-                    aspect-ratio: auto !important;
-                    height: auto;
-                    min-height: 0;
-                    background: #faf8f3;
-                    overflow: visible;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
+                .exhibitions-cards .gallery-section-card-link{
+                    grid-template-columns:1fr;
+                    gap:22px;
                 }
 
-                .exhibitions-cards .gallery-section-card-image img{
-                    width: 100%;
-                    height: auto;
-                    max-height: none;
-                    object-fit: contain;
-                    object-position: center center;
+                .exhibitions-cards .gallery-section-card-image{
+                    aspect-ratio:520 / 720;
+                    max-width:min(360px, 100%);
+                    margin:0 auto;
+                }
+
+                .exhibitions-cards .gallery-section-card-meta{
+                    text-align:left !important;
+                    align-items:flex-start !important;
+                    padding:0 4px;
+                    padding-top:0;
+                }
+
+                .exhibitions-cards .gallery-section-card-title,
+                .exhibitions-cards .gallery-section-card-desc{
+                    text-align:left !important;
+                    padding-left:0;
                 }
             }
 
@@ -499,8 +541,7 @@
                 }
 
                 .exhibitions-cards{
-                    grid-template-columns:1fr;
-                    gap:28px;
+                    gap:40px;
                 }
 
             }

@@ -449,6 +449,14 @@
                                     </div>
 
                                     <div class="home-exhibitions-card__meta">
+                                        <img
+                                            src="{{ asset('assets/images/gray_line.png') }}"
+                                            alt=""
+                                            class="home-exhibitions-card__line"
+                                            loading="lazy"
+                                            decoding="async"
+                                            aria-hidden="true"
+                                        />
                                         <div class="home-exhibitions-card__title">
                                             “{{ strtoupper((string) $title) }}”
                                         </div>

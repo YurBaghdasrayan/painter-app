@@ -134,6 +134,14 @@
                                     </div>
 
                                     <div class="exhibition-item__text">
+                                        <img
+                                            src="{{ asset('assets/images/gray_line.png') }}"
+                                            alt=""
+                                            class="exhibition-item__line"
+                                            loading="lazy"
+                                            decoding="async"
+                                            aria-hidden="true"
+                                        />
                                         @if(trim((string) $title) !== '')
                                             <div class="exhibition-item__title">“{{ strtoupper((string) $title) }}”</div>
                                         @endif
@@ -245,12 +253,27 @@
             .exhibition-item__grid{
                 display:grid;
                 grid-template-columns:1.15fr .85fr;
-                gap:64px;
+                gap:0;
                 align-items:start;
             }
 
             .exhibition-item__text{
                 min-width:0;
+                text-align:left;
+                padding-top:175px;
+            }
+
+            .exhibition-item__line{
+                display:block;
+                width:100%;
+                max-width:100%;
+                height:auto;
+                margin:0 0 18px;
+            }
+
+            .exhibition-item__title,
+            .exhibition-item__desc{
+                padding-left:35px;
             }
 
             .exhibition-item__title{
@@ -261,7 +284,7 @@
                 font-weight:500;
                 letter-spacing:.03em;
                 text-transform:uppercase;
-                text-align:center;
+                text-align:left;
                 overflow-wrap:anywhere;
                 word-break:break-word;
             }
@@ -462,7 +485,7 @@
                 }
 
                 .exhibition-item__grid{
-                    gap:38px;
+                    gap:0;
                 }
             }
 
@@ -482,6 +505,10 @@
                 .exhibition-item__grid{
                     grid-template-columns:1fr;
                     gap:28px;
+                }
+
+                .exhibition-item__text{
+                    padding-top:0;
                 }
 
                 .exhibition-collage__thumbs{
