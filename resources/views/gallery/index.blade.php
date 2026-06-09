@@ -419,14 +419,18 @@
             .gallery-section-card-desc-line {
                 margin: 0 !important;
                 padding: 0 !important;
+                font-size: 16px !important;
                 line-height: 1.5 !important;
+                font-weight: 800 !important;
             }
 
             .gallery-section-card-desc-line :is(p, div, span, li) {
                 margin: 0 !important;
                 padding: 0 !important;
+                font-family: inherit !important;
+                font-size: inherit !important;
+                font-weight: inherit !important;
                 line-height: inherit !important;
-                font: inherit !important;
             }
 
             .gallery-more-btn {

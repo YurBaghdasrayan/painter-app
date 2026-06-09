@@ -5,6 +5,12 @@
     --ink:#141414;
     --serif:"Zen Old Mincho", "Noto Serif", "Noto Serif Armenian", Georgia, "Times New Roman", Times, serif;
     --sans:"Zen Old Mincho", "Noto Serif", "Noto Serif Armenian", Georgia, "Times New Roman", Times, serif;
+    --gallery-meta-size:16px;
+    --gallery-meta-line-height:1.5;
+    --gallery-meta-weight:800;
+    --gallery-meta-font-en:"Noto Serif Armenian", "Noto Serif", Georgia, serif;
+    --gallery-meta-font-ru:"Noto Serif", Georgia, serif;
+    --gallery-meta-font-hy:"Noto Serif Armenian", Georgia, serif;
     --text-base: 16px;
     --text-ui: 14px;
 }
@@ -2250,9 +2256,10 @@ img.about-bg.about-bg--photo,
 .gallery-section-card-desc-line{
     margin:0;
     padding:0;
-    line-height:1.5;
-    font-family:var(--serif);
-    font-weight:700;
+    font-size:var(--gallery-meta-size);
+    line-height:var(--gallery-meta-line-height);
+    font-family:var(--gallery-meta-font-en);
+    font-weight:var(--gallery-meta-weight);
     font-synthesis:none;
     -webkit-font-smoothing:antialiased;
     -moz-osx-font-smoothing:grayscale;
@@ -2262,10 +2269,26 @@ img.about-bg.about-bg--photo,
 .gallery-section-card-desc-line :is(p, div, span, li, h1, h2, h3, h4, h5, h6, strong, b, em, i){
     margin:0;
     padding:0;
+    font-family:inherit;
+    font-size:inherit;
+    font-weight:inherit;
     line-height:inherit;
-    font:inherit;
+    font-style:inherit;
     letter-spacing:inherit;
     color:inherit;
+}
+
+html[lang="ru"] .gallery-section-card-desc-line,
+html[lang="ru"] .gallery-section-card-desc-line :is(p, div, span, li, h1, h2, h3, h4, h5, h6, strong, b, em, i){
+    font-family:var(--gallery-meta-font-ru);
+    font-weight:900;
+}
+
+html[lang="hy"] .gallery-section-card-desc-line,
+html[lang="am"] .gallery-section-card-desc-line,
+html[lang="hy"] .gallery-section-card-desc-line :is(p, div, span, li, h1, h2, h3, h4, h5, h6, strong, b, em, i),
+html[lang="am"] .gallery-section-card-desc-line :is(p, div, span, li, h1, h2, h3, h4, h5, h6, strong, b, em, i){
+    font-family:var(--gallery-meta-font-hy);
 }
 
 .gallery-card{
