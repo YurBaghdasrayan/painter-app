@@ -3,8 +3,8 @@
     --gallery-bg:#f7f5ef;
     --gallery-gold:#c88b2a;
     --gallery-text:#2a2a2a;
-    --gallery-serif:"Zen Old Mincho", ui-serif, Georgia, "Times New Roman", serif;
-    --gallery-sans:"Zen Old Mincho", ui-serif, Georgia, "Times New Roman", serif;
+    --gallery-serif:"Zen Old Mincho", "Noto Serif", "Noto Serif Armenian", Georgia, "Times New Roman", serif;
+    --gallery-sans:"Zen Old Mincho", "Noto Serif", "Noto Serif Armenian", Georgia, "Times New Roman", serif;
     /* Figma 1440: art band 800px tall; scales down fluidly */
     --gallery-hero-band-h: clamp(280px, calc(100vw * 800 / 1440), 800px);
     --gallery-hero-featured-w: min(calc(100vw - 48px), calc(100vw * 520 / 1440));
@@ -1121,25 +1121,40 @@
 
 .gallery-index .gallery-section-card-desc{
     margin-top: 6px;
+    font-family: var(--gallery-serif);
     font-size: 16px;
-    line-height: 1.75;
+    line-height: 1.5;
     font-weight: 300;
     color: #2a2a2a;
     overflow-wrap: break-word;
     word-break: normal;
 }
 
-.gallery-index .gallery-section-card-desc > div,
-.gallery-index .gallery-section-card-desc-line,
-.gallery-index .gallery-section-card-desc :is(p, li){
-    line-height: 1.75;
-    margin: 0 0 0.4em;
+.gallery-index .gallery-section-card-desc:has(.gallery-section-card-desc-line){
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
-.gallery-index .gallery-section-card-desc > div:last-child,
-.gallery-index .gallery-section-card-desc-line:last-child,
-.gallery-index .gallery-section-card-desc :is(p, li):last-child{
-    margin-bottom: 0;
+.gallery-index .gallery-section-card-desc-line{
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+    font-family: var(--gallery-serif);
+    font-weight: 700;
+    font-synthesis: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+.gallery-index .gallery-section-card-desc-line :is(p, div, span, li, h1, h2, h3, h4, h5, h6, strong, b, em, i){
+    margin: 0;
+    padding: 0;
+    line-height: inherit;
+    font: inherit;
+    letter-spacing: inherit;
+    color: inherit;
 }
 
 @media (max-width: 1024px){

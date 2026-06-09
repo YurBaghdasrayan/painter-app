@@ -3,8 +3,8 @@
     --gold:#c88b2a;
     --burgundy:#8e1e2c;
     --ink:#141414;
-    --serif:"Zen Old Mincho", ui-serif, Georgia, "Times New Roman", Times, serif;
-    --sans:"Zen Old Mincho", ui-serif, Georgia, "Times New Roman", Times, serif;
+    --serif:"Zen Old Mincho", "Noto Serif", "Noto Serif Armenian", Georgia, "Times New Roman", Times, serif;
+    --sans:"Zen Old Mincho", "Noto Serif", "Noto Serif Armenian", Georgia, "Times New Roman", Times, serif;
     --text-base: 16px;
     --text-ui: 14px;
 }
@@ -1988,14 +1988,42 @@ img.about-bg.about-bg--photo,
 
 .gallery-section-card-desc{
     margin-top:6px;
+    font-family:var(--serif);
     font-size: 16px;
-    line-height:1.7;
+    line-height:1.5;
     font-weight:300;
     color:#2a2a2a;
     max-width:100%;
     min-width:0;
     overflow-wrap:anywhere;
     word-break:break-word;
+}
+
+.gallery-section-card-desc:has(.gallery-section-card-desc-line){
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+}
+
+.gallery-section-card-desc-line{
+    margin:0;
+    padding:0;
+    line-height:1.5;
+    font-family:var(--serif);
+    font-weight:700;
+    font-synthesis:none;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    text-rendering:optimizeLegibility;
+}
+
+.gallery-section-card-desc-line :is(p, div, span, li, h1, h2, h3, h4, h5, h6, strong, b, em, i){
+    margin:0;
+    padding:0;
+    line-height:inherit;
+    font:inherit;
+    letter-spacing:inherit;
+    color:inherit;
 }
 
 .gallery-section-card-desc strong,

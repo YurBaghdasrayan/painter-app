@@ -403,15 +403,30 @@
             }
 
             .gallery-section-card-desc {
-                display: block !important;
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 4px !important;
                 width: 100% !important;
                 max-width: 100% !important;
                 font-size: 16px !important;
-                line-height: 1.6 !important;
+                line-height: 1.5 !important;
                 max-height: none !important;
                 overflow: visible !important;
                 overflow-wrap: break-word !important;
                 word-break: normal !important;
+            }
+
+            .gallery-section-card-desc-line {
+                margin: 0 !important;
+                padding: 0 !important;
+                line-height: 1.5 !important;
+            }
+
+            .gallery-section-card-desc-line :is(p, div, span, li) {
+                margin: 0 !important;
+                padding: 0 !important;
+                line-height: inherit !important;
+                font: inherit !important;
             }
 
             .gallery-more-btn {
@@ -470,7 +485,7 @@
 
             .gallery-section-card-desc {
                 font-size: 16px !important;
-                line-height: 1.55 !important;
+                line-height: 1.5 !important;
             }
         }
 
