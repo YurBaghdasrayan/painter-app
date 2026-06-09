@@ -9,7 +9,7 @@
         <a class="gallery-section-card-link" href="{{ route('gallery.section', $section) }}" aria-label="{{ $section->localized('title') }}">
             <div class="gallery-section-card-image">
                 <img
-                    src="{{ $coverItem->listImagePublicUrl() }}"
+                    src="{{ $coverItem->mainImagePublicUrl() }}"
                     alt="{{ $section->localized('title') }}"
                     loading="lazy"
                 />

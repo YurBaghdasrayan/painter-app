@@ -14,7 +14,7 @@ class GalleryThumbnailService
 {
     public const int MAX_WIDTH = 1400;
 
-    public const int JPEG_QUALITY = 82;
+    public const int JPEG_QUALITY = 92;
 
     public function thumbRelativePathFor(string $imageRelativePath): string
     {

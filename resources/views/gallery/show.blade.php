@@ -205,7 +205,7 @@
         if (!empty($showHeroBg)) {
             $showHeroBgUrl = \Illuminate\Support\Facades\Storage::disk('public')->url($showHeroBg);
         } elseif (!empty($item->image)) {
-            $showHeroBgUrl = $item->listImagePublicUrl();
+            $showHeroBgUrl = $item->mainImagePublicUrl();
         }
     @endphp
 
@@ -289,7 +289,7 @@
                 <div class="artwork-hero-right">
                     <div class="artwork-hero-image">
                         @php
-                            $mainImageUrl = $item->listImagePublicUrl();
+                            $mainImageUrl = $item->mainImagePublicUrl();
                             $mainZoomUrl = $item->mainImagePublicUrl();
                             $mainImageAlt = (string) ($item->localized('title') ?? 'Artwork');
                         @endphp
@@ -401,7 +401,7 @@
                             <article class="related-card" role="listitem">
                                 <a class="related-link" href="{{ route('gallery.show', $related->slug) }}" aria-label="{{ $related->localized('title') }}">
                                     <div class="related-image">
-                                        <img src="{{ $related->listImagePublicUrl() }}" alt="{{ $related->localized('title') }}" loading="lazy" />
+                                        <img src="{{ $related->mainImagePublicUrl() }}" alt="{{ $related->localized('title') }}" loading="lazy" />
                                     </div>
 
                                     <div class="related-meta">

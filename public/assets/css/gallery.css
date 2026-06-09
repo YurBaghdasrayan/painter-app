@@ -272,7 +272,7 @@
     width: 100%;
     overflow: hidden;
     border: 0;
-    background: rgba(255, 255, 255, 0.35);
+    background: transparent;
     aspect-ratio: 4 / 3;
 }
 
@@ -821,6 +821,21 @@
     outline: none;
     box-shadow: none;
     background: transparent;
+}
+
+/* Artwork photos: full color, no wash/opacity (hero decorative bg uses .gallery-hero-art-bg / .artwork-show-hero__bg only) */
+.gallery-index .gallery-section-card-image img,
+.gallery-index-slider-image img,
+.gallery-page-image img,
+.gallery-masonry-image img,
+.gallery-hero-featured img,
+.artwork-hero-image img,
+.artwork-hero-image .js-zoomable-image,
+.artwork-detail-gallery__frame img,
+.artwork-detail-gallery__cell .js-zoomable-image,
+.related-card img{
+    opacity: 1;
+    filter: none;
 }
 
 .gallery-index-tail .gallery-masonry-image{
@@ -1387,7 +1402,7 @@ html[lang="am"] .gallery-index .gallery-section-card-desc-line :is(p, div, span,
     width: 100%;
     overflow: hidden;
     border: 0;
-    background: rgba(255, 255, 255, 0.35);
+    background: transparent;
     aspect-ratio: 4 / 3;
 }
 

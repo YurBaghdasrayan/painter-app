@@ -109,7 +109,7 @@
                                 <a class="gallery-page-card-link" href="{{ route('gallery.show', $item->slug) }}">
                                     <div class="gallery-page-image">
                                         <img
-                                            src="{{ $item->listImagePublicUrl() }}"
+                                            src="{{ $item->mainImagePublicUrl() }}"
                                             alt="{{ $item->localized('title') }}"
                                             loading="lazy"
                                         >
@@ -178,7 +178,7 @@
                                         <a class="gallery-index-slider-card-link" href="{{ route('gallery.section', $cardSection) }}">
                                             <div class="gallery-index-slider-image">
                                                 <img
-                                                    src="{{ $coverItem->listImagePublicUrl() }}"
+                                                    src="{{ $coverItem->mainImagePublicUrl() }}"
                                                     alt="{{ $cardSection->localized('title') }}"
                                                     loading="lazy"
                                                 >
@@ -221,7 +221,7 @@
                                 <a class="gallery-masonry-card-link" href="{{ route('gallery.show', $item->slug) }}">
                                     <div class="gallery-masonry-image">
                                         <img
-                                            src="{{ $item->listImagePublicUrl() }}"
+                                            src="{{ $item->mainImagePublicUrl() }}"
                                             alt="{{ $item->localized('title') }}"
                                             loading="lazy"
                                         >

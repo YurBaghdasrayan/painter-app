@@ -92,7 +92,7 @@
                 <article class="gallery-hero-featured">
                     @php
                         $featuredUsesItemImage = ! $heroMainUrl && $heroItem && ! empty($heroItem->image);
-                        $featuredImgUrl = $heroMainUrl ?: $heroItem->listImagePublicUrl();
+                        $featuredImgUrl = $heroMainUrl ?: $heroItem->mainImagePublicUrl();
                         $featuredAlt = $featuredUsesItemImage
                             ? ($heroItem->localized('title') ?? $heroTitle)
                             : $heroTitle;
@@ -169,7 +169,7 @@
                         >
                             @foreach($row['items'] as $item)
                                 @php
-                                    $img = !empty($item->image) ? $item->listImagePublicUrl() : null;
+                                    $img = !empty($item->image) ? $item->mainImagePublicUrl() : null;
                                     $title = $item->localized('title') ?? 'Gallery';
                                     $size = trim((string) ($item->localized('size') ?? ''));
                                     $material = trim((string) ($item->localized('material') ?? ''));
