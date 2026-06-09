@@ -51,12 +51,10 @@
 @section('content')
     <section class="contact-page">
         <style>
-            /* Slightly bolder text, keep transparent design */
             .contact-page .contact-field__label{
                 color: rgba(10,10,10,.92) !important;
                 font-weight: 700 !important;
                 font-size: 16px !important;
-                text-shadow: 0 1px 0 rgba(255,255,255,.55) !important;
             }
 
             .contact-page .contact-field__input,
@@ -64,6 +62,7 @@
                 color: rgba(5,5,5,.95) !important;
                 font-weight: 700 !important;
                 font-size: 16px !important;
+                background: transparent !important;
             }
 
             .contact-page .contact-field__input::placeholder,
@@ -75,6 +74,15 @@
         @if($bgUrl)
             <img class="contact-page__bg" src="{{ $bgUrl }}" alt="" aria-hidden="true">
         @endif
+
+        <img
+            class="contact-page__line"
+            src="{{ asset('assets/images/white_line.png') }}"
+            alt=""
+            loading="lazy"
+            decoding="async"
+            aria-hidden="true"
+        >
 
         <div class="contact-page__wave-top" aria-hidden="true"></div>
         <div class="contact-page__wave-bottom" aria-hidden="true"></div>
